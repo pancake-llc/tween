@@ -6,7 +6,7 @@
         InSine,
         OutSine,
         InOutSine,
-        InQuad,
+        InQuad, // Accelerate
         OutQuad,
         InOutQuad,
         InCubic,
@@ -51,7 +51,7 @@
         InSine = Ease.InSine,
         OutSine = Ease.OutSine,
         InOutSine = Ease.InOutSine,
-        InQuad = Ease.InQuad,
+        InQuad = Ease.InQuad, // Accelerate
         OutQuad = Ease.OutQuad,
         InOutQuad = Ease.InOutQuad,
         InCubic = Ease.InCubic,

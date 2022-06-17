@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pancake.Common;
+using UnityEngine;
 
 namespace Pancake.Tween
 {
@@ -7,6 +8,9 @@ namespace Pancake.Tween
     /// </summary>
     public partial struct Interpolator
     {
+        private static float s = 1.70158f;
+        private static float s2 = 2.5949095f;
+
         /// <summary>
         /// Linear interpolation
         /// </summary>
@@ -14,39 +18,168 @@ namespace Pancake.Tween
         /// <returns> Interpolation result </returns>
         public static float Linear(float t) { return t; }
 
-        // public static float InSine(float t)
-        // {
-        //     return 
-        // }
-        // OutSine,
-        // InOutSine,
-        // InQuad,
-        // OutQuad,
-        // InOutQuad,
-        // InCubic,
-        // OutCubic,
-        // InOutCubic,
-        // InQuart,
-        // OutQuart,
-        // InOutQuart,
-        // InQuint,
-        // OutQuint,
-        // InOutQuint,
-        // InExpo,
-        // OutExpo,
-        // InOutExpo,
-        // InCirc,
-        // OutCirc,
-        // InOutCirc,
-        // InBack,
-        // OutBack,
-        // InOutBack,
-        // InElastic,
-        // OutElastic,
-        // InOutElastic,
-        // InBounce,
-        // OutBounce,
-        // InOutBounce,
+        public static float InSine(float t) { return 1f - M.Sin(((1f - t) * M.PI) / 2f); }
+
+        public static float OutSine(float t) { return M.Sin((t * M.PI) / 2f); }
+
+        public static float InOutSine(float t) { return 0.5f * (1f - M.Sin(M.PI * (0.5f - t))); }
+
+        public static float InQuad(float t) { return t * t; }
+
+        public static float OutQuad(float t) { return t * (2f - t); }
+
+        public static float InOutQuad(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return 0.5f * t * t;
+            }
+
+            return -0.5f * (--t * (t - 2f) - 1f);
+        }
+
+        public static float InCubic(float t) { return t * t * t; }
+
+        public static float OutCubic(float t) { return --t * t * t + 1f; }
+
+        public static float InOutCubic(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return 0.5f * t * t * t;
+            }
+
+            return 0.5f * ((t -= 2) * t * t + 2f);
+        }
+
+        public static float InQuart(float t) { return t * t * t * t; }
+
+        public static float OutQuart(float t) { return 1f - --t * t * t * t; }
+
+        public static float InOutQuart(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return 0.5f * t * t * t * t;
+            }
+
+            return -0.5f * ((t -= 2f) * t * t * t - 2f);
+        }
+
+        public static float InQuint(float t) { return t * t * t * t * t; }
+
+        public static float OutQuint(float t) { return --t * t * t * t * t + 1f; }
+
+        public static float InOutQuint(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return 0.5f * t * t * t * t * t;
+            }
+
+            return 0.5f * ((t -= 2f) * t * t * t * t + 2f);
+        }
+
+        public static float InExpo(float t) { return M.Approximately(0f, t) ? 0f : M.Pow(1024f, t - 1f); }
+
+        public static float OutExpo(float t) { return M.Approximately(1f, t) ? 1f : 1f - M.Pow(2f, -10f * t); }
+
+        public static float InOutExpo(float t)
+        {
+            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+
+            if ((t *= 2) < 1)
+            {
+                return 0.5f * M.Pow(1024, t - 1);
+            }
+
+            return 0.5f * (-M.Pow(2, -10 * (t - 1)) + 2);
+        }
+
+        public static float InCirc(float t) { return 1f - M.Sqrt(1f - t * t); }
+        public static float OutCirc(float t) { return M.Sqrt(1f - --t * t); }
+
+        public static float InOutCirc(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return -0.5f * (M.Sqrt(1f - t * t) - 1f);
+            }
+
+            return 0.5f * (M.Sqrt(1f - (t -= 2f) * t) + 1f);
+        }
+
+        public static float InBack(float t) { return M.Approximately(1f, t) ? 1f : t * t * ((s + 1f) * t - s); }
+
+        public static float OutBack(float t) { return M.Approximately(0f, t) ? 0f : --t * t * ((s + 1f) * t + s) + 1f; }
+
+        public static float InOutBack(float t)
+        {
+            if ((t *= 2f) < 1f)
+            {
+                return 0.5f * (t * t * ((s2 + 1f) * t - s2));
+            }
+
+            return 0.5f * ((t -= 2f) * t * ((s2 + 1f) * t + s2) + 2f);
+        }
+
+        public static float InElastic(float t)
+        {
+            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            return -M.Pow(2f, 10f * (t - 1)) * M.Sin((t - 1.1f) * 5f * M.PI);
+        }
+
+        public static float OutElastic(float t)
+        {
+            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            return M.Pow(2f, -10f * t) * M.Sin((t - 0.1f) * 5f * M.PI) + 1f;
+        }
+
+        public static float InOutElastic(float t)
+        {
+            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+
+            t *= 2;
+
+            if (t < 1)
+            {
+                return -0.5f * M.Pow(2f, 10f * (t - 1f)) * M.Sin((t - 1.1f) * 5f * M.PI);
+            }
+
+            return 0.5f * M.Pow(2f, -10f * (t - 1f)) * M.Sin((t - 1.1f) * 5f * M.PI) + 1f;
+        }
+
+        public static float InBounce(float t) { return 1f - OutBounce(1f - t); }
+
+        public static float OutBounce(float t)
+        {
+            if (t < 1f / 2.75f)
+            {
+                return 7.5625f * t * t;
+            }
+
+            if (t < 2f / 2.75f)
+            {
+                return 7.5625f * (t -= 1.5f / 2.75f) * t + 0.75f;
+            }
+
+            if (t < 2.5f / 2.75f)
+            {
+                return 7.5625f * (t -= 2.25f / 2.75f) * t + 0.9375f;
+            }
+
+            return 7.5625f * (t -= 2.625f / 2.75f) * t + 0.984375f;
+        }
+
+        public static float InOutBounce(float t)
+        {
+            if (t < 0.5f)
+            {
+                return InBounce(t * 2f) * 0.5f;
+            }
+
+            return OutBounce(t * 2f - 1f) * 0.5f + 0.5f;
+        }
 
 
         /// <summary>
