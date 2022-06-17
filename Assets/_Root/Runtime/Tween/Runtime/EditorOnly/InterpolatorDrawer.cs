@@ -203,15 +203,18 @@ namespace Pancake.Tween.Editor
 
                 switch ((Ease) type)
                 {
-                    case Ease.Linear:
-                    case Ease.Parabolic:
-                    case Ease.Sine:
-                        drawStrength = false;
-                        break;
-
-                    default:
+                    case Ease.Accelerate:
+                    case Ease.Decelerate:
+                    case Ease.AccelerateDecelerate:
+                    case Ease.Anticipate:
+                    case Ease.Overshoot:
+                    case Ease.AnticipateOvershoot:
+                    case Ease.Bounce:
                         strengthProp.floatValue = EditorGUIUtilities.DragProgress(position, strengthProp.floatValue, default, default);
                         drawStrength = true;
+                        break;
+                    default:
+                        drawStrength = false;
                         break;
                 }
 

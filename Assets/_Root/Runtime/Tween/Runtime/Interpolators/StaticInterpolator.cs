@@ -24,6 +24,11 @@ namespace Pancake.Tween
 
         public static float InOutSine(float t) { return 0.5f * (1f - M.Sin(M.PI * (0.5f - t))); }
 
+        /// <summary>
+        /// Speed up interpolation (a.k.a Accelerate)
+        /// </summary>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float InQuad(float t) { return t * t; }
 
         public static float OutQuad(float t) { return t * (2f - t); }
@@ -183,14 +188,6 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// Speed up interpolation
-        /// </summary>
-        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
-        /// <returns> Interpolation result </returns>
-        public static float Accelerate(float t) { return t * t; }
-
-
-        /// <summary>
         /// Speed up interpolation Weakly
         /// </summary>
         /// <param name="t">  Unitized time, which is a value in the range [0, 1] </param>
@@ -297,8 +294,8 @@ namespace Pancake.Tween
         public static float AccelerateDecelerate(float t, float strength)
         {
             float tt = t * t;
-            float ttt6_15tt = (6f * t - 15f) * tt;
-            return ((6f - ttt6_15tt - 14f * t) * (1f - strength) + (ttt6_15tt + 10f * t) * strength) * tt;
+            float k = (6f * t - 15f) * tt;
+            return ((6f - k - 14f * t) * (1f - strength) + (k + 10f * t) * strength) * tt;
         }
 
 

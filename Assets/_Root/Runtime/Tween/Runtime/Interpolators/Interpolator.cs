@@ -15,7 +15,46 @@ namespace Pancake.Tween
 
         internal static readonly Func<float, float, float>[] Interpolators =
         {
-            (t, s) => t, Accelerate, Decelerate, AccelerateDecelerate, Anticipate, Overshoot, AnticipateOvershoot, Bounce, (t, s) => Parabolic(t), (t, s) => Sine(t)
+            (t, s) => t,
+            (t, s) =>InSine(t),
+            (t, s) =>OutSine(t),
+            (t, s) =>InOutSine(t),
+            (t, s) =>InQuad(t), // Accelerate
+            (t, s) =>OutQuad(t),
+            (t, s) => InOutQuad(t),
+            (t, s) =>   InCubic(t),
+            (t, s) =>  OutCubic(t),
+            (t, s) =>  InOutCubic(t),
+            (t, s) => InQuart(t),
+            (t, s) => OutQuart(t),
+            (t, s) =>  InOutQuart(t),
+            (t, s) => InQuint(t),
+            (t, s) => OutQuint(t),
+            (t, s) => InOutQuint(t),
+            (t, s) => InExpo(t),
+            (t, s) => OutExpo(t),
+            (t, s) => InOutExpo(t),
+            (t, s) =>  InCirc(t),
+            (t, s) =>  OutCirc(t),
+            (t, s) =>  InOutCirc(t),
+            (t, s) => InBack(t),
+            (t, s) => OutBack(t),
+            (t, s) =>  InOutBack(t),
+            (t, s) =>  InElastic(t),
+            (t, s) => OutElastic(t),
+            (t, s) => InOutElastic(t),
+            (t, s) =>InBounce(t),
+            (t, s) => OutBounce(t),
+            (t, s) =>InOutBounce(t),
+            Accelerate,
+            Decelerate,
+            AccelerateDecelerate,
+            Anticipate, 
+            Overshoot,
+            AnticipateOvershoot,
+            Bounce,
+            (t, s) => Parabolic(t),
+            (t, s) => Sine(t)
         };
 
 
