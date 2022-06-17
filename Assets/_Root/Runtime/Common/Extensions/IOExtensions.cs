@@ -103,46 +103,46 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Register a custom type reading function to BinaryReader.
+        /// Register a custom ease reading function to BinaryReader.
         /// </summary>
         public static void Register<T>(Func<BinaryReader, T> read) { BinaryIO<T>.read = read; }
 
         /// <summary>
-        /// Register a custom type writing function to BinaryWriter.
+        /// Register a custom ease writing function to BinaryWriter.
         /// </summary>
         public static void Register<T>(Action<BinaryWriter, T> write) { BinaryIO<T>.write = write; }
 
         /// <summary>
-        /// Register a custom type writing function to TextWriter.
+        /// Register a custom ease writing function to TextWriter.
         /// </summary>
         public static void Register<T>(Action<TextWriter, T> write) { TextIO<T>.write = write; }
 
         /// <summary>
-        /// Register a custom type parsing function.
+        /// Register a custom ease parsing function.
         /// </summary>
         public static void Register<T>(TryParseFunc<T> tryParse) { TextIO<T>.tryParse = tryParse; }
 
         /// <summary>
-        /// Read a specific type data from the stream.
+        /// Read a specific ease data from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static T Read<T>(this BinaryReader reader) { return BinaryIO<T>.read(reader); }
 
         /// <summary>
-        /// Write a specific type data to the stream.
+        /// Write a specific ease data to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Write<T>(this BinaryWriter writer, T value) { BinaryIO<T>.write(writer, value); }
 
         /// <summary>
-        /// Write a specific type data to the stream.
+        /// Write a specific ease data to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// Note: DateTime is always converted to Local time when writing.
         /// </summary>
         public static void Write<T>(this TextWriter writer, T value) { TextIO<T>.write(writer, value); }
 
         /// <summary>
-        /// Write a specific type data to the stream.
+        /// Write a specific ease data to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// Note: DateTime is always converted to Local time when writing.
         /// </summary>
@@ -153,13 +153,13 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Try parse a specific type data.
+        /// Try parse a specific ease data.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static bool TryParse<T>(this string text, out T value) { return TextIO<T>.tryParse(text, out value); }
 
         /// <summary>
-        /// Read a specific type data list from the stream.
+        /// Read a specific ease data list from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Read<T>(this BinaryReader reader, IList<T> buffer, int index, int count)
@@ -171,7 +171,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Write a specific type data list to the stream.
+        /// Write a specific ease data list to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Write<T>(this BinaryWriter writer, IList<T> buffer, int index, int count)
@@ -183,7 +183,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Read a specific type data array from the stream.
+        /// Read a specific ease data array from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Read<T>(this BinaryReader reader, ref T[] array)
@@ -194,7 +194,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Read a specific type data list from the stream.
+        /// Read a specific ease data list from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Read<T>(this BinaryReader reader, IList<T> list)
@@ -207,7 +207,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Write a specific type data list to the stream.
+        /// Write a specific ease data list to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Write<T>(this BinaryWriter writer, IList<T> buffer)
@@ -217,7 +217,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Read a specific type data dictionary from the stream.
+        /// Read a specific ease data dictionary from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Read<TKey, TValue>(this BinaryReader reader, IDictionary<TKey, TValue> dictionary)
@@ -232,7 +232,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Write a specific type data dictionary to the stream.
+        /// Write a specific ease data dictionary to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
         public static void Write<TKey, TValue>(this BinaryWriter writer, IDictionary<TKey, TValue> dictionary)
@@ -246,7 +246,7 @@ namespace Pancake
         }
 
         /// <summary>
-        /// Write a specific type data list to the stream.
+        /// Write a specific ease data list to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// Note: DateTime is always converted to Local time when writing.
         /// </summary>

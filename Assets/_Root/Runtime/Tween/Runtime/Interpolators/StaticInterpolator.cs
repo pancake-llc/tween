@@ -3,64 +3,98 @@
 namespace Pancake.Tween
 {
     /// <summary>
-    /// 预定义插值器
+    /// Predefined Interpolators
     /// </summary>
     public partial struct Interpolator
     {
         /// <summary>
-        /// 线性插值
+        /// Linear interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float Linear(float t) { return t; }
+
+        // public static float InSine(float t)
+        // {
+        //     return 
+        // }
+        // OutSine,
+        // InOutSine,
+        // InQuad,
+        // OutQuad,
+        // InOutQuad,
+        // InCubic,
+        // OutCubic,
+        // InOutCubic,
+        // InQuart,
+        // OutQuart,
+        // InOutQuart,
+        // InQuint,
+        // OutQuint,
+        // InOutQuint,
+        // InExpo,
+        // OutExpo,
+        // InOutExpo,
+        // InCirc,
+        // OutCirc,
+        // InOutCirc,
+        // InBack,
+        // OutBack,
+        // InOutBack,
+        // InElastic,
+        // OutElastic,
+        // InOutElastic,
+        // InBounce,
+        // OutBounce,
+        // InOutBounce,
 
 
         /// <summary>
-        /// 加速插值
+        /// Speed up interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float Accelerate(float t) { return t * t; }
 
 
         /// <summary>
-        /// 加速插值 Weakly
+        /// Speed up interpolation Weakly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t">  Unitized time, which is a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateWeakly(float t) { return t * t * (2f - t); }
 
 
         /// <summary>
-        /// 加速插值 Strongly
+        /// Accelerated Interpolation Strongly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateStrongly(float t) { return t * t * t; }
 
 
         /// <summary>
-        /// 加速插值
+        /// Speed up interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float Accelerate(float t, float strength) { return t * t * ((2f - t) * (1f - strength) + t * strength); }
 
 
         /// <summary>
-        /// 减速插值
+        /// Deceleration interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float Decelerate(float t) { return (2f - t) * t; }
 
 
         /// <summary>
-        /// 减速插值 Weakly
+        /// Deceleration Interpolation Weakly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float DecelerateWeakly(float t)
         {
             t = 1f - t;
@@ -69,10 +103,10 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 减速插值 Strongly
+        /// Deceleration Interpolation Strongly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float DecelerateStrongly(float t)
         {
             t = 1f - t;
@@ -81,11 +115,11 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 减速插值
+        /// Deceleration interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float Decelerate(float t, float strength)
         {
             t = 1f - t;
@@ -94,18 +128,18 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 先加速后减速插值
+        /// Accelerate then decelerate interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateDecelerate(float t) { return (3f - t - t) * t * t; }
 
 
         /// <summary>
-        /// 先加速后减速插值 Weakly
+        /// Accelerate then decelerate interpolation Weakly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateDecelerateWeakly(float t)
         {
             float tt = t * t;
@@ -114,19 +148,19 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 先加速后减速插值 Strongly
+        /// Accelerate then decelerate interpolation Strongly
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateDecelerateStrongly(float t) { return ((6f * t - 15f) * t + 10f) * t * t * t; }
 
 
         /// <summary>
-        /// 先加速后减速插值
+        /// Accelerate then decelerate interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float AccelerateDecelerate(float t, float strength)
         {
             float tt = t * t;
@@ -136,11 +170,11 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 反弹加速插值
+        /// Bounce acceleration interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float Anticipate(float t, float strength = 0.5f)
         {
             float a = 2f + strength * 2f;
@@ -149,11 +183,11 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 减速反弹插值
+        /// Deceleration bounce interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float Overshoot(float t, float strength = 0.5f)
         {
             t = 1f - t;
@@ -163,11 +197,11 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 先反弹加速后减速反弹插值
+        /// First rebound acceleration and then deceleration rebound interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float AnticipateOvershoot(float t, float strength = 0.5f)
         {
             float d = -6f - 12f * strength;
@@ -176,11 +210,11 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 弹跳插值
+        /// Bounce Interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <param name="strength"> [0, 1] 范围的强度 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <param name="strength"> [0, 1] range strength </param>
+        /// <returns> Interpolation result </returns>
         public static float Bounce(float t, float strength = 0.5f)
         {
             float k = 0.3f + 0.4f * strength;
@@ -213,18 +247,18 @@ namespace Pancake.Tween
 
 
         /// <summary>
-        /// 抛物线插值
+        /// Parabolic interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float Parabolic(float t) { return 4f * t * (1f - t); }
 
 
         /// <summary>
-        /// 正弦插值
+        /// Sine interpolation
         /// </summary>
-        /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
-        /// <returns> 插值结果 </returns>
+        /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
+        /// <returns> Interpolation result </returns>
         public static float Sine(float t) { return Mathf.Sin((t + t + 1.5f) * Mathf.PI) * 0.5f + 0.5f; }
     } // struct Interpolator
 } // namespace Pancake.Tween

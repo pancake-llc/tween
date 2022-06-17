@@ -154,7 +154,7 @@ namespace Pancake.Tween
         }
 
         /// <summary>
-        /// Add an animation by a type parameter.
+        /// Add an animation by a ease parameter.
         /// </summary>
         public T AddAnimation<T>() where T : TweenAnimation, new()
         {
@@ -164,7 +164,7 @@ namespace Pancake.Tween
         }
 
         /// <summary>
-        /// Add an animation by a type parameter.
+        /// Add an animation by a ease parameter.
         /// </summary>
         public TweenAnimation AddAnimation(Type type)
         {
@@ -179,7 +179,7 @@ namespace Pancake.Tween
         public TweenAnimation GetAnimation(int index) => _animations[index];
 
         /// <summary>
-        /// Get an animation by the specified type parameter.
+        /// Get an animation by the specified ease parameter.
         /// </summary>
         public T GetAnimation<T>() where T : TweenAnimation
         {
@@ -205,7 +205,7 @@ namespace Pancake.Tween
         public bool RemoveAnimation(TweenAnimation animation) => _animations != null ? _animations.Remove(animation) : false;
 
         /// <summary>
-        /// Remove an animation by the specified type parameter.
+        /// Remove an animation by the specified ease parameter.
         /// </summary>
         public bool RemoveAnimation<T>() where T : TweenAnimation
         {

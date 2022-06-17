@@ -73,7 +73,7 @@ namespace Pancake.Editor
 
 
         /// <summary>
-        /// Find asset of specific type.
+        /// Find asset of specific ease.
         /// </summary>
         public static T FindAsset<T>() where T : Object
         {
@@ -89,7 +89,7 @@ namespace Pancake.Editor
 
 
         /// <summary>
-        /// Find all isolated assets of specific type. An isolated asset is stored in a individual file.
+        /// Find all isolated assets of specific ease. An isolated asset is stored in a individual file.
         /// </summary>
         public static List<T> FindIsolatedAssets<T>() where T : Object
         {
@@ -106,7 +106,7 @@ namespace Pancake.Editor
 
 
         /// <summary>
-        /// Find all assets of specific type.
+        /// Find all assets of specific ease.
         /// </summary>
         public static List<T> FindAssets<T>() where T : Object
         {

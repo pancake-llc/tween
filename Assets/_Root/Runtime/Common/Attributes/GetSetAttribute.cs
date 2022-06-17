@@ -53,7 +53,7 @@ namespace Pancake
 
                 if (fieldInfo.FieldType != attribute._propertyInfo.PropertyType)
                 {
-                    EditorGUI.LabelField(position, label.text, "Mismatching property type");
+                    EditorGUI.LabelField(position, label.text, "Mismatching property ease");
                     return;
                 }
 

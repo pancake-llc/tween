@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pancake.Tween
+﻿namespace Pancake.Tween
 {
     public interface ITween
     {

@@ -48,7 +48,7 @@ namespace Pancake.Tween.Editor
                 _lastStrength = strength;
                 _samples.Clear();
 
-                var interpolator = new Interpolator((Interpolator.Type) type, strength);
+                var interpolator = new Interpolator((EaseWithOutCurve) type, strength);
 
                 // 添加第一个点
 
@@ -166,7 +166,7 @@ namespace Pancake.Tween.Editor
         {
             position = EditorGUI.PrefixLabel(position, label);
 
-            var typeProp = property.FindPropertyRelative("type");
+            var typeProp = property.FindPropertyRelative("ease");
             int type = typeProp.intValue;
             var strengthProp = property.FindPropertyRelative("strength");
 
@@ -178,21 +178,21 @@ namespace Pancake.Tween.Editor
                 System.Enum newType;
                 if (fieldInfo.FieldType == typeof(CustomizableInterpolator))
                 {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (CustomizableInterpolator.Type) type, buttonStyle);
+                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Ease) type, buttonStyle);
                 }
                 else
                 {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Interpolator.Type) type, buttonStyle);
+                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (EaseWithOutCurve) type, buttonStyle);
                 }
 
                 if (scope.changed)
                 {
-                    typeProp.intValue = type = (int) (CustomizableInterpolator.Type) newType;
+                    typeProp.intValue = type = (int) (Ease) newType;
                     strengthProp.floatValue = 0.5f;
                 }
             }
 
-            if ((CustomizableInterpolator.Type) type == CustomizableInterpolator.Type.CustomCurve)
+            if ((Ease) type == Ease.CustomCurve)
             {
                 EditorGUIUtility.AddCursorRect(position, MouseCursor.Zoom);
                 EditorGUI.PropertyField(position, property.FindPropertyRelative("customCurve"), GUIContent.none);
@@ -201,11 +201,11 @@ namespace Pancake.Tween.Editor
             {
                 bool drawStrength;
 
-                switch ((CustomizableInterpolator.Type) type)
+                switch ((Ease) type)
                 {
-                    case CustomizableInterpolator.Type.Linear:
-                    case CustomizableInterpolator.Type.Parabolic:
-                    case CustomizableInterpolator.Type.Sine:
+                    case Ease.Linear:
+                    case Ease.Parabolic:
+                    case Ease.Sine:
                         drawStrength = false;
                         break;
 

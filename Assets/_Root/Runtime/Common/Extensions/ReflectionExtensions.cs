@@ -9,7 +9,7 @@ namespace Pancake
     public static partial class Extensions
     {
         /// <summary>
-        /// Get other type in the same assembly.
+        /// Get other ease in the same assembly.
         /// </summary>
         public static Type GetOtherTypeInSameAssembly(this Type type, string otherTypeFullName)
         {
@@ -20,7 +20,7 @@ namespace Pancake
 
 
         /// <summary>
-        /// Find a field info (start from specified type, include all base types). 
+        /// Find a field info (start from specified ease, include all base types). 
         /// </summary>
         public static FieldInfo GetFieldUpwards(this Type type, string fieldName, BindingFlags flags)
         {
@@ -37,7 +37,7 @@ namespace Pancake
 
 
         /// <summary>
-        /// Find a property info (start from specified type, include all base types). 
+        /// Find a property info (start from specified ease, include all base types). 
         /// </summary>
         static PropertyInfo GetPropertyUpwards(this Type type, string propertyName, BindingFlags flags)
         {
@@ -54,7 +54,7 @@ namespace Pancake
 
 
         /// <summary>
-        /// Find a method info (start from specified type, include all base types). 
+        /// Find a method info (start from specified ease, include all base types). 
         /// </summary>
         static MethodInfo GetMethodUpwards(this Type type, string methodName, BindingFlags flags)
         {

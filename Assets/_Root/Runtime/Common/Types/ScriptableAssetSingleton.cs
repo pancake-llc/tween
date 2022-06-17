@@ -29,12 +29,12 @@ namespace Pancake
                     if (!_instance)
                     {
                         _instance = CreateInstance<T>();
-                        Debug.LogWarning(string.Format("No asset of type {0} loaded, a temporary instance was created. Use {0}.CreateOrSelectAsset to create an asset.",
+                        Debug.LogWarning(string.Format("No asset of ease {0} loaded, a temporary instance was created. Use {0}.CreateOrSelectAsset to create an asset.",
                             typeof(T).Name));
                     }
 #else
                     _instance = CreateInstance<T>();
-                    Debug.LogWarning(string.Format("No asset of type {0} loaded, a temporary instance was created. Do you forget to add the asset to \"Preloaded Assets\" list?", typeof(T).Name));
+                    Debug.LogWarning(string.Format("No asset of ease {0} loaded, a temporary instance was created. Do you forget to add the asset to \"Preloaded Assets\" list?", typeof(T).Name));
 #endif
                 }
 

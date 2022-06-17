@@ -9,24 +9,7 @@ namespace Pancake.Tween
     [Serializable]
     public struct CustomizableInterpolator
     {
-        public enum Type
-        {
-            Linear = 0,
-            Accelerate,
-            Decelerate,
-            AccelerateDecelerate,
-            Anticipate,
-            Overshoot,
-            AnticipateOvershoot,
-            Bounce,
-            Parabolic,
-            Sine,
-
-            CustomCurve = -1
-        }
-
-
-        public Type type;
+        public Ease ease;
         [Range(0, 1)] public float strength;
         public AnimationCurve customCurve;
 
@@ -36,12 +19,12 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> normalized time </param>
         /// <returns> result </returns>
-        public float this[float t] { get { return type == Type.CustomCurve ? customCurve.Evaluate(t) : Interpolator._interpolators[(int) type](t, strength); } }
+        public float this[float t] => ease == Ease.CustomCurve ? customCurve.Evaluate(t) : Interpolator.Interpolators[(int) ease](t, strength);
 
 
-        public CustomizableInterpolator(Type type, float strength = 0.5f, AnimationCurve customCurve = null)
+        public CustomizableInterpolator(Ease ease, float strength = 0.5f, AnimationCurve customCurve = null)
         {
-            this.type = type;
+            this.ease = ease;
             this.strength = strength;
             this.customCurve = customCurve;
         }
