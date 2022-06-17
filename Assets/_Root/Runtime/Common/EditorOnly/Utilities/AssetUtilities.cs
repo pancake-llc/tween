@@ -25,7 +25,7 @@ namespace Pancake.Editor
                 {
                     string path;
 
-                    foreach(var obj in objects)
+                    foreach (var obj in objects)
                     {
                         path = AssetDatabase.GetAssetPath(obj);
                         if (Directory.Exists(path) && path.StartsWith("Assets")) return path;
@@ -46,12 +46,7 @@ namespace Pancake.Editor
         /// <param name="assetPath">
         /// A path relative to "Assets", for example: "Assets/MyFolder/MyAsset.asset"
         /// </param>
-        public static void CreateAsset<T>(
-            T unityObject,
-            string assetPath,
-            bool autoRename = true,
-            bool autoCreateDirectory = true)
-            where T : Object
+        public static void CreateAsset<T>(T unityObject, string assetPath, bool autoRename = true, bool autoCreateDirectory = true) where T : Object
         {
             if (autoCreateDirectory)
             {
@@ -74,10 +69,7 @@ namespace Pancake.Editor
         /// <summary>
         /// Create asset file.
         /// </summary>
-        public static void CreateAsset<T>(T unityObject) where T : Object
-        {
-            CreateAsset(unityObject, activeDirectory + '/' + typeof(T).Name + ".asset", true, false);
-        }
+        public static void CreateAsset<T>(T unityObject) where T : Object { CreateAsset(unityObject, activeDirectory + '/' + typeof(T).Name + ".asset", true, false); }
 
 
         /// <summary>
@@ -104,7 +96,7 @@ namespace Pancake.Editor
             var guids = AssetDatabase.FindAssets("t:" + typeof(T).FullName);
             List<T> results = new List<T>();
 
-            foreach(var guid in guids)
+            foreach (var guid in guids)
             {
                 results.Add(AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)));
             }
@@ -123,7 +115,7 @@ namespace Pancake.Editor
 
             foreach (var guid in guids)
             {
-                foreach(var asset in AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GUIDToAssetPath(guid)))
+                foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GUIDToAssetPath(guid)))
                 {
                     if (asset is T) results.Add(asset as T);
                 }
@@ -160,9 +152,7 @@ namespace Pancake.Editor
 
             PlayerSettings.SetPreloadedAssets(assets);
         }
-
     } // struct AssetUtilities
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

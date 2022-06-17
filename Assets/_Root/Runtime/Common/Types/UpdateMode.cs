@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// UpdateMode
@@ -12,5 +11,4 @@ namespace Pancake
         WaitForFixedUpdate = 3,
         WaitForEndOfFrame = 4
     }
-
 } // namespace Pancake

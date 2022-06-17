@@ -15,7 +15,7 @@ namespace Pancake
         /// <summary>
         /// Total time since entering the current state.
         /// </summary>
-        public float currentStateTime => (float)_currentStateTime;
+        public float currentStateTime => (float) _currentStateTime;
 
 
         /// <summary>
@@ -42,6 +42,7 @@ namespace Pancake
                 {
                     throw new Exception("Can not change state inside OnExit or OnEnter!");
                 }
+
                 _duringSetting = true;
 #endif
 
@@ -62,9 +63,7 @@ namespace Pancake
         }
 
 
-        protected virtual void StateChanged(T lastState, T currentState)
-        {
-        }
+        protected virtual void StateChanged(T lastState, T currentState) { }
 
 
         /// <summary>
@@ -76,7 +75,6 @@ namespace Pancake
             _currentStateTime += deltaTime;
             _currentState?.OnUpdate(deltaTime);
         }
-
     } // class StateMachineComponent<T>
 
 
@@ -86,10 +84,6 @@ namespace Pancake
     {
         public TimeMode timeMode = TimeMode.Normal;
 
-        void Update()
-        {
-            OnUpdate(timeMode == TimeMode.Normal ? Time.deltaTime : Time.unscaledDeltaTime);
-        }
+        void Update() { OnUpdate(timeMode == TimeMode.Normal ? Time.deltaTime : Time.unscaledDeltaTime); }
     }
-
 } // namespace Pancake

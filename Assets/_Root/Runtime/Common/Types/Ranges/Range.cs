@@ -47,10 +47,7 @@ namespace Pancake
             }
         }
 
-        public bool Contains(float value)
-        {
-            return value >= min && value <= max;
-        }
+        public bool Contains(float value) { return value >= min && value <= max; }
 
         public float Closest(float value)
         {
@@ -59,10 +56,7 @@ namespace Pancake
             return value;
         }
 
-        public bool Intersects(Range other)
-        {
-            return min <= other.max && max >= other.min;
-        }
+        public bool Intersects(Range other) { return min <= other.max && max >= other.min; }
 
         public Range GetIntersection(Range other)
         {
@@ -108,7 +102,5 @@ namespace Pancake
             min += delta;
             max += delta;
         }
-
     } // struct Range
-
 } // namespace Pancake

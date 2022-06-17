@@ -15,30 +15,13 @@ namespace Pancake
             {
                 if (!_quadMesh)
                 {
-                    var vertices = new[]
-                    {
-                        new Vector3(-0.5f, -0.5f, 0f),
-                        new Vector3(0.5f,  0.5f, 0f),
-                        new Vector3(0.5f, -0.5f, 0f),
-                        new Vector3(-0.5f,  0.5f, 0f)
-                    };
+                    var vertices = new[] {new Vector3(-0.5f, -0.5f, 0f), new Vector3(0.5f, 0.5f, 0f), new Vector3(0.5f, -0.5f, 0f), new Vector3(-0.5f, 0.5f, 0f)};
 
-                    var uvs = new[]
-                    {
-                        new Vector2(0f, 0f),
-                        new Vector2(1f, 1f),
-                        new Vector2(1f, 0f),
-                        new Vector2(0f, 1f)
-                    };
+                    var uvs = new[] {new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(1f, 0f), new Vector2(0f, 1f)};
 
-                    var indices = new[] { 0, 1, 2, 1, 0, 3 };
+                    var indices = new[] {0, 1, 2, 1, 0, 3};
 
-                    _quadMesh = new Mesh
-                    {
-                        vertices = vertices,
-                        uv = uvs,
-                        triangles = indices
-                    };
+                    _quadMesh = new Mesh {vertices = vertices, uv = uvs, triangles = indices};
 
                     _quadMesh.RecalculateNormals();
                     _quadMesh.RecalculateBounds();
@@ -47,7 +30,5 @@ namespace Pancake
                 return _quadMesh;
             }
         }
-
     } // struct RenderingUtilities
-
 } // namespace Pancake

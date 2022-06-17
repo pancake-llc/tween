@@ -65,7 +65,7 @@ namespace Pancake
 
                 if (result != null)
                 {
-                    using (DisabledScope.New((bool)result == attribute._value))
+                    using (DisabledScope.New((bool) result == attribute._value))
                     {
                         using (IndentLevelScope.New(attribute._indent))
                             base.OnGUI(position, property, label);
@@ -76,11 +76,8 @@ namespace Pancake
                     EditorGUI.LabelField(position, label.text, "Field or Property has error!");
                 }
             }
-
         } // class DisableDrawer
 
 #endif // UNITY_EDITOR
-
     } // class DisableAttribute
-
 } // namespace Pancake

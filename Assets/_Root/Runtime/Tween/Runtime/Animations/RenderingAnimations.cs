@@ -10,7 +10,10 @@ namespace Pancake.Tween
         public override Color current
         {
             get => target ? target.color : Color.white;
-            set { if (target) target.color = value; }
+            set
+            {
+                if (target) target.color = value;
+            }
         }
     }
 
@@ -20,7 +23,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.intensity : 1f;
-            set { if (target) target.intensity = value; }
+            set
+            {
+                if (target) target.intensity = value;
+            }
         }
     }
 
@@ -30,7 +36,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.range : 10f;
-            set { if (target) target.range = value; }
+            set
+            {
+                if (target) target.range = value;
+            }
         }
     }
 
@@ -43,7 +52,6 @@ namespace Pancake.Tween
             get => target ? target.weight : 1f;
             set { if (target) target.weight = value; }
         }
-    }    
+    }
 #endif
-
 } // namespace Pancake.Tween

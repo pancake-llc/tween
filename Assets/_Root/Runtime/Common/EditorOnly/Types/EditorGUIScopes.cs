@@ -12,15 +12,12 @@ namespace Pancake.Editor
 
         public static LabelWidthScope New(float value)
         {
-            var scope = new LabelWidthScope { _orginal = EditorGUIUtility.labelWidth };
+            var scope = new LabelWidthScope {_orginal = EditorGUIUtility.labelWidth};
             EditorGUIUtility.labelWidth = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            EditorGUIUtility.labelWidth = _orginal;
-        }
+        void IDisposable.Dispose() { EditorGUIUtility.labelWidth = _orginal; }
     }
 
 
@@ -30,15 +27,12 @@ namespace Pancake.Editor
 
         public static WideModeScope New(bool value)
         {
-            var scope = new WideModeScope { _orginal = EditorGUIUtility.wideMode };
+            var scope = new WideModeScope {_orginal = EditorGUIUtility.wideMode};
             EditorGUIUtility.wideMode = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            EditorGUIUtility.wideMode = _orginal;
-        }
+        void IDisposable.Dispose() { EditorGUIUtility.wideMode = _orginal; }
     }
 
 
@@ -48,15 +42,12 @@ namespace Pancake.Editor
 
         public static IndentLevelScope New(int indentLevel = 1, bool relative = true)
         {
-            var scope = new IndentLevelScope { _indent = EditorGUI.indentLevel };
+            var scope = new IndentLevelScope {_indent = EditorGUI.indentLevel};
             EditorGUI.indentLevel = relative ? (scope._indent + indentLevel) : indentLevel;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            EditorGUI.indentLevel = _indent;
-        }
+        void IDisposable.Dispose() { EditorGUI.indentLevel = _indent; }
     }
 
 
@@ -66,15 +57,12 @@ namespace Pancake.Editor
 
         public static HandlesColorScope New(Color value)
         {
-            var scope = new HandlesColorScope { _orginal = Handles.color };
+            var scope = new HandlesColorScope {_orginal = Handles.color};
             Handles.color = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            Handles.color = _orginal;
-        }
+        void IDisposable.Dispose() { Handles.color = _orginal; }
     }
 
 
@@ -84,15 +72,12 @@ namespace Pancake.Editor
 
         public static HandlesMatrixScope New(Matrix4x4 value)
         {
-            var scope = new HandlesMatrixScope { _orginal = Handles.matrix };
+            var scope = new HandlesMatrixScope {_orginal = Handles.matrix};
             Handles.matrix = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            Handles.matrix = _orginal;
-        }
+        void IDisposable.Dispose() { Handles.matrix = _orginal; }
     }
 
 
@@ -102,15 +87,12 @@ namespace Pancake.Editor
 
         public static GizmosColorScope New(Color value)
         {
-            var scope = new GizmosColorScope { _orginal = Gizmos.color };
+            var scope = new GizmosColorScope {_orginal = Gizmos.color};
             Gizmos.color = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            Gizmos.color = _orginal;
-        }
+        void IDisposable.Dispose() { Gizmos.color = _orginal; }
     }
 
 
@@ -120,15 +102,12 @@ namespace Pancake.Editor
 
         public static GizmosMatrixScope New(Matrix4x4 value)
         {
-            var scope = new GizmosMatrixScope { _orginal = Gizmos.matrix };
+            var scope = new GizmosMatrixScope {_orginal = Gizmos.matrix};
             Gizmos.matrix = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            Gizmos.matrix = _orginal;
-        }
+        void IDisposable.Dispose() { Gizmos.matrix = _orginal; }
     }
 
 
@@ -140,10 +119,7 @@ namespace Pancake.Editor
             return new DisabledScope();
         }
 
-        public void Dispose()
-        {
-            EditorGUI.EndDisabledGroup();
-        }
+        public void Dispose() { EditorGUI.EndDisabledGroup(); }
     }
 
 
@@ -166,6 +142,7 @@ namespace Pancake.Editor
                         Undo.RecordObject(_undoRecordObject, _undoRecordObject.name);
                     }
                 }
+
                 return _changed;
             }
         }
@@ -173,12 +150,7 @@ namespace Pancake.Editor
         public static ChangeCheckScope New(UnityEngine.Object undoRecordObject = null)
         {
             EditorGUI.BeginChangeCheck();
-            return new ChangeCheckScope
-            {
-                _end = false,
-                _changed = false,
-                _undoRecordObject = undoRecordObject
-            };
+            return new ChangeCheckScope {_end = false, _changed = false, _undoRecordObject = undoRecordObject};
         }
 
         void IDisposable.Dispose()
@@ -200,10 +172,7 @@ namespace Pancake.Editor
             return new HandlesGUIScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            Handles.EndGUI();
-        }
+        void IDisposable.Dispose() { Handles.EndGUI(); }
     }
 
 
@@ -227,10 +196,7 @@ namespace Pancake.Editor
             return new HorizontalLayoutScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            EditorGUILayout.EndHorizontal();
-        }
+        void IDisposable.Dispose() { EditorGUILayout.EndHorizontal(); }
     }
 
 
@@ -254,12 +220,8 @@ namespace Pancake.Editor
             return new VerticalLayoutScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            EditorGUILayout.EndVertical();
-        }
+        void IDisposable.Dispose() { EditorGUILayout.EndVertical(); }
     }
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

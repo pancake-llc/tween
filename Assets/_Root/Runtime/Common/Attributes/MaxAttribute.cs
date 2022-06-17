@@ -19,10 +19,7 @@ namespace Pancake
         /// <summary>
         /// Set maximum allowed value for int & float field
         /// </summary>
-        public MaxAttribute(float max)
-        {
-            _max = max;
-        }
+        public MaxAttribute(float max) { _max = max; }
 
 #if UNITY_EDITOR
 
@@ -34,31 +31,24 @@ namespace Pancake
                 switch (property.propertyType)
                 {
                     case SerializedPropertyType.Float:
-                        {
-                            property.floatValue = Mathf.Min(
-                                EditorGUI.FloatField(position, label, property.floatValue),
-                                attribute._max);
-                            break;
-                        }
+                    {
+                        property.floatValue = Mathf.Min(EditorGUI.FloatField(position, label, property.floatValue), attribute._max);
+                        break;
+                    }
                     case SerializedPropertyType.Integer:
-                        {
-                            property.intValue = Mathf.Min(
-                                EditorGUI.IntField(position, label, property.intValue),
-                                (int)attribute._max);
-                            break;
-                        }
+                    {
+                        property.intValue = Mathf.Min(EditorGUI.IntField(position, label, property.intValue), (int) attribute._max);
+                        break;
+                    }
                     default:
-                        {
-                            EditorGUI.LabelField(position, label.text, "Use Max with float or int.");
-                            break;
-                        }
+                    {
+                        EditorGUI.LabelField(position, label.text, "Use Max with float or int.");
+                        break;
+                    }
                 }
             }
-
         } // class MaxDrawer
 
 #endif // UNITY_EDITOR
-
     } // class MaxAttribute
-
 } // namespace Pancake

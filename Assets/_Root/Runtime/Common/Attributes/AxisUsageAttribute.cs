@@ -31,10 +31,7 @@ namespace Pancake
         /// <summary>
         /// AxisUsageAttribute
         /// </summary>
-        public AxisUsageAttribute(AxisUsage usage)
-        {
-            _usage = usage;
-        }
+        public AxisUsageAttribute(AxisUsage usage) { _usage = usage; }
 
 
 #if UNITY_EDITOR
@@ -42,19 +39,13 @@ namespace Pancake
         [CustomPropertyDrawer(typeof(AxisUsageAttribute))]
         class AxisUsageDrawer : BasePropertyDrawer<AxisUsageAttribute>
         {
-            static string[][] _axisNames =
-            {
-                new string[] { "+X", "-X", "+Y", "-Y", "+Z", "-Z" },
-                new string[] { "X", "Y", "Z" },
-                new string[] { "XY", "YZ", "XZ" },
-            };
+            static string[][] _axisNames = {new string[] {"+X", "-X", "+Y", "-Y", "+Z", "-Z"}, new string[] {"X", "Y", "Z"}, new string[] {"XY", "YZ", "XZ"},};
 
 
             static Axis[][] _axisValues =
             {
-                new Axis[] { Axis.PositiveX, Axis.NegativeX, Axis.PositiveY, Axis.NegativeY, Axis.PositiveZ, Axis.NegativeZ },
-                new Axis[] { Axis.X, Axis.Y, Axis.Z },
-                new Axis[] { Axis.XY, Axis.YZ, Axis.XZ },
+                new Axis[] {Axis.PositiveX, Axis.NegativeX, Axis.PositiveY, Axis.NegativeY, Axis.PositiveZ, Axis.NegativeZ}, new Axis[] {Axis.X, Axis.Y, Axis.Z},
+                new Axis[] {Axis.XY, Axis.YZ, Axis.XZ},
             };
 
 
@@ -72,9 +63,15 @@ namespace Pancake
                 {
                     switch (axis)
                     {
-                        case Axis.PositiveX: case Axis.NegativeX: case Axis.X: return 0;
-                        case Axis.PositiveY: case Axis.NegativeY: case Axis.Y: return 1;
-                        case Axis.PositiveZ: case Axis.NegativeZ: case Axis.Z: return 2;
+                        case Axis.PositiveX:
+                        case Axis.NegativeX:
+                        case Axis.X: return 0;
+                        case Axis.PositiveY:
+                        case Axis.NegativeY:
+                        case Axis.Y: return 1;
+                        case Axis.PositiveZ:
+                        case Axis.NegativeZ:
+                        case Axis.Z: return 2;
                         default: return -1;
                     }
                 }
@@ -110,14 +107,14 @@ namespace Pancake
             {
                 position = EditorGUI.PrefixLabel(position, label);
 
-                int type = (int)attribute._usage / 2;
+                int type = (int) attribute._usage / 2;
 
-                if ((int)attribute._usage % 2 == 0)
+                if ((int) attribute._usage % 2 == 0)
                 {
-                    int index = AxisToIndex((Axis)property.intValue);
+                    int index = AxisToIndex((Axis) property.intValue);
                     index = GUI.Toolbar(position, index, _axisNames[type], EditorStyles.miniButton);
 
-                    property.intValue = index < 0 ? 0 : (int)_axisValues[type][index];
+                    property.intValue = index < 0 ? 0 : (int) _axisValues[type][index];
                 }
                 else
                 {
@@ -126,7 +123,7 @@ namespace Pancake
 
                     for (int i = 0; i < _axisNames[type].Length; i++)
                     {
-                        int item = (int)_axisValues[type][i];
+                        int item = (int) _axisValues[type][i];
                         if (GUI.Toggle(position, (mask & item) == item, _axisNames[type][i], EditorStyles.miniButton))
                         {
                             mask |= item;
@@ -135,17 +132,15 @@ namespace Pancake
                         {
                             mask &= ~item;
                         }
+
                         position.x = position.xMax + 2;
                     }
 
                     property.intValue = mask;
                 }
             }
-
         } // class AxisUsageDrawer
 
 #endif // UNITY_EDITOR
-
     } // class AxisUsageAttribute
-
 } // namespace Pancake

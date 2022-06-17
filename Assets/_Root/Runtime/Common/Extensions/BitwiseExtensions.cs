@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// Extensions for bitwise operations.
@@ -27,25 +26,25 @@ namespace Pancake
         /// <summary>
         /// Set value of specified binary bit to zero, bit = 0~7
         /// </summary>
-        public static void SetBit0(this ref sbyte value, int bit) { value = (sbyte)(value & (~(1 << bit))); }
+        public static void SetBit0(this ref sbyte value, int bit) { value = (sbyte) (value & (~(1 << bit))); }
 
 
         /// <summary>
         /// Set value of specified binary bit to zero, bit = 0~7
         /// </summary>
-        public static void SetBit0(this ref byte value, int bit) { value = (byte)(value & (~(1u << bit))); }
+        public static void SetBit0(this ref byte value, int bit) { value = (byte) (value & (~(1u << bit))); }
 
 
         /// <summary>
         /// Set value of specified binary bit to zero, bit = 0~15
         /// </summary>
-        public static void SetBit0(this ref short value, int bit) { value = (short)(value & (~(1 << bit))); }
+        public static void SetBit0(this ref short value, int bit) { value = (short) (value & (~(1 << bit))); }
 
 
         /// <summary>
         /// Set value of specified binary bit to zero, bit = 0~15
         /// </summary>
-        public static void SetBit0(this ref ushort value, int bit) { value = (ushort)(value & (~(1u << bit))); }
+        public static void SetBit0(this ref ushort value, int bit) { value = (ushort) (value & (~(1u << bit))); }
 
 
         /// <summary>
@@ -75,25 +74,25 @@ namespace Pancake
         /// <summary>
         /// Set value of specified binary bit to one, bit = 0~7
         /// </summary>
-        public static void SetBit1(this ref sbyte value, int bit) { value = (sbyte)((byte)value | (1u << bit)); }
+        public static void SetBit1(this ref sbyte value, int bit) { value = (sbyte) ((byte) value | (1u << bit)); }
 
 
         /// <summary>
         /// Set value of specified binary bit to one, bit = 0~7
         /// </summary>
-        public static void SetBit1(this ref byte value, int bit) { value = (byte)(value | (1u << bit)); }
+        public static void SetBit1(this ref byte value, int bit) { value = (byte) (value | (1u << bit)); }
 
 
         /// <summary>
         /// Set value of specified binary bit to one, bit = 0~15
         /// </summary>
-        public static void SetBit1(this ref short value, int bit) { value = (short)((ushort)value | (1u << bit)); }
+        public static void SetBit1(this ref short value, int bit) { value = (short) ((ushort) value | (1u << bit)); }
 
 
         /// <summary>
         /// Set value of specified binary bit to one, bit = 0~15
         /// </summary>
-        public static void SetBit1(this ref ushort value, int bit) { value = (ushort)(value | (1u << bit)); }
+        public static void SetBit1(this ref ushort value, int bit) { value = (ushort) (value | (1u << bit)); }
 
 
         /// <summary>
@@ -123,73 +122,105 @@ namespace Pancake
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~7
         /// </summary>
-        public static void SetBit(this ref sbyte value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref sbyte value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~7
         /// </summary>
-        public static void SetBit(this ref byte value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref byte value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~15
         /// </summary>
-        public static void SetBit(this ref short value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref short value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~15
         /// </summary>
-        public static void SetBit(this ref ushort value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref ushort value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~31
         /// </summary>
-        public static void SetBit(this ref int value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref int value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~31
         /// </summary>
-        public static void SetBit(this ref uint value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref uint value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~63
         /// </summary>
-        public static void SetBit(this ref long value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref long value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Set value of specified binary bit to one or zero, bit = 0~63
         /// </summary>
-        public static void SetBit(this ref ulong value, int bit, bool is1) { if (is1) value.SetBit1(bit); else value.SetBit0(bit); }
+        public static void SetBit(this ref ulong value, int bit, bool is1)
+        {
+            if (is1) value.SetBit1(bit);
+            else value.SetBit0(bit);
+        }
 
 
         /// <summary>
         /// Reverse the value of specified binary bit, bit = 0~7
         /// </summary>
-        public static void ReverseBit(this ref sbyte value, int bit) { value = (sbyte)(value ^ (1 << bit)); }
+        public static void ReverseBit(this ref sbyte value, int bit) { value = (sbyte) (value ^ (1 << bit)); }
 
 
         /// <summary>
         /// Reverse the value of specified binary bit, bit = 0~7
         /// </summary>
-        public static void ReverseBit(this ref byte value, int bit) { value = (byte)(value ^ (1u << bit)); }
+        public static void ReverseBit(this ref byte value, int bit) { value = (byte) (value ^ (1u << bit)); }
 
 
         /// <summary>
         /// Reverse the value of specified binary bit, bit = 0~15
         /// </summary>
-        public static void ReverseBit(this ref short value, int bit) { value = (short)(value ^ (1 << bit)); }
+        public static void ReverseBit(this ref short value, int bit) { value = (short) (value ^ (1 << bit)); }
 
 
         /// <summary>
         /// Reverse the value of specified binary bit, bit = 0~15
         /// </summary>
-        public static void ReverseBit(this ref ushort value, int bit) { value = (ushort)(value ^ (1u << bit)); }
+        public static void ReverseBit(this ref ushort value, int bit) { value = (ushort) (value ^ (1u << bit)); }
 
 
         /// <summary>
@@ -262,7 +293,5 @@ namespace Pancake
         /// Get the value of specified binary bit, bit = 0~63
         /// </summary>
         public static bool GetBit(this ulong value, int bit) { return (value & (1UL << bit)) != 0; }
-
     } // class Extensions
-
 } // namespace Pancake

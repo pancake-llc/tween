@@ -56,7 +56,5 @@ namespace Pancake.Tween
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenVector3<TTarget>
-
 } // namespace Pancake.Tween

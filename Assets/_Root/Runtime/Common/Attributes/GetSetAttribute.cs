@@ -70,86 +70,86 @@ namespace Pancake
                     switch (property.propertyType)
                     {
                         case SerializedPropertyType.AnimationCurve:
-                            {
-                                value = EditorGUI.CurveField(position, label, (AnimationCurve)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.CurveField(position, label, (AnimationCurve) value);
+                            break;
+                        }
                         case SerializedPropertyType.Boolean:
-                            {
-                                value = EditorGUI.Toggle(position, label, (bool)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.Toggle(position, label, (bool) value);
+                            break;
+                        }
                         case SerializedPropertyType.Bounds:
-                            {
-                                value = EditorGUI.BoundsField(position, label, (Bounds)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.BoundsField(position, label, (Bounds) value);
+                            break;
+                        }
                         case SerializedPropertyType.Color:
-                            {
-                                value = EditorGUI.ColorField(position, label, (Color)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.ColorField(position, label, (Color) value);
+                            break;
+                        }
                         case SerializedPropertyType.Enum:
-                            {
-                                value = EditorGUI.EnumPopup(position, label, (System.Enum)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.EnumPopup(position, label, (System.Enum) value);
+                            break;
+                        }
                         case SerializedPropertyType.Float:
-                            {
-                                value = EditorGUI.FloatField(position, label, (float)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.FloatField(position, label, (float) value);
+                            break;
+                        }
                         case SerializedPropertyType.Integer:
-                            {
-                                value = EditorGUI.IntField(position, label, (int)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.IntField(position, label, (int) value);
+                            break;
+                        }
                         case SerializedPropertyType.ObjectReference:
-                            {
-                                value = EditorGUI.ObjectField(position, label, value as Object, fieldInfo.FieldType, !EditorUtility.IsPersistent(attribute._target));
-                                break;
-                            }
+                        {
+                            value = EditorGUI.ObjectField(position,
+                                label,
+                                value as Object,
+                                fieldInfo.FieldType,
+                                !EditorUtility.IsPersistent(attribute._target));
+                            break;
+                        }
                         case SerializedPropertyType.Rect:
-                            {
-                                value = EditorGUI.RectField(position, label, (Rect)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.RectField(position, label, (Rect) value);
+                            break;
+                        }
                         case SerializedPropertyType.String:
-                            {
-                                value = EditorGUI.TextField(position, label, (string)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.TextField(position, label, (string) value);
+                            break;
+                        }
                         case SerializedPropertyType.Vector2:
-                            {
-                                value = EditorGUI.Vector2Field(position, label, (Vector2)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.Vector2Field(position, label, (Vector2) value);
+                            break;
+                        }
                         case SerializedPropertyType.Vector3:
-                            {
-                                value = EditorGUI.Vector3Field(position, label, (Vector3)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.Vector3Field(position, label, (Vector3) value);
+                            break;
+                        }
                         case SerializedPropertyType.Vector4:
-                            {
-                                value = EditorGUI.Vector4Field(position, label.text, (Vector4)value);
-                                break;
-                            }
+                        {
+                            value = EditorGUI.Vector4Field(position, label.text, (Vector4) value);
+                            break;
+                        }
                         default:
-                            {
-                                EditorGUI.LabelField(position, label.text, "Type is not supported");
-                                break;
-                            }
+                        {
+                            EditorGUI.LabelField(position, label.text, "Type is not supported");
+                            break;
+                        }
                     }
 
                     if (scope.changed) attribute._propertyInfo.SetValue(attribute._target, value, null);
                 }
-
             } // OnGUI
-
         } // class GetSetDrawer
 
 #endif
-
     } // class GetSetAttribute
-
 } // namespace Pancake

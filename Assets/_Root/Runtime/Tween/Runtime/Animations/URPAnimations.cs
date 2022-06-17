@@ -2,7 +2,6 @@
 //#define URP
 
 #if URP
-
 using System;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;

@@ -16,6 +16,7 @@ namespace Pancake.Editor
 
 
         static BoxBoundsHandle _boxBoundsHandle;
+
         static BoxBoundsHandle boxBoundsHandle
         {
             get
@@ -27,6 +28,7 @@ namespace Pancake.Editor
 
 
         static SphereBoundsHandle _sphereBoundsHandle;
+
         static SphereBoundsHandle sphereBoundsHandle
         {
             get
@@ -38,6 +40,7 @@ namespace Pancake.Editor
 
 
         static CapsuleBoundsHandle _capsuleBoundsHandle;
+
         static CapsuleBoundsHandle capsuleBoundsHandle
         {
             get
@@ -100,7 +103,11 @@ namespace Pancake.Editor
                 float r2 = radius * radius;
                 float r2_d_v2 = r2 / v2;
 
-                Handles.CircleHandleCap(0, r2_d_v2 * cam_center + center, Quaternion.LookRotation(cam_center), radius * Mathf.Sqrt(1f - r2_d_v2), EventType.Repaint);
+                Handles.CircleHandleCap(0,
+                    r2_d_v2 * cam_center + center,
+                    Quaternion.LookRotation(cam_center),
+                    radius * Mathf.Sqrt(1f - r2_d_v2),
+                    EventType.Repaint);
             }
         }
 
@@ -137,10 +144,7 @@ namespace Pancake.Editor
         }
 
 
-        public static void BoxHandle(SerializedProperty boundsProperty, Color color)
-        {
-            boundsProperty.boundsValue = BoxHandle(boundsProperty.boundsValue, color);
-        }
+        public static void BoxHandle(SerializedProperty boundsProperty, Color color) { boundsProperty.boundsValue = BoxHandle(boundsProperty.boundsValue, color); }
 
 
         public static void BoxHandle(Transform transform, SerializedProperty boundsProperty, Color color)
@@ -210,12 +214,14 @@ namespace Pancake.Editor
         {
             using (HandlesMatrixScope.New(transform.localToWorldMatrix))
             {
-                CapsuleHandle(ref center, ref radius, ref height, color, axis);
+                CapsuleHandle(ref center,
+                    ref radius,
+                    ref height,
+                    color,
+                    axis);
             }
         }
-
     } // struct HandlesUtilities
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

@@ -16,7 +16,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => (!target || target.enabled) ? (criticalValue + 0.5f) : (criticalValue - 0.5f);
-            set { if (target) target.enabled = target.enabled ? (value >= criticalValue) : (value > criticalValue); }
+            set
+            {
+                if (target) target.enabled = target.enabled ? (value >= criticalValue) : (value > criticalValue);
+            }
         }
 
 #if UNITY_EDITOR
@@ -43,7 +46,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => (!target || target.activeSelf) ? (criticalValue + 0.5f) : (criticalValue - 0.5f);
-            set { if (target) target.SetActive(target.activeSelf ? (value >= criticalValue) : (value > criticalValue)); }
+            set
+            {
+                if (target) target.SetActive(target.activeSelf ? (value >= criticalValue) : (value > criticalValue));
+            }
         }
 
 #if UNITY_EDITOR
@@ -60,7 +66,6 @@ namespace Pancake.Tween
         }
 #endif
     } // TweenGameObjectActive
-
 
 
     [Serializable, TweenAnimation("Miscellaneous/Particle System Playing", "Particle System Playing")]
@@ -114,7 +119,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? (normalizedMode ? (target.path ? target.distance / target.path.length : 0f) : target.distance) : 0;
-            set { if (target) target.distance = normalizedMode ? (target.path ? value * target.path.length : 0f) : value; }
+            set
+            {
+                if (target) target.distance = normalizedMode ? (target.path ? value * target.path.length : 0f) : value;
+            }
         }
 
 #if UNITY_EDITOR
@@ -139,7 +147,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.normalizedTime : 0;
-            set { if (target) target.normalizedTime = value; }
+            set
+            {
+                if (target) target.normalizedTime = value;
+            }
         }
 
 #if UNITY_EDITOR
@@ -163,5 +174,4 @@ namespace Pancake.Tween
 
 #endif
     }
-
 } // namespace Pancake.Tween

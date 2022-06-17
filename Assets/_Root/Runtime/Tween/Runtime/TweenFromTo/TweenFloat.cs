@@ -8,10 +8,7 @@ namespace Pancake.Tween
 {
     public abstract class TweenFloat<TTarget> : TweenFromTo<float, TTarget> where TTarget : Object
     {
-        public override void Interpolate(float factor)
-        {
-            current = (to - from) * factor + from;
-        }
+        public override void Interpolate(float factor) { current = (to - from) * factor + from; }
 
 #if UNITY_EDITOR
 
@@ -24,7 +21,5 @@ namespace Pancake.Tween
         }
 
 #endif
-
     } // class TweenFloat<TTarget>
-
 } // namespace Pancake.Tween

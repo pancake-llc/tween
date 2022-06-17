@@ -19,16 +19,13 @@ namespace Pancake.Editor
         {
             EditorApplication.update += () =>
             {
-                _unscaledDeltaTime = (float)(EditorApplication.timeSinceStartup - _lastTimeSinceStartup);
+                _unscaledDeltaTime = (float) (EditorApplication.timeSinceStartup - _lastTimeSinceStartup);
                 _lastTimeSinceStartup = EditorApplication.timeSinceStartup;
             };
         }
 
 
-        public static float unscaledDeltaTime
-        {
-            get { return _unscaledDeltaTime; }
-        }
+        public static float unscaledDeltaTime { get { return _unscaledDeltaTime; } }
 
 
         public static PlayModeStateChange playMode
@@ -47,9 +44,7 @@ namespace Pancake.Editor
                 }
             }
         }
-
     } // struct EditorUtilities
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

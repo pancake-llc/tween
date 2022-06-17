@@ -29,9 +29,10 @@ namespace Pancake.Tween
                     foreach (var t in types)
                     {
                         if (t.IsSubclassOf(typeof(TweenAnimation)) && !t.IsAbstract)
-                            _allTypes.Add(t, (TweenAnimationAttribute)(t.GetCustomAttributes(typeof(TweenAnimationAttribute), false)[0]));
+                            _allTypes.Add(t, (TweenAnimationAttribute) (t.GetCustomAttributes(typeof(TweenAnimationAttribute), false)[0]));
                     }
                 }
+
                 return _allTypes;
             }
         }
@@ -119,7 +120,7 @@ namespace Pancake.Tween
 
         void Copy()
         {
-            _clipboard = (TweenAnimation)Activator.CreateInstance(GetType());
+            _clipboard = (TweenAnimation) Activator.CreateInstance(GetType());
             EditorUtility.CopySerializedManagedFieldsOnly(this, _clipboard);
         }
 
@@ -163,7 +164,7 @@ namespace Pancake.Tween
                 float newFrom = from, newTo = to;
                 if (delta != 0)
                 {
-                    delta = (float)Math.Round(delta, 2);
+                    delta = (float) Math.Round(delta, 2);
                     newFrom = MathUtilities.RoundToSignificantDigitsFloat(newFrom + delta, 6);
                     newTo = MathUtilities.RoundToSignificantDigitsFloat(newTo + delta, 6);
                 }
@@ -182,7 +183,11 @@ namespace Pancake.Tween
 
         protected static void FromToFieldLayout(string label, ref float from, ref float to)
         {
-            FromToFieldLayout(label, ref from, ref to, out _, out _);
+            FromToFieldLayout(label,
+                ref from,
+                ref to,
+                out _,
+                out _);
         }
 
 
@@ -191,14 +196,25 @@ namespace Pancake.Tween
             float fromValue = from.floatValue;
             float toValue = to.floatValue;
 
-            FromToFieldLayout(label, ref fromValue, ref toValue, out bool fromChanged, out bool toChanged);
+            FromToFieldLayout(label,
+                ref fromValue,
+                ref toValue,
+                out bool fromChanged,
+                out bool toChanged);
 
             if (fromChanged) from.floatValue = fromValue;
             if (toChanged) to.floatValue = toValue;
         }
 
 
-        protected static void FromToFieldLayout(string label, ref float from, ref float to, ref bool toggle, out bool fromChanged, out bool toChanged, out bool toggleChanged)
+        protected static void FromToFieldLayout(
+            string label,
+            ref float from,
+            ref float to,
+            ref bool toggle,
+            out bool fromChanged,
+            out bool toChanged,
+            out bool toggleChanged)
         {
             var rect = EditorGUILayout.GetControlRect();
             float labelWidth = EditorGUIUtility.labelWidth;
@@ -223,7 +239,7 @@ namespace Pancake.Tween
                     float newFrom = from, newTo = to;
                     if (delta != 0)
                     {
-                        delta = (float)Math.Round(delta, 2);
+                        delta = (float) Math.Round(delta, 2);
                         newFrom = MathUtilities.RoundToSignificantDigitsFloat(newFrom + delta, 6);
                         newTo = MathUtilities.RoundToSignificantDigitsFloat(newTo + delta, 6);
                     }
@@ -246,7 +262,13 @@ namespace Pancake.Tween
 
         protected static void FromToFieldLayout(string label, ref float from, ref float to, ref bool toggle)
         {
-            FromToFieldLayout(label, ref from, ref to, ref toggle, out _, out _, out _);
+            FromToFieldLayout(label,
+                ref from,
+                ref to,
+                ref toggle,
+                out _,
+                out _,
+                out _);
         }
 
 
@@ -256,7 +278,13 @@ namespace Pancake.Tween
             float toValue = to.floatValue;
             bool toggleValue = toggle.boolValue;
 
-            FromToFieldLayout(label, ref fromValue, ref toValue, ref toggleValue, out bool fromChanged, out bool toChanged, out bool toggleChanged);
+            FromToFieldLayout(label,
+                ref fromValue,
+                ref toValue,
+                ref toggleValue,
+                out bool fromChanged,
+                out bool toChanged,
+                out bool toggleChanged);
 
             if (fromChanged) from.floatValue = fromValue;
             if (toChanged) to.floatValue = toValue;
@@ -270,7 +298,13 @@ namespace Pancake.Tween
             float toValue = to.floatValue;
             bool toggleValue = toggle.boolValue;
 
-            FromToFieldLayout(label, ref fromValue, ref toValue, ref toggleValue, out bool fromChanged, out bool toChanged, out bool toggleChanged);
+            FromToFieldLayout(label,
+                ref fromValue,
+                ref toValue,
+                ref toggleValue,
+                out bool fromChanged,
+                out bool toChanged,
+                out bool toggleChanged);
 
             if (fromChanged) from.floatValue = Mathf.Clamp(fromValue, min, max);
             if (toChanged) to.floatValue = Mathf.Clamp(toValue, min, max);
@@ -352,8 +386,7 @@ namespace Pancake.Tween
             // progress
             EditorGUI.DrawRect(rect, TweenPlayer.Editor.progressBackgroundInvalid);
 
-            rect2.Set(rect.x + minNormalizedTime * rect.width, rect.y,
-                Mathf.Max(1, rect.width * (maxNormalizedTime - minNormalizedTime)), rect.height);
+            rect2.Set(rect.x + minNormalizedTime * rect.width, rect.y, Mathf.Max(1, rect.width * (maxNormalizedTime - minNormalizedTime)), rect.height);
 
             if (enabled)
             {
@@ -389,7 +422,11 @@ namespace Pancake.Tween
                     float min = minNormalizedTime * player.duration;
                     float max = maxNormalizedTime * player.duration;
 
-                    FromToFieldLayout("Time Range", ref min, ref max, out bool fromChanged, out bool toChanged);
+                    FromToFieldLayout("Time Range",
+                        ref min,
+                        ref max,
+                        out bool fromChanged,
+                        out bool toChanged);
 
                     if (scope.changed)
                     {
@@ -406,7 +443,11 @@ namespace Pancake.Tween
                     {
                         bool newHoldBeforeStart = _holdBeforeStart;
                         bool newHoldAfterEnd = _holdAfterEnd;
-                        HoldStartEndLayout("Hold", ref newHoldBeforeStart, ref newHoldAfterEnd, minNormalizedTime > 0f, maxNormalizedTime < 1f);
+                        HoldStartEndLayout("Hold",
+                            ref newHoldBeforeStart,
+                            ref newHoldAfterEnd,
+                            minNormalizedTime > 0f,
+                            maxNormalizedTime < 1f);
                         if (scope.changed)
                         {
                             _holdBeforeStart = newHoldBeforeStart;
@@ -422,9 +463,7 @@ namespace Pancake.Tween
 
             EditorGUI.DrawRect(EditorGUILayout.GetControlRect(false, 1), TweenPlayer.Editor.separatorLineColor);
         }
-
     } // TweenAnimation
-
 } // namespace Pancake.TweenController
 
 #endif

@@ -19,8 +19,7 @@ namespace Pancake.Paths
         protected static Color handlesRotationColor = new Color(0.6f, 1f, 0.3f);
 
 
-        [SerializeField]
-        bool _alwaysVisible = default;
+        [SerializeField] bool _alwaysVisible = default;
 
 
         [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected)]
@@ -28,8 +27,8 @@ namespace Pancake.Paths
         {
             if ((type & GizmoType.Selected) != 0 || target._alwaysVisible || FloatingWindow.target == target)
             {
-                Matrix4x4 matrix = Matrix4x4.TRS(
-                    target.transform.position, target.transform.rotation,
+                Matrix4x4 matrix = Matrix4x4.TRS(target.transform.position,
+                    target.transform.rotation,
                     new Vector3(target._worldScale, target._worldScale, target._worldScale));
 
                 using (HandlesMatrixScope.New(matrix))
@@ -66,10 +65,7 @@ namespace Pancake.Paths
         }
 
 
-        protected abstract Type floatingWindowType
-        {
-            get;
-        }
+        protected abstract Type floatingWindowType { get; }
 
 
         /// <summary>
@@ -150,7 +146,6 @@ namespace Pancake.Paths
                     if (scope.changed) target._alwaysVisible = value;
                 }
             }
-
         } // class Editor
 
 
@@ -167,7 +162,7 @@ namespace Pancake.Paths
             protected static Vector3 snap = new Vector3(0.01f, 0.01f, 0.01f);
 
 
-            protected int selectedTool { get; private set; }    // 0: pan, 1: 3D, 2: rotate
+            protected int selectedTool { get; private set; } // 0: pan, 1: 3D, 2: rotate
             protected int selectedNode;
 
 
@@ -247,23 +242,26 @@ namespace Pancake.Paths
                         var rect = EditorGUILayout.GetControlRect(false, 25);
 
                         rect.width /= 3;
-                        if (GUI.Toggle(rect, selectedTool == 0,
-                            EditorGUIUtilities.TempContent(null, EditorResources.instance.moveToolPan, "Pan Move Tool"),
-                            EditorGUIUtilities.buttonLeftStyle))
+                        if (GUI.Toggle(rect,
+                                selectedTool == 0,
+                                EditorGUIUtilities.TempContent(null, EditorResources.instance.moveToolPan, "Pan Move Tool"),
+                                EditorGUIUtilities.buttonLeftStyle))
                             selectedTool = 0;
 
                         rect.x = rect.xMax;
-                        if (GUI.Toggle(rect, selectedTool == 1,
-                            EditorGUIUtilities.TempContent(null, EditorResources.instance.moveTool3D, "3D Move Tool"),
-                            EditorGUIUtilities.buttonMiddleStyle))
+                        if (GUI.Toggle(rect,
+                                selectedTool == 1,
+                                EditorGUIUtilities.TempContent(null, EditorResources.instance.moveTool3D, "3D Move Tool"),
+                                EditorGUIUtilities.buttonMiddleStyle))
                             selectedTool = 1;
 
                         using (DisabledScope.New(disableRotateTool))
                         {
                             rect.x = rect.xMax;
-                            if (GUI.Toggle(rect, selectedTool == 2,
-                                EditorGUIUtilities.TempContent(null, EditorResources.instance.RotateTool, "Rotate Tool"),
-                                EditorGUIUtilities.buttonRightStyle))
+                            if (GUI.Toggle(rect,
+                                    selectedTool == 2,
+                                    EditorGUIUtilities.TempContent(null, EditorResources.instance.RotateTool, "Rotate Tool"),
+                                    EditorGUIUtilities.buttonRightStyle))
                                 selectedTool = 2;
                         }
 
@@ -273,8 +271,8 @@ namespace Pancake.Paths
 
                         rect.width /= 3;
                         if (GUI.Button(rect,
-                            EditorGUIUtilities.TempContent(null, EditorResources.instance.addNodeBack, "Add Node Back"),
-                            EditorGUIUtilities.buttonLeftStyle))
+                                EditorGUIUtilities.TempContent(null, EditorResources.instance.addNodeBack, "Add Node Back"),
+                                EditorGUIUtilities.buttonLeftStyle))
                         {
                             Undo.RecordObject(path, "Add Node Back");
                             path.InsertNode(selectedNode);
@@ -284,8 +282,8 @@ namespace Pancake.Paths
                         {
                             rect.x = rect.xMax;
                             if (GUI.Button(rect,
-                                EditorGUIUtilities.TempContent(null, EditorResources.instance.removeNode, "Remove Node"),
-                                EditorGUIUtilities.buttonMiddleStyle))
+                                    EditorGUIUtilities.TempContent(null, EditorResources.instance.removeNode, "Remove Node"),
+                                    EditorGUIUtilities.buttonMiddleStyle))
                             {
                                 Undo.RecordObject(path, "Remove Node");
                                 path.RemoveNode(selectedNode);
@@ -295,8 +293,8 @@ namespace Pancake.Paths
 
                         rect.x = rect.xMax;
                         if (GUI.Button(rect,
-                            EditorGUIUtilities.TempContent(null, EditorResources.instance.addNodeForward, "Add Node Forward"),
-                            EditorGUIUtilities.buttonRightStyle))
+                                EditorGUIUtilities.TempContent(null, EditorResources.instance.addNodeForward, "Add Node Forward"),
+                                EditorGUIUtilities.buttonRightStyle))
                         {
                             Undo.RecordObject(path, "Add Node Forward");
                             selectedNode++;
@@ -335,7 +333,6 @@ namespace Pancake.Paths
                 }
                 else Close();
             }
-
         } // class FloatingWindow
 
 
@@ -362,10 +359,7 @@ namespace Pancake.Paths
             }
 
 
-            protected override Vector3 GetSceneGUIFocus(Path path)
-            {
-                return GetSceneGUIFocus(path as T);
-            }
+            protected override Vector3 GetSceneGUIFocus(Path path) { return GetSceneGUIFocus(path as T); }
 
 
             protected abstract void OnMoveToolWindowGUI(T path);
@@ -376,10 +370,7 @@ namespace Pancake.Paths
 
             protected abstract Vector3 GetSceneGUIFocus(T path);
         }
-
-
     } // class Path
-
 } // UnityExtensions.Paths
 
 #endif // UNITY_EDITOR

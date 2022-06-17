@@ -14,11 +14,14 @@ namespace Pancake
         {
             switch (axis)
             {
-                case Axis.PositiveX: case Axis.X: return new Vector3(1f, 0f, 0f);
+                case Axis.PositiveX:
+                case Axis.X: return new Vector3(1f, 0f, 0f);
                 case Axis.NegativeX: return new Vector3(-1f, 0f, 0f);
-                case Axis.PositiveY: case Axis.Y: return new Vector3(0f, 1f, 0f);
+                case Axis.PositiveY:
+                case Axis.Y: return new Vector3(0f, 1f, 0f);
                 case Axis.NegativeY: return new Vector3(0f, -1f, 0f);
-                case Axis.PositiveZ: case Axis.Z: return new Vector3(0f, 0f, 1f);
+                case Axis.PositiveZ:
+                case Axis.Z: return new Vector3(0f, 0f, 1f);
                 case Axis.NegativeZ: return new Vector3(0f, 0f, -1f);
                 default: return new Vector3();
             }
@@ -32,11 +35,14 @@ namespace Pancake
         {
             switch (localAxis)
             {
-                case Axis.PositiveX: case Axis.X: return transform.right;
+                case Axis.PositiveX:
+                case Axis.X: return transform.right;
                 case Axis.NegativeX: return -transform.right;
-                case Axis.PositiveY: case Axis.Y: return transform.up;
+                case Axis.PositiveY:
+                case Axis.Y: return transform.up;
                 case Axis.NegativeY: return -transform.up;
-                case Axis.PositiveZ: case Axis.Z: return transform.forward;
+                case Axis.PositiveZ:
+                case Axis.Z: return transform.forward;
                 case Axis.NegativeZ: return -transform.forward;
                 default: return new Vector3();
             }
@@ -105,7 +111,7 @@ namespace Pancake
                 return AxisRelation.Same;
             }
 
-            if (((int)a << 3) == (int)b || ((int)b << 3) == (int)a)
+            if (((int) a << 3) == (int) b || ((int) b << 3) == (int) a)
             {
                 return AxisRelation.Opposite;
             }
@@ -117,11 +123,6 @@ namespace Pancake
         /// <summary>
         /// Is the axis a positive direction?
         /// </summary>
-        public static bool IsPositive(Axis axis)
-        {
-            return (int)axis <= 4;
-        }
-
+        public static bool IsPositive(Axis axis) { return (int) axis <= 4; }
     } // struct AxisUtilities
-
 } // UnityExtensions

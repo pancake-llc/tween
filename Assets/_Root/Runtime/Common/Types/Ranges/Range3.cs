@@ -78,10 +78,7 @@ namespace Pancake
             z.SortMinMax();
         }
 
-        public bool Contains(Vector3 point)
-        {
-            return x.Contains(point.x) && y.Contains(point.y) && z.Contains(point.z);
-        }
+        public bool Contains(Vector3 point) { return x.Contains(point.x) && y.Contains(point.y) && z.Contains(point.z); }
 
         public Vector3 Closest(Vector3 point)
         {
@@ -91,10 +88,7 @@ namespace Pancake
             return point;
         }
 
-        public bool Intersects(Range3 other)
-        {
-            return x.Intersects(other.x) && y.Intersects(other.y) && z.Intersects(other.z);
-        }
+        public bool Intersects(Range3 other) { return x.Intersects(other.x) && y.Intersects(other.y) && z.Intersects(other.z); }
 
         public Range3 GetIntersection(Range3 other)
         {
@@ -120,15 +114,9 @@ namespace Pancake
             return point;
         }
 
-        public float SqrDistance(Vector3 point)
-        {
-            return Distance3(point).sqrMagnitude;
-        }
+        public float SqrDistance(Vector3 point) { return Distance3(point).sqrMagnitude; }
 
-        public float Distance(Vector3 point)
-        {
-            return Distance3(point).magnitude;
-        }
+        public float Distance(Vector3 point) { return Distance3(point).magnitude; }
 
         public void Encapsulate(Vector3 point)
         {
@@ -164,7 +152,5 @@ namespace Pancake
             y.Move(delta.y);
             z.Move(delta.z);
         }
-
     } // struct Range3
-
 } // namespace Pancake

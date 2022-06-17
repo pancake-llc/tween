@@ -19,7 +19,5 @@ namespace Pancake.Paths
             position = target.position;
             tension = target.tension;
         }
-
     } // class CardinalNode
-
 } // namespace Pancake.Paths

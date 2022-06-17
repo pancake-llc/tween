@@ -9,11 +9,9 @@ namespace Pancake.Paths
     [Serializable]
     public class BezierNodeWithRotation : BezierNode, ICopyable<BezierNodeWithRotation>
     {
-        [SerializeField]
-        Quaternion _rotation = Quaternion.identity;
+        [SerializeField] Quaternion _rotation = Quaternion.identity;
 
-        [SerializeField]
-        bool _lookTangent = false;
+        [SerializeField] bool _lookTangent = false;
 
 
         public Quaternion rotation
@@ -96,16 +94,10 @@ namespace Pancake.Paths
         }
 
 
-        public bool IsNodeLookTangent(int nodeIndex)
-        {
-            return node(nodeIndex).lookTangent;
-        }
+        public bool IsNodeLookTangent(int nodeIndex) { return node(nodeIndex).lookTangent; }
 
 
-        public void SetNodeLookTangent(int nodeIndex, bool lookTangent)
-        {
-            node(nodeIndex).lookTangent = lookTangent;
-        }
+        public void SetNodeLookTangent(int nodeIndex, bool lookTangent) { node(nodeIndex).lookTangent = lookTangent; }
 
 
         public override void InsertNode(int nodeIndex)
@@ -125,8 +117,8 @@ namespace Pancake.Paths
                 }
                 else
                 {
-                    node(nodeIndex).rotation = node(nodeIndex-1).rotation;
-                    node(nodeIndex).lookTangent = node(nodeIndex-1).lookTangent;
+                    node(nodeIndex).rotation = node(nodeIndex - 1).rotation;
+                    node(nodeIndex).lookTangent = node(nodeIndex - 1).lookTangent;
                 }
             }
         }
@@ -157,5 +149,4 @@ namespace Pancake.Paths
             target.rotation = GetRotation(location);
         }
     }
-
 } // namespace Pancake.Paths

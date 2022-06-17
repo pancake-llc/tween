@@ -13,23 +13,14 @@ namespace Pancake
         /// </summary>
         public static float GetPerceivedBrightness(Color color)
         {
-            return Mathf.Sqrt(
-                0.241f * color.r * color.r +
-                0.691f * color.g * color.g +
-                0.068f * color.b * color.b);
+            return Mathf.Sqrt(0.241f * color.r * color.r + 0.691f * color.g * color.g + 0.068f * color.b * color.b);
         }
 
 
         /// <summary>
         /// Convert a LDR color value to an ARGB32 format uint value.
         /// </summary>
-        public static uint ToARGB32(Color c)
-        {
-            return ((uint)(c.a * 255) << 24)
-                 | ((uint)(c.r * 255) << 16)
-                 | ((uint)(c.g * 255) << 8)
-                 | ((uint)(c.b * 255));
-        }
+        public static uint ToARGB32(Color c) { return ((uint) (c.a * 255) << 24) | ((uint) (c.r * 255) << 16) | ((uint) (c.g * 255) << 8) | ((uint) (c.b * 255)); }
 
 
         /// <summary>
@@ -37,12 +28,7 @@ namespace Pancake
         /// </summary>
         public static Color FromARGB32(uint argb)
         {
-            return new Color(
-                ((argb >> 16) & 0xFF) / 255f,
-                ((argb >> 8) & 0xFF) / 255f,
-                ((argb) & 0xFF) / 255f,
-                ((argb >> 24) & 0xFF) / 255f);
-
+            return new Color(((argb >> 16) & 0xFF) / 255f, ((argb >> 8) & 0xFF) / 255f, ((argb) & 0xFF) / 255f, ((argb >> 24) & 0xFF) / 255f);
         }
 
 
@@ -52,10 +38,7 @@ namespace Pancake
         /// </summary>
         public static Color HueToColor(float hue)
         {
-            return new Color(
-                HueToGreen(hue + 1f / 3f),
-                HueToGreen(hue),
-                HueToGreen(hue - 1f / 3f));
+            return new Color(HueToGreen(hue + 1f / 3f), HueToGreen(hue), HueToGreen(hue - 1f / 3f));
 
             float HueToGreen(float h)
             {
@@ -67,7 +50,5 @@ namespace Pancake
                 return 0f;
             }
         }
-
     } // struct ColorUtilities
-
 } // namespace Pancake

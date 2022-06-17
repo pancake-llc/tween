@@ -11,7 +11,7 @@ namespace Pancake.Paths
     {
         protected abstract class BezierPathFloatingWindow<T> : FloatingWindow<T> where T : BezierPath<Node>
         {
-            int _selectedType;     // -1: BackControlPoint, 0: MiddleControlPoint, 1: ForwardControlPoint
+            int _selectedType; // -1: BackControlPoint, 0: MiddleControlPoint, 1: ForwardControlPoint
 
 
             protected override void OnEnable()
@@ -94,7 +94,12 @@ namespace Pancake.Paths
                         using (var scope = ChangeCheckScope.New(path))
                         {
                             Handles.color = capSelectedColor;
-                            if (selectedTool == 0) back = Handles.FreeMoveHandle(back, Quaternion.identity, capSize * 2, snap, Handles.RectangleHandleCap);
+                            if (selectedTool == 0)
+                                back = Handles.FreeMoveHandle(back,
+                                    Quaternion.identity,
+                                    capSize * 2,
+                                    snap,
+                                    Handles.RectangleHandleCap);
                             else if (selectedTool == 1) back = Handles.PositionHandle(back, path.transform.rotation);
                             if (scope.changed) path.SetNodeBackControlPoint(i, back);
                         }
@@ -102,7 +107,11 @@ namespace Pancake.Paths
                     else
                     {
                         Handles.color = capNormalColor;
-                        if (Handles.Button(back, Quaternion.identity, capSize, capSize, Handles.DotHandleCap))
+                        if (Handles.Button(back,
+                                Quaternion.identity,
+                                capSize,
+                                capSize,
+                                Handles.DotHandleCap))
                         {
                             selectedNode = i;
                             _selectedType = -1;
@@ -118,7 +127,12 @@ namespace Pancake.Paths
                         using (var scope = ChangeCheckScope.New(path))
                         {
                             Handles.color = capSelectedColor;
-                            if (selectedTool == 0) forward = Handles.FreeMoveHandle(forward, Quaternion.identity, capSize * 2, snap, Handles.RectangleHandleCap);
+                            if (selectedTool == 0)
+                                forward = Handles.FreeMoveHandle(forward,
+                                    Quaternion.identity,
+                                    capSize * 2,
+                                    snap,
+                                    Handles.RectangleHandleCap);
                             else if (selectedTool == 1) forward = Handles.PositionHandle(forward, path.transform.rotation);
                             if (scope.changed) path.SetNodeForwardControlPoint(i, forward);
                         }
@@ -126,7 +140,11 @@ namespace Pancake.Paths
                     else
                     {
                         Handles.color = capNormalColor;
-                        if (Handles.Button(forward, Quaternion.identity, capSize, capSize, Handles.DotHandleCap))
+                        if (Handles.Button(forward,
+                                Quaternion.identity,
+                                capSize,
+                                capSize,
+                                Handles.DotHandleCap))
                         {
                             selectedNode = i;
                             _selectedType = 1;
@@ -141,7 +159,12 @@ namespace Pancake.Paths
                         using (var scope = ChangeCheckScope.New(path))
                         {
                             Handles.color = capSelectedColor;
-                            if (selectedTool == 0) middle = Handles.FreeMoveHandle(middle, Quaternion.identity, capSize * 2, snap, Handles.RectangleHandleCap);
+                            if (selectedTool == 0)
+                                middle = Handles.FreeMoveHandle(middle,
+                                    Quaternion.identity,
+                                    capSize * 2,
+                                    snap,
+                                    Handles.RectangleHandleCap);
                             else if (selectedTool == 1) middle = Handles.PositionHandle(middle, path.transform.rotation);
                             if (scope.changed) path.SetNodePosition(i, middle);
                         }
@@ -149,7 +172,11 @@ namespace Pancake.Paths
                     else
                     {
                         Handles.color = capNormalColor;
-                        if (Handles.Button(middle, Quaternion.identity, capSize, capSize, Handles.DotHandleCap))
+                        if (Handles.Button(middle,
+                                Quaternion.identity,
+                                capSize,
+                                capSize,
+                                Handles.DotHandleCap))
                         {
                             selectedNode = i;
                             _selectedType = 0;
@@ -157,9 +184,7 @@ namespace Pancake.Paths
                     }
                 }
             }
-
         } // class BezierPathFloatingWindow
-
     } // class BezierPath<Node>
 
 
@@ -180,7 +205,6 @@ namespace Pancake.Paths
             Undo.DestroyObjectImmediate(this);
         }
     }
-
 } // namespace Pancake.Paths
 
 #endif

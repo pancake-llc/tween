@@ -23,26 +23,19 @@ namespace Pancake.Tween
     {
         public bool enabled = true;
 
-        [SerializeField]
-        float _minNormalizedTime = 0f;
+        [SerializeField] float _minNormalizedTime = 0f;
 
-        [SerializeField]
-        float _maxNormalizedTime = 1f;
+        [SerializeField] float _maxNormalizedTime = 1f;
 
-        [SerializeField]
-        bool _holdBeforeStart = true;
+        [SerializeField] bool _holdBeforeStart = true;
 
-        [SerializeField]
-        bool _holdAfterEnd = true;
+        [SerializeField] bool _holdAfterEnd = true;
 
-        [SerializeField]
-        CustomizableInterpolator _interpolator = default;
+        [SerializeField] CustomizableInterpolator _interpolator = default;
 
-        [SerializeField]
-        bool _foldout = true;   // Editor Only
+        [SerializeField] bool _foldout = true; // Editor Only
 
-        [SerializeField]
-        string _comment = null; // Editor Only
+        [SerializeField] string _comment = null; // Editor Only
 
         public float minNormalizedTime
         {
@@ -66,18 +59,10 @@ namespace Pancake.Tween
         }
 
 
-        public bool holdBeforeStart
-        {
-            get => _holdBeforeStart;
-            set => _holdBeforeStart = value;
-        }
+        public bool holdBeforeStart { get => _holdBeforeStart; set => _holdBeforeStart = value; }
 
 
-        public bool holdAfterEnd
-        {
-            get => _holdAfterEnd;
-            set => _holdAfterEnd = value;
-        }
+        public bool holdAfterEnd { get => _holdAfterEnd; set => _holdAfterEnd = value; }
 
 
         public void Sample(float normalizedTime)
@@ -103,7 +88,5 @@ namespace Pancake.Tween
 
 
         public abstract void Interpolate(float factor);
-
     } // class TweenAnimation
-
 } // UnityExtensions.Tween

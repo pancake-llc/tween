@@ -81,8 +81,8 @@ namespace Pancake
             {
                 if (_allAssemblyTypes == null)
                 {
-                    _allAssemblyTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(
-                        t =>
+                    _allAssemblyTypes = AppDomain.CurrentDomain.GetAssemblies()
+                        .SelectMany(t =>
                         {
                             try
                             {
@@ -94,6 +94,7 @@ namespace Pancake
                             }
                         });
                 }
+
                 return _allAssemblyTypes;
             }
         }
@@ -108,20 +109,27 @@ namespace Pancake
         /// </summary>
         public static int fixedFrameCount { get; private set; }
 
-        public static float GetUnitedDeltaTime(TimeMode mode)
-        {
-            return mode == TimeMode.Normal ? unitedDeltaTime : unitedUnscaledDeltaTime;
-        }
+        public static float GetUnitedDeltaTime(TimeMode mode) { return mode == TimeMode.Normal ? unitedDeltaTime : unitedUnscaledDeltaTime; }
 
         public static void AddUpdate(UpdateMode mode, Action action)
         {
             switch (mode)
             {
-                case UpdateMode.FixedUpdate: fixedUpdate += action; return;
-                case UpdateMode.WaitForFixedUpdate: waitForFixedUpdate += action; return;
-                case UpdateMode.Update: update += action; return;
-                case UpdateMode.LateUpdate: lateUpdate += action; return;
-                case UpdateMode.WaitForEndOfFrame: waitForEndOfFrame += action; return;
+                case UpdateMode.FixedUpdate:
+                    fixedUpdate += action;
+                    return;
+                case UpdateMode.WaitForFixedUpdate:
+                    waitForFixedUpdate += action;
+                    return;
+                case UpdateMode.Update:
+                    update += action;
+                    return;
+                case UpdateMode.LateUpdate:
+                    lateUpdate += action;
+                    return;
+                case UpdateMode.WaitForEndOfFrame:
+                    waitForEndOfFrame += action;
+                    return;
             }
         }
 
@@ -129,11 +137,21 @@ namespace Pancake
         {
             switch (mode)
             {
-                case UpdateMode.FixedUpdate: fixedUpdate -= action; return;
-                case UpdateMode.WaitForFixedUpdate: waitForFixedUpdate -= action; return;
-                case UpdateMode.Update: update -= action; return;
-                case UpdateMode.LateUpdate: lateUpdate -= action; return;
-                case UpdateMode.WaitForEndOfFrame: waitForEndOfFrame -= action; return;
+                case UpdateMode.FixedUpdate:
+                    fixedUpdate -= action;
+                    return;
+                case UpdateMode.WaitForFixedUpdate:
+                    waitForFixedUpdate -= action;
+                    return;
+                case UpdateMode.Update:
+                    update -= action;
+                    return;
+                case UpdateMode.LateUpdate:
+                    lateUpdate -= action;
+                    return;
+                case UpdateMode.WaitForEndOfFrame:
+                    waitForEndOfFrame -= action;
+                    return;
             }
         }
 
@@ -144,10 +162,7 @@ namespace Pancake
             b = c;
         }
 
-        public static bool IsNullOrEmpty<T>(T collection) where T : ICollection
-        {
-            return collection == null || collection.Count == 0;
-        }
+        public static bool IsNullOrEmpty<T>(T collection) where T : ICollection { return collection == null || collection.Count == 0; }
 
         /// <summary>
         /// Set time scale and FixedUpdate frequency at sametime.
@@ -185,6 +200,7 @@ namespace Pancake
                 var scene = SceneManager.GetSceneAt(i);
                 if (match(scene)) return scene;
             }
+
             return default;
         }
 
@@ -199,6 +215,7 @@ namespace Pancake
                 var scene = SceneManager.GetSceneAt(i);
                 if (match(scene)) return i;
             }
+
             return -1;
         }
 
@@ -387,9 +404,6 @@ namespace Pancake
                     call();
                 }
             }
-
         } // class GlobalComponent
-
     } // struct RuntimeUtilities
-
 } // namespace Pancake

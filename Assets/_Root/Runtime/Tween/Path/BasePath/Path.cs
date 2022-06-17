@@ -13,7 +13,7 @@ namespace Pancake.Paths
         [Serializable]
         public class Node : CubicSpline, ICopyable<Node>
         {
-            public float pathLength;        // 从路径起点到此段终点的路径长度
+            public float pathLength; // 从路径起点到此段终点的路径长度
 
 
             public void Copy(Node target)
@@ -30,8 +30,8 @@ namespace Pancake.Paths
         [Serializable]
         public struct Location
         {
-            public int index;       // 路径段索引
-            public float time;      // 路径段时间 (三次样条参数 t)
+            public int index; // 路径段索引
+            public float time; // 路径段时间 (三次样条参数 t)
 
             public Location(int index, float time)
             {
@@ -76,10 +76,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 世界缩放的绝对值
         /// </summary>
-        public float absWorldScale
-        {
-            get { return _worldScale >= 0f ? _worldScale : -_worldScale; }
-        }
+        public float absWorldScale { get { return _worldScale >= 0f ? _worldScale : -_worldScale; } }
 
 
         /// <summary>
@@ -117,6 +114,7 @@ namespace Pancake.Paths
                     {
                         this[i].lengthError = value;
                     }
+
                     _firstInvalidPathLengthIndex = 0;
                 }
             }
@@ -126,11 +124,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 路径长度误差
         /// </summary>
-        public float lengthError
-        {
-            get { return _localLengthError * absWorldScale; }
-            set { localLengthError = value / absWorldScale; }
-        }
+        public float lengthError { get { return _localLengthError * absWorldScale; } set { localLengthError = value / absWorldScale; } }
 
 
         /// <summary>
@@ -150,13 +144,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 路径总长度
         /// </summary>
-        public float length
-        {
-            get
-            {
-                return localLength * absWorldScale;
-            }
-        }
+        public float length { get { return localLength * absWorldScale; } }
 
 
         /// <summary>
@@ -178,10 +166,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 路径长度采样是否有效
         /// </summary>
-        public bool isSamplesValid
-        {
-            get { return _firstInvalidPathLengthIndex >= segmentCount; }
-        }
+        public bool isSamplesValid { get { return _firstInvalidPathLengthIndex >= segmentCount; } }
 
 
         protected abstract Node this[int i] { get; }
@@ -231,7 +216,12 @@ namespace Pancake.Paths
         // 设置 CardinalPath 参数
         protected void SetLocalCardinalSegment(int segmentIndex, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float tension)
         {
-            this[segmentIndex].SetCardinalCurve(p0, p1, p2, p3, tension);
+            this[segmentIndex]
+            .SetCardinalCurve(p0,
+                p1,
+                p2,
+                p3,
+                tension);
 
             if (_firstInvalidPathLengthIndex > segmentIndex)
             {
@@ -258,9 +248,7 @@ namespace Pancake.Paths
                 }
                 else
                 {
-                    this[_firstInvalidPathLengthIndex].pathLength =
-                        this[_firstInvalidPathLengthIndex].length +
-                        this[_firstInvalidPathLengthIndex - 1].pathLength;
+                    this[_firstInvalidPathLengthIndex].pathLength = this[_firstInvalidPathLengthIndex].length + this[_firstInvalidPathLengthIndex - 1].pathLength;
                 }
             }
         }
@@ -269,10 +257,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 对路径长度采样
         /// </summary>
-        public void ValidateSamples()
-        {
-            ValidatePathLength(segmentCount - 1);
-        }
+        public void ValidateSamples() { ValidatePathLength(segmentCount - 1); }
 
 
         /// <summary>
@@ -285,6 +270,7 @@ namespace Pancake.Paths
             {
                 this[i].InvalidateSamples();
             }
+
             _firstInvalidPathLengthIndex = 0;
         }
 
@@ -295,10 +281,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="localPoint"> 本地坐标 </param>
         /// <returns> 路径本地点对应的世界坐标 </returns>
-        public Vector3 TransformPoint(Vector3 localPoint)
-        {
-            return transform.TransformDirection(_worldScale * localPoint) + transform.position;
-        }
+        public Vector3 TransformPoint(Vector3 localPoint) { return transform.TransformDirection(_worldScale * localPoint) + transform.position; }
 
 
         /// <summary>
@@ -308,10 +291,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="localVector"> 本地向量 </param>
         /// <returns> 路径本地向量对应的世界向量 </returns>
-        public Vector3 TransformVector(Vector3 localVector)
-        {
-            return transform.TransformDirection(_worldScale * localVector);
-        }
+        public Vector3 TransformVector(Vector3 localVector) { return transform.TransformDirection(_worldScale * localVector); }
 
 
         /// <summary>
@@ -321,10 +301,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="localDirection"> 本地方向 </param>
         /// <returns> 路径本地方向对应的世界方向 </returns>
-        public Vector3 TransformDirection(Vector3 localDirection)
-        {
-            return transform.TransformDirection(Mathf.Sign(_worldScale) * localDirection);
-        }
+        public Vector3 TransformDirection(Vector3 localDirection) { return transform.TransformDirection(Mathf.Sign(_worldScale) * localDirection); }
 
 
         /// <summary>
@@ -346,10 +323,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="worldPoint"> 世界坐标 </param>
         /// <returns> 世界坐标对应的路径本地点 </returns>
-        public Vector3 InverseTransformPoint(Vector3 worldPoint)
-        {
-            return transform.InverseTransformDirection(worldPoint - transform.position) / _worldScale;
-        }
+        public Vector3 InverseTransformPoint(Vector3 worldPoint) { return transform.InverseTransformDirection(worldPoint - transform.position) / _worldScale; }
 
 
         /// <summary>
@@ -359,10 +333,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="worldVector"> 世界向量 </param>
         /// <returns> 世界向量对应的路径本地向量 </returns>
-        public Vector3 InverseTransformVector(Vector3 worldVector)
-        {
-            return transform.InverseTransformDirection(worldVector) / _worldScale;
-        }
+        public Vector3 InverseTransformVector(Vector3 worldVector) { return transform.InverseTransformDirection(worldVector) / _worldScale; }
 
 
         /// <summary>
@@ -372,10 +343,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="worldDirection"> 世界方向 </param>
         /// <returns> 世界方向对应的路径本地方向 </returns>
-        public Vector3 InverseTransformDirection(Vector3 worldDirection)
-        {
-            return transform.InverseTransformDirection(worldDirection) * Mathf.Sign(_worldScale);
-        }
+        public Vector3 InverseTransformDirection(Vector3 worldDirection) { return transform.InverseTransformDirection(worldDirection) * Mathf.Sign(_worldScale); }
 
 
         /// <summary>
@@ -460,6 +428,7 @@ namespace Pancake.Paths
             {
                 len += this[location.index - 1].pathLength;
             }
+
             if (space == Space.Self) return len;
             else return len * absWorldScale;
         }
@@ -505,7 +474,7 @@ namespace Pancake.Paths
             // 如果建议开始索引无效, 则重新估算开始索引
             if (startSegmentIndex < 0 || startSegmentIndex > lastSegmentIndex)
             {
-                location.index = (int)(length / totalLength * lastSegmentIndex);
+                location.index = (int) (length / totalLength * lastSegmentIndex);
             }
             else
             {
@@ -522,7 +491,6 @@ namespace Pancake.Paths
                         location.time = this[0].GetLocationByLength(length);
                         return location;
                     }
-
                 } while (this[--location.index].pathLength > length);
 
                 location.time = this[location.index + 1].GetLocationByLength(length - this[location.index].pathLength);
@@ -593,7 +561,6 @@ namespace Pancake.Paths
             path1._localLengthError = path2._localLengthError;
             path1._firstInvalidPathLengthIndex = path2._firstInvalidPathLengthIndex;
         }
-
     } // class Path
 
 
@@ -626,10 +593,7 @@ namespace Pancake.Paths
 
 
         // Node List 移除节点
-        protected void RemoveNodeInternal(int nodeIndex)
-        {
-            _nodes.RemoveAt(nodeIndex);
-        }
+        protected void RemoveNodeInternal(int nodeIndex) { _nodes.RemoveAt(nodeIndex); }
 
 
         /// <summary>
@@ -643,9 +607,7 @@ namespace Pancake.Paths
         }
 
 
-        protected static void Copy<N1, N2>(Path<N1> path1, Path<N2> path2)
-            where N1 : Node, ICopyable<N1>, new()
-            where N2 : Node, ICopyable<N2>, new()
+        protected static void Copy<N1, N2>(Path<N1> path1, Path<N2> path2) where N1 : Node, ICopyable<N1>, new() where N2 : Node, ICopyable<N2>, new()
         {
             int count = path2._nodes.Count;
             path1._nodes = new List<N1>(count);
@@ -658,7 +620,5 @@ namespace Pancake.Paths
 
             CopyBaseData(path1, path2);
         }
-
     } // class Path<Node>
-
 } // namespace Pancake.Paths

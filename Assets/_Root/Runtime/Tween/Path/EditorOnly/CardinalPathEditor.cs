@@ -50,10 +50,7 @@ namespace Pancake.Paths
             }
 
 
-            protected override Vector3 GetSceneGUIFocus(T path)
-            {
-                return path.GetNodePosition(selectedNode);
-            }
+            protected override Vector3 GetSceneGUIFocus(T path) { return path.GetNodePosition(selectedNode); }
 
 
             protected override void OnMoveToolSceneGUI(T path)
@@ -79,7 +76,11 @@ namespace Pancake.Paths
                         using (var scope = ChangeCheckScope.New(path))
                         {
                             Handles.color = capNormalColor;
-                            point = Handles.FreeMoveHandle(point, Quaternion.identity, capSize, snap, Handles.CircleHandleCap);
+                            point = Handles.FreeMoveHandle(point,
+                                Quaternion.identity,
+                                capSize,
+                                snap,
+                                Handles.CircleHandleCap);
 
                             tension = MathUtilities.ClosestPointOnSegmentFactor(point, point1, point2);
                             //tension = (float)Math.Round(tension, 2);
@@ -115,7 +116,12 @@ namespace Pancake.Paths
                         using (var scope = ChangeCheckScope.New(path))
                         {
                             Handles.color = capSelectedColor;
-                            if (selectedTool == 0) position = Handles.FreeMoveHandle(position, Quaternion.identity, capSize * 2, snap, Handles.RectangleHandleCap);
+                            if (selectedTool == 0)
+                                position = Handles.FreeMoveHandle(position,
+                                    Quaternion.identity,
+                                    capSize * 2,
+                                    snap,
+                                    Handles.RectangleHandleCap);
                             else position = Handles.PositionHandle(position, path.transform.rotation);
                             if (scope.changed) path.SetNodePosition(i, position);
                         }
@@ -123,16 +129,18 @@ namespace Pancake.Paths
                     else
                     {
                         Handles.color = capNormalColor;
-                        if (Handles.Button(position, Quaternion.identity, capSize, capSize, Handles.DotHandleCap))
+                        if (Handles.Button(position,
+                                Quaternion.identity,
+                                capSize,
+                                capSize,
+                                Handles.DotHandleCap))
                         {
                             selectedNode = i;
                         }
                     }
                 }
             }
-
         } // class CardinalPathFloatingWindow
-
     } // class CardinalPath<Node>
 
 
@@ -153,7 +161,6 @@ namespace Pancake.Paths
             Undo.DestroyObjectImmediate(this);
         }
     }
-
 } // namespace Pancake.Paths
 
 #endif

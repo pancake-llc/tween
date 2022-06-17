@@ -10,8 +10,7 @@ namespace Pancake.Tween
     [System.Serializable]
     public abstract class TweenColor<TTarget> : TweenFromTo<Color, TTarget> where TTarget : Object
     {
-        [ToggleButton("Working Mode", "Gradient", "From-To")]
-        public bool useGradient;
+        [ToggleButton("Working Mode", "Gradient", "From-To")] public bool useGradient;
         public Gradient gradient;
         public bool toggleRGB;
         public bool toggleAlpha;
@@ -32,6 +31,7 @@ namespace Pancake.Tween
                         t.g = c.g;
                         t.b = c.b;
                     }
+
                     if (toggleAlpha) t.a = c.a;
                 }
                 else
@@ -42,6 +42,7 @@ namespace Pancake.Tween
                         t.g = (to.g - from.g) * factor + from.g;
                         t.b = (to.b - from.b) * factor + from.b;
                     }
+
                     if (toggleAlpha) t.a = (to.a - from.a) * factor + from.a;
                 }
 
@@ -107,8 +108,18 @@ namespace Pancake.Tween
                 {
                     using (LabelWidthScope.New(12))
                     {
-                        fromProp.colorValue = EditorGUI.ColorField(fromRect, EditorGUIUtilities.TempContent("F"), fromProp.colorValue, false, false, hdr);
-                        toProp.colorValue = EditorGUI.ColorField(toRect, EditorGUIUtilities.TempContent("T"), toProp.colorValue, false, false, hdr);
+                        fromProp.colorValue = EditorGUI.ColorField(fromRect,
+                            EditorGUIUtilities.TempContent("F"),
+                            fromProp.colorValue,
+                            false,
+                            false,
+                            hdr);
+                        toProp.colorValue = EditorGUI.ColorField(toRect,
+                            EditorGUIUtilities.TempContent("T"),
+                            toProp.colorValue,
+                            false,
+                            false,
+                            hdr);
                     }
                 }
 
@@ -116,12 +127,11 @@ namespace Pancake.Tween
                     fromProp.FindPropertyRelative(nameof(Color.a)),
                     toProp.FindPropertyRelative(nameof(Color.a)),
                     property.FindPropertyRelative(nameof(toggleAlpha)),
-                    0, 1);
+                    0,
+                    1);
             }
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenColor<TTarget>
-
 } // namespace Pancake.Tween

@@ -27,11 +27,8 @@ namespace Pancake
                 }
                 else EditorGUI.LabelField(position, label, "Use LayerAttribute with int.");
             }
-
         } // class LayerDrawer
 
 #endif // UNITY_EDITOR
-
     } // LayerAttribute
-
 } // namespace Pancake

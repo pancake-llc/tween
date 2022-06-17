@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// Axis
@@ -10,12 +9,12 @@ namespace Pancake
     {
         None = 0,
 
-        PositiveX = 1,      // 000 001
-        PositiveY = 2,      // 000 010
-        PositiveZ = 4,      // 000 100
-        NegativeX = 8,      // 001 000
-        NegativeY = 16,     // 010 000
-        NegativeZ = 32,     // 100 000
+        PositiveX = 1, // 000 001
+        PositiveY = 2, // 000 010
+        PositiveZ = 4, // 000 100
+        NegativeX = 8, // 001 000
+        NegativeY = 16, // 010 000
+        NegativeZ = 32, // 100 000
 
         X = 9,
         Y = 18,
@@ -38,5 +37,4 @@ namespace Pancake
         Vertical,
         Opposite,
     }
-
 } // namespace Pancake

@@ -55,18 +55,10 @@ namespace Pancake.Paths
         }
 
 
-        public Vector3 forwardControlPoint
-        {
-            get { return position + _forwardTangent; }
-            set { forwardTangent = value - position; }
-        }
+        public Vector3 forwardControlPoint { get { return position + _forwardTangent; } set { forwardTangent = value - position; } }
 
 
-        public Vector3 backControlPoint
-        {
-            get { return position + _backTangent; }
-            set { backTangent = value - position; }
-        }
+        public Vector3 backControlPoint { get { return position + _backTangent; } set { backTangent = value - position; } }
 
 
         public bool broken
@@ -83,9 +75,7 @@ namespace Pancake.Paths
                         float backLength = _backTangent.magnitude;
                         if (forwardLength > MathUtilities.OneMillionth && backLength > MathUtilities.OneMillionth)
                         {
-                            _forwardTangent = Vector3.Slerp(_forwardTangent,
-                                -forwardLength / backLength * _backTangent,
-                                backLength / (forwardLength + backLength));
+                            _forwardTangent = Vector3.Slerp(_forwardTangent, -forwardLength / backLength * _backTangent, backLength / (forwardLength + backLength));
 
                             OnForwardTangentChanged();
 
@@ -111,7 +101,5 @@ namespace Pancake.Paths
             _backTangent = target._backTangent;
             _broken = target._broken;
         }
-
     } // class BezierNode
-
 } // namespace Pancake.Paths

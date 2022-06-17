@@ -16,10 +16,7 @@ namespace Pancake
     {
         int _indentLevel;
 
-        public IndentAttribute(int indentLevel = 1)
-        {
-            _indentLevel = indentLevel;
-        }
+        public IndentAttribute(int indentLevel = 1) { _indentLevel = indentLevel; }
 
 #if UNITY_EDITOR
 
@@ -35,7 +32,5 @@ namespace Pancake
         }
 
 #endif // UNITY_EDITOR
-
     } // class IndentAttribute
-
 } // namespace Pancake

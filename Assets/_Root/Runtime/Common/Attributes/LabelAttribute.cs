@@ -36,7 +36,5 @@ namespace Pancake
         }
 
 #endif // UNITY_EDITOR
-
     }
-
 } // namespace Pancake

@@ -38,33 +38,24 @@ namespace Pancake
                 switch (property.propertyType)
                 {
                     case SerializedPropertyType.Float:
-                        {
-                            property.floatValue = Mathf.Clamp(
-                                EditorGUI.FloatField(position, label, property.floatValue),
-                                attribute._min,
-                                attribute._max);
-                            break;
-                        }
+                    {
+                        property.floatValue = Mathf.Clamp(EditorGUI.FloatField(position, label, property.floatValue), attribute._min, attribute._max);
+                        break;
+                    }
                     case SerializedPropertyType.Integer:
-                        {
-                            property.intValue = Mathf.Clamp(
-                                EditorGUI.IntField(position, label, property.intValue),
-                                (int)attribute._min,
-                                (int)attribute._max);
-                            break;
-                        }
+                    {
+                        property.intValue = Mathf.Clamp(EditorGUI.IntField(position, label, property.intValue), (int) attribute._min, (int) attribute._max);
+                        break;
+                    }
                     default:
-                        {
-                            EditorGUI.LabelField(position, label.text, "Use MinMax with float or int.");
-                            break;
-                        }
+                    {
+                        EditorGUI.LabelField(position, label.text, "Use MinMax with float or int.");
+                        break;
+                    }
                 }
             }
-
         } // class MinMaxDrawer
 
 #endif // UNITY_EDITOR
-
     } // class MinMaxAttribute
-
 } // namespace Pancake

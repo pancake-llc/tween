@@ -60,11 +60,8 @@ namespace Pancake
                     property.boolValue = GUI.Toggle(position, property.boolValue, label, EditorStyles.miniButton);
                 }
             }
-
         } // class ToggleButtonDrawer
 
 #endif // UNITY_EDITOR
-
     } // class ToggleButtonAttribute
-
 } // namespace Pancake

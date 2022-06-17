@@ -23,17 +23,13 @@ namespace Pancake
     [Serializable]
     public class StackState : BaseStackState
     {
-        [SerializeField]
-        UnityEvent _onPush = default;
+        [SerializeField] UnityEvent _onPush = default;
 
-        [SerializeField]
-        UnityEvent _onPop = default;
+        [SerializeField] UnityEvent _onPop = default;
 
-        [SerializeField]
-        UnityEvent _onSuspend = default;
+        [SerializeField] UnityEvent _onSuspend = default;
 
-        [SerializeField]
-        UnityEvent _onResume = default;
+        [SerializeField] UnityEvent _onResume = default;
 
         public event UnityAction onPush
         {
@@ -75,26 +71,12 @@ namespace Pancake
             remove { _onResume?.RemoveListener(value); }
         }
 
-        public override void OnPush()
-        {
-            _onPush?.Invoke();
-        }
+        public override void OnPush() { _onPush?.Invoke(); }
 
-        public override void OnPop()
-        {
-            _onPop?.Invoke();
-        }
+        public override void OnPop() { _onPop?.Invoke(); }
 
-        public override void OnSuspend()
-        {
-            _onSuspend?.Invoke();
-        }
+        public override void OnSuspend() { _onSuspend?.Invoke(); }
 
-        public override void OnResume()
-        {
-            _onResume?.Invoke();
-        }
-
+        public override void OnResume() { _onResume?.Invoke(); }
     } // class StackState
-
 } // namespace Pancake

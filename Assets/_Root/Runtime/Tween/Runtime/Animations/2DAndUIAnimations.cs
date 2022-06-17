@@ -19,7 +19,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.alpha : 1f;
-            set { if (target) target.alpha = value; }
+            set
+            {
+                if (target) target.alpha = value;
+            }
         }
     }
 
@@ -29,7 +32,10 @@ namespace Pancake.Tween
         public override Color current
         {
             get => target ? target.color : Color.white;
-            set { if (target) target.color = value; }
+            set
+            {
+                if (target) target.color = value;
+            }
         }
     }
 
@@ -39,7 +45,10 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.fillAmount : 1;
-            set { if (target) target.fillAmount = value; }
+            set
+            {
+                if (target) target.fillAmount = value;
+            }
         }
     }
 
@@ -50,7 +59,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.cellSize : default;
-            set { if (target) target.cellSize = value; }
+            set
+            {
+                if (target) target.cellSize = value;
+            }
         }
     }
 
@@ -60,7 +72,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.spacing : default;
-            set { if (target) target.spacing = value; }
+            set
+            {
+                if (target) target.spacing = value;
+            }
         }
     }
 
@@ -72,7 +87,10 @@ namespace Pancake.Tween
         public override Color current
         {
             get => target ? target.color : Color.white;
-            set { if (target) target.color = value; }
+            set
+            {
+                if (target) target.color = value;
+            }
         }
     }
 
@@ -85,10 +103,12 @@ namespace Pancake.Tween
         public override float current
         {
             get => target ? target.fontSize : 1f;
-            set { if (target) target.fontSize = value; }
+            set
+            {
+                if (target) target.fontSize = value;
+            }
         }
     }
 
 #endif
-
 } // namespace Pancake.Tween

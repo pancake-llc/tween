@@ -7,8 +7,7 @@ namespace Pancake
     /// </summary>
     public abstract class ConfigurableUpdateComponent : ScriptableComponent
     {
-        [SerializeField]
-        UpdateMode _updateMode = UpdateMode.Update;
+        [SerializeField] UpdateMode _updateMode = UpdateMode.Update;
 
 
         bool _registered = false;
@@ -29,11 +28,11 @@ namespace Pancake
                         RuntimeUtilities.RemoveUpdate(_updateMode, OnUpdate);
                         RuntimeUtilities.AddUpdate(value, OnUpdate);
 
-                        #if UNITY_EDITOR
-                            _addedUpdateMode = value;
-                        #endif
+#if UNITY_EDITOR
+                        _addedUpdateMode = value;
+#endif
                     }
-                    
+
                     _updateMode = value;
                 }
             }
@@ -48,9 +47,9 @@ namespace Pancake
             RuntimeUtilities.AddUpdate(_updateMode, OnUpdate);
             _registered = true;
 
-            #if UNITY_EDITOR
-                _addedUpdateMode = _updateMode;
-            #endif
+#if UNITY_EDITOR
+            _addedUpdateMode = _updateMode;
+#endif
         }
 
 
@@ -77,7 +76,5 @@ namespace Pancake
         }
 
 #endif
-
     } // class ConfigurableUpdateComponent
-
 } // namespace Pancake

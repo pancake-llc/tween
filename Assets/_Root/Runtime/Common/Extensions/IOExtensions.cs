@@ -50,7 +50,11 @@ namespace Pancake
             BinaryIO<string>.read = r => r.ReadString();
             BinaryIO<string>.write = (w, v) => w.Write(v);
             TextIO<string>.write = (w, v) => w.Write(v);
-            TextIO<string>.tryParse = (string t, out string v) => { v = t; return t != null; };
+            TextIO<string>.tryParse = (string t, out string v) =>
+            {
+                v = t;
+                return t != null;
+            };
 
             BinaryIO<sbyte>.read = r => r.ReadSByte();
             BinaryIO<sbyte>.write = (w, v) => w.Write(v);
@@ -101,62 +105,41 @@ namespace Pancake
         /// <summary>
         /// Register a custom type reading function to BinaryReader.
         /// </summary>
-        public static void Register<T>(Func<BinaryReader, T> read)
-        {
-            BinaryIO<T>.read = read;
-        }
+        public static void Register<T>(Func<BinaryReader, T> read) { BinaryIO<T>.read = read; }
 
         /// <summary>
         /// Register a custom type writing function to BinaryWriter.
         /// </summary>
-        public static void Register<T>(Action<BinaryWriter, T> write)
-        {
-            BinaryIO<T>.write = write;
-        }
+        public static void Register<T>(Action<BinaryWriter, T> write) { BinaryIO<T>.write = write; }
 
         /// <summary>
         /// Register a custom type writing function to TextWriter.
         /// </summary>
-        public static void Register<T>(Action<TextWriter, T> write)
-        {
-            TextIO<T>.write = write;
-        }
+        public static void Register<T>(Action<TextWriter, T> write) { TextIO<T>.write = write; }
 
         /// <summary>
         /// Register a custom type parsing function.
         /// </summary>
-        public static void Register<T>(TryParseFunc<T> tryParse)
-        {
-            TextIO<T>.tryParse = tryParse;
-        }
+        public static void Register<T>(TryParseFunc<T> tryParse) { TextIO<T>.tryParse = tryParse; }
 
         /// <summary>
         /// Read a specific type data from the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
-        public static T Read<T>(this BinaryReader reader)
-        {
-            return BinaryIO<T>.read(reader);
-        }
+        public static T Read<T>(this BinaryReader reader) { return BinaryIO<T>.read(reader); }
 
         /// <summary>
         /// Write a specific type data to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
-        public static void Write<T>(this BinaryWriter writer, T value)
-        {
-            BinaryIO<T>.write(writer, value);
-        }
+        public static void Write<T>(this BinaryWriter writer, T value) { BinaryIO<T>.write(writer, value); }
 
         /// <summary>
         /// Write a specific type data to the stream.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// Note: DateTime is always converted to Local time when writing.
         /// </summary>
-        public static void Write<T>(this TextWriter writer, T value)
-        {
-            TextIO<T>.write(writer, value);
-        }
+        public static void Write<T>(this TextWriter writer, T value) { TextIO<T>.write(writer, value); }
 
         /// <summary>
         /// Write a specific type data to the stream.
@@ -173,10 +156,7 @@ namespace Pancake
         /// Try parse a specific type data.
         /// Default support numeric types, DateTime and string, you can use Register to register custom types.
         /// </summary>
-        public static bool TryParse<T>(this string text, out T value)
-        {
-            return TextIO<T>.tryParse(text, out value);
-        }
+        public static bool TryParse<T>(this string text, out T value) { return TextIO<T>.tryParse(text, out value); }
 
         /// <summary>
         /// Read a specific type data list from the stream.
@@ -284,10 +264,10 @@ namespace Pancake
         /// </summary>
         public static void WriteBinary(this Stream stream, int value)
         {
-            stream.WriteByte((byte)(value & 0xFF));
-            stream.WriteByte((byte)((value >> 8) & 0xFF));
-            stream.WriteByte((byte)((value >> 16) & 0xFF));
-            stream.WriteByte((byte)((value >> 24) & 0xFF));
+            stream.WriteByte((byte) (value & 0xFF));
+            stream.WriteByte((byte) ((value >> 8) & 0xFF));
+            stream.WriteByte((byte) ((value >> 16) & 0xFF));
+            stream.WriteByte((byte) ((value >> 24) & 0xFF));
         }
 
         /// <summary>
@@ -301,7 +281,5 @@ namespace Pancake
             int b3 = stream.ReadByte();
             return b0 | (b1 << 8) | (b2 << 16) | (b3 << 24);
         }
-
     } // class IOExtensions
-
 } // namespace Pancake

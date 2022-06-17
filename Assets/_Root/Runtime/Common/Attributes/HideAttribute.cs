@@ -61,7 +61,7 @@ namespace Pancake
 
                 if (result != null)
                 {
-                    if ((bool)result == attribute._value)
+                    if ((bool) result == attribute._value)
                     {
                         attribute._result = 0;
                         return -2f;
@@ -92,11 +92,8 @@ namespace Pancake
                     EditorGUI.LabelField(position, label.text, "Field or Property has error!");
                 }
             }
-
         } // class HideDrawer
 
 #endif
-
     } // class HideAttribute
-
 } // namespace Pancake

@@ -21,11 +21,9 @@ namespace Pancake
     [Serializable]
     public class State : BaseState
     {
-        [SerializeField]
-        UnityEvent _onEnter = default;
+        [SerializeField] UnityEvent _onEnter = default;
 
-        [SerializeField]
-        UnityEvent _onExit = default;
+        [SerializeField] UnityEvent _onExit = default;
 
         public event UnityAction onEnter
         {
@@ -48,17 +46,9 @@ namespace Pancake
         }
 
 
-        public override void OnEnter()
-        {
-            _onEnter?.Invoke();
-        }
+        public override void OnEnter() { _onEnter?.Invoke(); }
 
 
-        public override void OnExit()
-        {
-            _onExit?.Invoke();
-        }
-
+        public override void OnExit() { _onExit?.Invoke(); }
     } // class State
-
 } // namespace Pancake

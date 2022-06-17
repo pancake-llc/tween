@@ -53,11 +53,8 @@ namespace Pancake
                     }
                 }
             }
-
         } // class EulerAnglesDrawer
 
 #endif // UNITY_EDITOR
-
     } // class EulerAnglesAttribute
-
 } // namespace Pancake

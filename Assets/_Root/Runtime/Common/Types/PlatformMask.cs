@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     [System.Flags]
     public enum PlatformMask
@@ -30,5 +29,4 @@ namespace Pancake
         tvOS = 1 << 20,
         Stadia = 1 << 21,
     }
-
 }

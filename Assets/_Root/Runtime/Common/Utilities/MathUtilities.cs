@@ -104,10 +104,7 @@ namespace Pancake
         /// <summary>
         /// 2^n
         /// </summary>
-        public static double Exp2(double n)
-        {
-            return Math.Exp(n * 0.69314718055994530941723212145818);
-        }
+        public static double Exp2(double n) { return Math.Exp(n * 0.69314718055994530941723212145818); }
 
 
         /// <summary>
@@ -118,7 +115,7 @@ namespace Pancake
         {
             if (value == 0.0) return 0.0;
 
-            int intDigits = (int)Math.Floor(Math.Log10(Math.Abs(value))) + 1;
+            int intDigits = (int) Math.Floor(Math.Log10(Math.Abs(value))) + 1;
 
             if (intDigits <= digits) return Math.Round(value, digits - intDigits);
 
@@ -132,28 +129,19 @@ namespace Pancake
         /// Keeps the specified significant digits and rounds off the rest.
         /// (a float has 6-9 significant digits)
         /// </summary>
-        public static float RoundToSignificantDigitsFloat(float value, int digits)
-        {
-            return (float)RoundToSignificantDigits(value, digits);
-        }
+        public static float RoundToSignificantDigitsFloat(float value, int digits) { return (float) RoundToSignificantDigits(value, digits); }
 
 
         /// <summary>
         /// Linear map to 0-1
         /// </summary>
-        public static float Linear01(float value, float min, float max)
-        {
-            return (value - min) / (max - min);
-        }
+        public static float Linear01(float value, float min, float max) { return (value - min) / (max - min); }
 
 
         /// <summary>
         /// Linear map to 0-1 (Clamped)
         /// </summary>
-        public static float Linear01Clamped(float value, float min, float max)
-        {
-            return Mathf.Clamp01((value - min) / (max - min));
-        }
+        public static float Linear01Clamped(float value, float min, float max) { return Mathf.Clamp01((value - min) / (max - min)); }
 
 
         /// <summary>
@@ -174,22 +162,14 @@ namespace Pancake
         }
 
 
-        public static Rect Lerp(Rect a, Rect b, float t)
-        {
-            return new Rect(
-                Vector2.Lerp(a.position, b.position, t),
-                Vector2.Lerp(a.size, b.size, t));
-        }
+        public static Rect Lerp(Rect a, Rect b, float t) { return new Rect(Vector2.Lerp(a.position, b.position, t), Vector2.Lerp(a.size, b.size, t)); }
 
 
         /// <summary>
         /// Cross two Vector2
         /// </summary>
         /// <returns> The z value of the result Vector3 (x, y are zero) </returns>
-        public static float Cross(Vector2 lhs, Vector2 rhs)
-        {
-            return lhs.x * rhs.y - lhs.y * rhs.x;
-        }
+        public static float Cross(Vector2 lhs, Vector2 rhs) { return lhs.x * rhs.y - lhs.y * rhs.x; }
 
 
         /// <summary>
@@ -301,7 +281,6 @@ namespace Pancake
         }
 
 
-
         /// <summary>
         /// Get the closest point inside a circle.
         /// </summary>
@@ -350,23 +329,14 @@ namespace Pancake
         /// </summary>
         public static float AngleBetweenVectorAndSector(Vector3 vector, Vector3 sectorNormal, Vector3 sectorDirection, float sectorAngle)
         {
-            return Vector3.Angle(
-                Vector3.RotateTowards(
-                    sectorDirection,
-                    Vector3.ProjectOnPlane(vector, sectorNormal),
-                    sectorAngle * 0.5f * Mathf.Deg2Rad,
-                    0f),
-                vector);
+            return Vector3.Angle(Vector3.RotateTowards(sectorDirection, Vector3.ProjectOnPlane(vector, sectorNormal), sectorAngle * 0.5f * Mathf.Deg2Rad, 0f), vector);
         }
 
 
         /// <summary>
         /// Get the closest points on two segments.
         /// </summary>
-        public static void ClosestPointBetweenSegments(
-            Vector3 startA, Vector3 endA,
-            Vector3 startB, Vector3 endB,
-            out Vector3 pointA, out Vector3 pointB)
+        public static void ClosestPointBetweenSegments(Vector3 startA, Vector3 endA, Vector3 startB, Vector3 endB, out Vector3 pointA, out Vector3 pointB)
         {
             Vector3 directionA = endA - startA;
             Vector3 directionB = endB - startB;
@@ -395,6 +365,7 @@ namespace Pancake
                     pointB = pointA;
                     pointA = endA;
                 }
+
                 return;
             }
 
@@ -493,16 +464,16 @@ namespace Pancake
 
             int inputSize = 1;
             int outputSize;
-            int[,] input = new int[,] { { 0 } };
+            int[,] input = new int[,] {{0}};
             int[,] output;
 
             while (true)
             {
                 outputSize = inputSize * 2;
                 output = new int[outputSize, outputSize];
-                for (int i=0; i<inputSize; i++)
+                for (int i = 0; i < inputSize; i++)
                 {
-                    for (int j=0; j<inputSize; j++)
+                    for (int j = 0; j < inputSize; j++)
                     {
                         int value = input[i, j] * 4;
                         output[i, j] = value;
@@ -520,7 +491,5 @@ namespace Pancake
                 }
             }
         }
-
     } // struct MathUtilities
-
 } // namespace Pancake

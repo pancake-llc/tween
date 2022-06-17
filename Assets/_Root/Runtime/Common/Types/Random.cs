@@ -15,7 +15,7 @@ namespace Pancake
 
 
         // Internal static instance, used for assign seed for created instance
-        static Random _static = Create((uint)(DateTime.Now.Ticks & 0x_FFFF_FFFF));
+        static Random _static = Create((uint) (DateTime.Now.Ticks & 0x_FFFF_FFFF));
 
 
         // Update seed
@@ -28,7 +28,7 @@ namespace Pancake
             // 2.Convert to UInt64 to avoid overflow.
             // 3.The result need be compatible with step 1, so minus 1 at last.
             //
-            seed = (uint)((seed % 2147483646U + 1U) * 48271UL % 2147483647UL) - 1U;
+            seed = (uint) ((seed % 2147483646U + 1U) * 48271UL % 2147483647UL) - 1U;
         }
 
 
@@ -43,7 +43,7 @@ namespace Pancake
             // Value range of seed is [0, 2147483645] now
             //
 
-            uint value = (uint)(seed / 2147483646.0 * 1073741824.0);
+            uint value = (uint) (seed / 2147483646.0 * 1073741824.0);
 
             //value = ((value & 0xAAAA_AAAA) >> 1) | ((value & 0x5555_5555) << 1);
 
@@ -56,10 +56,7 @@ namespace Pancake
         /// <summary>
         /// Use a specified seed to create a Random instance.
         /// </summary>
-        public static Random Create(uint seed)
-        {
-            return new Random { seed = seed };
-        }
+        public static Random Create(uint seed) { return new Random {seed = seed}; }
 
 
         /// <summary>
@@ -69,17 +66,14 @@ namespace Pancake
         public static Random Create()
         {
             _static.Next();
-            return new Random { seed = ~_static.seed };
+            return new Random {seed = ~_static.seed};
         }
 
 
         /// <summary>
         /// Get next random float value in range [0, 1).
         /// </summary>
-        public float Range01()
-        {
-            return (float)Next01();
-        }
+        public float Range01() { return (float) Next01(); }
 
 
         /// <summary>
@@ -87,10 +81,7 @@ namespace Pancake
         /// </summary>
         /// <param name="minValue"> The minimum value (included) </param>
         /// <param name="maxValue"> The maximum value (excluded) </param>
-        public float Range(float minValue, float maxValue)
-        {
-            return minValue + (maxValue - minValue) * (float)Next01();
-        }
+        public float Range(float minValue, float maxValue) { return minValue + (maxValue - minValue) * (float) Next01(); }
 
 
         /// <summary>
@@ -98,20 +89,14 @@ namespace Pancake
         /// </summary>
         /// <param name="minValue"> The minimum value (included) </param>
         /// <param name="maxValue"> The maximum value (excluded) </param>
-        public int Range(int minValue, int maxValue)
-        {
-            return minValue + (int)((maxValue - minValue) * Next01());
-        }
+        public int Range(int minValue, int maxValue) { return minValue + (int) ((maxValue - minValue) * Next01()); }
 
 
         /// <summary>
         /// Test a random event with specified probability whether it occurs or not.
         /// </summary>
         /// <param name="probability"> [0f, 1f] </param>
-        public bool Test(float probability)
-        {
-            return Next01() < probability;
-        }
+        public bool Test(float probability) { return Next01() < probability; }
 
 
         /// <summary>
@@ -125,12 +110,7 @@ namespace Pancake
             //
             // https://en.wikipedia.org/wiki/Box-Muller_transform
             //
-            return averageValue + standardDeviation * (float)
-                (
-                    Math.Sqrt(-2 * Math.Log(1 - Next01())) * Math.Sin(MathUtilities.TwoPi * Next01())
-                );
+            return averageValue + standardDeviation * (float) (Math.Sqrt(-2 * Math.Log(1 - Next01())) * Math.Sin(MathUtilities.TwoPi * Next01()));
         }
-
     } // struct Random
-
 } // namespace Pancake

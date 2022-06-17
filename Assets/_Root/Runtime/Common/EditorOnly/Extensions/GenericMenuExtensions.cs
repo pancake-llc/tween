@@ -33,9 +33,7 @@ namespace Pancake.Editor
                 menu.AddItem(content, on, func, userData);
             }
         }
-
     } // class Extensions
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

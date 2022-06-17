@@ -23,6 +23,7 @@ namespace Pancake.Tween.Editor
 
 
         static GUIStyle _buttonStype;
+
         public static GUIStyle buttonStyle
         {
             get
@@ -32,6 +33,7 @@ namespace Pancake.Tween.Editor
                     _buttonStype = new GUIStyle(GUIStyle.none);
                     _buttonStype.clipping = TextClipping.Clip;
                 }
+
                 return _buttonStype;
             }
         }
@@ -40,15 +42,13 @@ namespace Pancake.Tween.Editor
         // 采样
         void Sample(int type, float strength, int maxSegments, float maxError)
         {
-            if (_samples.Count == 0
-                    || type != _lastType
-                    || strength != _lastStrength)
+            if (_samples.Count == 0 || type != _lastType || strength != _lastStrength)
             {
                 _lastType = type;
                 _lastStrength = strength;
                 _samples.Clear();
 
-                var interpolator = new Interpolator((Interpolator.Type)type, strength);
+                var interpolator = new Interpolator((Interpolator.Type) type, strength);
 
                 // 添加第一个点
 
@@ -65,7 +65,7 @@ namespace Pancake.Tween.Editor
 
                 for (int i = 1; i <= maxSegments; i++)
                 {
-                    point.x = i / (float)maxSegments;
+                    point.x = i / (float) maxSegments;
                     point.y = interpolator[point.x];
 
                     if (_minValue > point.y) _minValue = point.y;
@@ -156,16 +156,10 @@ namespace Pancake.Tween.Editor
         }
 
 
-        public override bool CanCacheInspectorGUI(SerializedProperty property)
-        {
-            return false;
-        }
+        public override bool CanCacheInspectorGUI(SerializedProperty property) { return false; }
 
 
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-        {
-            return EditorGUIUtility.singleLineHeight * 2 + 2;
-        }
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) { return EditorGUIUtility.singleLineHeight * 2 + 2; }
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -184,21 +178,21 @@ namespace Pancake.Tween.Editor
                 System.Enum newType;
                 if (fieldInfo.FieldType == typeof(CustomizableInterpolator))
                 {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (CustomizableInterpolator.Type)type, buttonStyle);
+                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (CustomizableInterpolator.Type) type, buttonStyle);
                 }
                 else
                 {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Interpolator.Type)type, buttonStyle);
+                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Interpolator.Type) type, buttonStyle);
                 }
 
                 if (scope.changed)
                 {
-                    typeProp.intValue = type = (int)(CustomizableInterpolator.Type)newType;
+                    typeProp.intValue = type = (int) (CustomizableInterpolator.Type) newType;
                     strengthProp.floatValue = 0.5f;
                 }
             }
 
-            if ((CustomizableInterpolator.Type)type == CustomizableInterpolator.Type.CustomCurve)
+            if ((CustomizableInterpolator.Type) type == CustomizableInterpolator.Type.CustomCurve)
             {
                 EditorGUIUtility.AddCursorRect(position, MouseCursor.Zoom);
                 EditorGUI.PropertyField(position, property.FindPropertyRelative("customCurve"), GUIContent.none);
@@ -207,7 +201,7 @@ namespace Pancake.Tween.Editor
             {
                 bool drawStrength;
 
-                switch ((CustomizableInterpolator.Type)type)
+                switch ((CustomizableInterpolator.Type) type)
                 {
                     case CustomizableInterpolator.Type.Linear:
                     case CustomizableInterpolator.Type.Parabolic:
@@ -223,16 +217,14 @@ namespace Pancake.Tween.Editor
 
                 if (Event.current.type == EventType.Repaint)
                 {
-                    Sample(type, strengthProp.floatValue, Mathf.Min((int)position.width, 256), 0.002f);
+                    Sample(type, strengthProp.floatValue, Mathf.Min((int) position.width, 256), 0.002f);
                     DrawCurve(position, drawStrength);
                 }
             }
 
             EditorGUI.LabelField(buttonRect, EditorGUIUtilities.TempContent(image: EditorGUIUtilities.paneOptionsIconDark), GUIStyle.none);
         }
-
     } // class InterpolatorDrawer
-
 } // namespace Pancake.Tween.Editor
 
 #endif // UNITY_EDITOR

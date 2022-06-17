@@ -17,8 +17,7 @@ namespace Pancake.Paths
             int p0 = circular ? circularIndex(segmentIndex - 1) : Mathf.Max(0, segmentIndex - 1);
             int p3 = circular ? circularIndex(segmentIndex + 2) : Mathf.Min(nodeCount - 1, segmentIndex + 2);
 
-            SetLocalCardinalSegment(
-                segmentIndex,
+            SetLocalCardinalSegment(segmentIndex,
                 node(p0).position,
                 node(segmentIndex).position,
                 circularNode(segmentIndex + 1).position,
@@ -77,19 +76,19 @@ namespace Pancake.Paths
             {
                 n.tension = circularNode(nodeIndex - 1).tension;
                 UpdateSegment(nodeIndex);
-                UpdateSegment(nodeIndex-1);
-                UpdateSegment(nodeIndex-2);
-                UpdateSegment(nodeIndex+1);
+                UpdateSegment(nodeIndex - 1);
+                UpdateSegment(nodeIndex - 2);
+                UpdateSegment(nodeIndex + 1);
             }
             else
             {
                 if (nodeIndex == 0) n.tension = node(1).tension;
                 else n.tension = node(nodeIndex - 1).tension;
-                
-                if (nodeIndex >= 2) UpdateSegment(nodeIndex-2);
-                if (nodeIndex >= 1) UpdateSegment(nodeIndex-1);
-                if (nodeIndex <= nodeCount-2) UpdateSegment(nodeIndex);
-                if (nodeIndex <= nodeCount-3) UpdateSegment(nodeIndex+1);
+
+                if (nodeIndex >= 2) UpdateSegment(nodeIndex - 2);
+                if (nodeIndex >= 1) UpdateSegment(nodeIndex - 1);
+                if (nodeIndex <= nodeCount - 2) UpdateSegment(nodeIndex);
+                if (nodeIndex <= nodeCount - 3) UpdateSegment(nodeIndex + 1);
             }
         }
 
@@ -113,7 +112,7 @@ namespace Pancake.Paths
                 }
                 else
                 {
-                    point = node(nodeCount-1).position * 2 - node(nodeCount-2).position;
+                    point = node(nodeCount - 1).position * 2 - node(nodeCount - 2).position;
                 }
             }
 
@@ -140,7 +139,7 @@ namespace Pancake.Paths
                 {
                     if (nodeIndex >= 2) UpdateSegment(nodeIndex - 2);
                     if (nodeIndex >= 1) UpdateSegment(nodeIndex - 1);
-                    if (nodeIndex <= nodeCount-2) UpdateSegment(nodeIndex);
+                    if (nodeIndex <= nodeCount - 2) UpdateSegment(nodeIndex);
                 }
 
                 return true;
@@ -177,16 +176,16 @@ namespace Pancake.Paths
             if (circular)
             {
                 UpdateSegment(nodeIndex);
-                UpdateSegment(nodeIndex+1);
-                UpdateSegment(nodeIndex-1);
-                UpdateSegment(nodeIndex-2);
+                UpdateSegment(nodeIndex + 1);
+                UpdateSegment(nodeIndex - 1);
+                UpdateSegment(nodeIndex - 2);
             }
             else
             {
                 if (nodeIndex >= 2) UpdateSegment(nodeIndex - 2);
                 if (nodeIndex >= 1) UpdateSegment(nodeIndex - 1);
-                if (nodeIndex <= segmentCount-1) UpdateSegment(nodeIndex);
-                if (nodeIndex <= segmentCount-2) UpdateSegment(nodeIndex + 1);
+                if (nodeIndex <= segmentCount - 1) UpdateSegment(nodeIndex);
+                if (nodeIndex <= segmentCount - 2) UpdateSegment(nodeIndex + 1);
             }
         }
 
@@ -194,10 +193,7 @@ namespace Pancake.Paths
         /// <summary>
         /// 获取路径段的张力
         /// </summary>
-        public float GetSegmentTension(int segmentIndex)
-        {
-            return node(segmentIndex).tension;
-        }
+        public float GetSegmentTension(int segmentIndex) { return node(segmentIndex).tension; }
 
 
         /// <summary>
@@ -259,7 +255,6 @@ namespace Pancake.Paths
 
             return false;
         }
-
     } // class CardinalPath
 
 
@@ -270,5 +265,4 @@ namespace Pancake.Paths
     public partial class CardinalPath : CardinalPath<CardinalNode>
     {
     }
-
 } // namespace Pancake.Paths

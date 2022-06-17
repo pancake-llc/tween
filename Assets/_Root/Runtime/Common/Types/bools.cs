@@ -35,5 +35,4 @@ namespace Pancake
         public bool anyTrue => x || y || z || w;
         public bool allTrue => x && y && z && w;
     }
-
 } // namespace Pancake

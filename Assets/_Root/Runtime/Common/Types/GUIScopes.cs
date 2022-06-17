@@ -9,15 +9,12 @@ namespace Pancake
 
         public static GUIContentColorScope New(Color value)
         {
-            var scope = new GUIContentColorScope { _orginal = GUI.contentColor };
+            var scope = new GUIContentColorScope {_orginal = GUI.contentColor};
             GUI.contentColor = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            GUI.contentColor = _orginal;
-        }
+        void IDisposable.Dispose() { GUI.contentColor = _orginal; }
     }
 
 
@@ -27,15 +24,12 @@ namespace Pancake
 
         public static GUIBackgroundColorScope New(Color value)
         {
-            var scope = new GUIBackgroundColorScope { _orginal = GUI.backgroundColor };
+            var scope = new GUIBackgroundColorScope {_orginal = GUI.backgroundColor};
             GUI.backgroundColor = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            GUI.backgroundColor = _orginal;
-        }
+        void IDisposable.Dispose() { GUI.backgroundColor = _orginal; }
     }
 
 
@@ -45,15 +39,12 @@ namespace Pancake
 
         public static GUIColorScope New(Color value)
         {
-            var scope = new GUIColorScope { _orginal = GUI.color };
+            var scope = new GUIColorScope {_orginal = GUI.color};
             GUI.color = value;
             return scope;
         }
 
-        void IDisposable.Dispose()
-        {
-            GUI.color = _orginal;
-        }
+        void IDisposable.Dispose() { GUI.color = _orginal; }
     }
 
 
@@ -71,10 +62,7 @@ namespace Pancake
             return new GUIGroupScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            GUI.EndGroup();
-        }
+        void IDisposable.Dispose() { GUI.EndGroup(); }
     }
 
 
@@ -92,10 +80,7 @@ namespace Pancake
             return new GUILayoutAreaScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            GUILayout.EndArea();
-        }
+        void IDisposable.Dispose() { GUILayout.EndArea(); }
     }
 
 
@@ -113,10 +98,7 @@ namespace Pancake
             return new GUILayoutHorizontalScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            GUILayout.EndHorizontal();
-        }
+        void IDisposable.Dispose() { GUILayout.EndHorizontal(); }
     }
 
 
@@ -134,10 +116,7 @@ namespace Pancake
             return new GUILayoutVerticalScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            GUILayout.EndVertical();
-        }
+        void IDisposable.Dispose() { GUILayout.EndVertical(); }
     }
 
 
@@ -155,10 +134,6 @@ namespace Pancake
             return new GUILayoutScrollViewScope();
         }
 
-        void IDisposable.Dispose()
-        {
-            GUI.EndScrollView();
-        }
+        void IDisposable.Dispose() { GUI.EndScrollView(); }
     }
-
 } // namespace Pancake

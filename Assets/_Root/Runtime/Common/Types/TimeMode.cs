@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// TimeMode
@@ -9,5 +8,4 @@ namespace Pancake
         Normal = 0,
         Unscaled = 1,
     }
-
 } // namespace Pancake

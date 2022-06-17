@@ -19,7 +19,6 @@ namespace Pancake.Editor
         {
             EditorGUI.PropertyField(position, property, label, property.hasVisibleChildren);
         }
-
     } // BasePropertyDrawer
 
     /// <summary>
@@ -27,10 +26,8 @@ namespace Pancake.Editor
     /// </summary>
     public class BasePropertyDrawer<T> : BasePropertyDrawer where T : PropertyAttribute
     {
-        protected new T attribute => (T)base.attribute;
-
+        protected new T attribute => (T) base.attribute;
     } // class BasePropertyDrawer<T>
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

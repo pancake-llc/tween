@@ -72,10 +72,7 @@ namespace Pancake
         }
 
 
-        public Enumerator GetEnumerator()
-        {
-            return new Enumerator(this);
-        }
+        public Enumerator GetEnumerator() { return new Enumerator(this); }
 
 
         public LinkedList(int capacity = 16)
@@ -91,28 +88,19 @@ namespace Pancake
         /// <summary>
         /// 
         /// </summary>
-        public Node GetNode(int id)
-        {
-            return _array[id];
-        }
+        public Node GetNode(int id) { return _array[id]; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public int GetPrevious(int id)
-        {
-            return _array[id].previous;
-        }
+        public int GetPrevious(int id) { return _array[id].previous; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public int GetNext(int id)
-        {
-            return _array[id].next;
-        }
+        public int GetNext(int id) { return _array[id].next; }
 
 
         int InternalAdd(ref Node node)
@@ -130,6 +118,7 @@ namespace Pancake
                 {
                     Array.Resize(ref _array, _array.Length * 2);
                 }
+
                 index = _arrayCount;
                 _array[_arrayCount++] = node;
             }
@@ -149,6 +138,7 @@ namespace Pancake
             {
                 _array[node.previous].next = node.next;
             }
+
             if (node.next != -1)
             {
                 _array[node.next].previous = node.previous;
@@ -164,7 +154,7 @@ namespace Pancake
 
         public int AddFirst(T value)
         {
-            var node = new Node { previous = -1, next = _first, value = value };
+            var node = new Node {previous = -1, next = _first, value = value};
             int newId = InternalAdd(ref node);
 
             if (_first == -1) _last = newId;
@@ -177,7 +167,7 @@ namespace Pancake
 
         public int AddLast(T value)
         {
-            var node = new Node { previous = _last, next = -1, value = value };
+            var node = new Node {previous = _last, next = -1, value = value};
             int newId = InternalAdd(ref node);
 
             if (_first == -1) _first = newId;
@@ -196,7 +186,7 @@ namespace Pancake
             }
 
             var prevNodeNext = _array[id].next;
-            var node = new Node { previous = id, next = prevNodeNext, value = value };
+            var node = new Node {previous = id, next = prevNodeNext, value = value};
             int newId = InternalAdd(ref node);
 
             if (prevNodeNext == -1) _last = newId;
@@ -216,12 +206,12 @@ namespace Pancake
             }
 
             var nextNodePrevious = _array[id].previous;
-            var node = new Node { previous = nextNodePrevious, next = id, value = value };
+            var node = new Node {previous = nextNodePrevious, next = id, value = value};
             int newId = InternalAdd(ref node);
 
             if (nextNodePrevious == -1) _first = newId;
             else _array[nextNodePrevious].next = newId;
-            
+
             _array[id].previous = newId;
 
             return newId;
@@ -244,6 +234,7 @@ namespace Pancake
             {
                 throw new Exception("invalid id");
             }
+
             InternalRemove(id);
         }
 
@@ -254,6 +245,7 @@ namespace Pancake
             {
                 throw new Exception("empty list");
             }
+
             InternalRemove(_first);
         }
 
@@ -264,6 +256,7 @@ namespace Pancake
             {
                 throw new Exception("empty list");
             }
+
             InternalRemove(_last);
         }
 
@@ -297,12 +290,7 @@ namespace Pancake
                 return _current >= 0;
             }
 
-            public void Reset()
-            {
-                throw new NotSupportedException();
-            }
+            public void Reset() { throw new NotSupportedException(); }
         }
-
     } // class QuickLinkedList<T>
-
 } // namespace Pancake

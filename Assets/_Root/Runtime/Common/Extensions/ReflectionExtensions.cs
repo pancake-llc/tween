@@ -31,6 +31,7 @@ namespace Pancake
                 if (info != null) return info;
                 type = type.BaseType;
             }
+
             return null;
         }
 
@@ -47,6 +48,7 @@ namespace Pancake
                 if (info != null) return info;
                 type = type.BaseType;
             }
+
             return null;
         }
 
@@ -63,6 +65,7 @@ namespace Pancake
                 if (info != null) return info;
                 type = type.BaseType;
             }
+
             return null;
         }
 
@@ -133,28 +136,19 @@ namespace Pancake
         /// <summary>
         /// Get instance field value.
         /// </summary>
-        public static object GetFieldValue(this object instance, string fieldName)
-        {
-            return instance.GetType().GetInstanceField(fieldName).GetValue(instance);
-        }
+        public static object GetFieldValue(this object instance, string fieldName) { return instance.GetType().GetInstanceField(fieldName).GetValue(instance); }
 
 
         /// <summary>
         /// Set static field value.
         /// </summary>
-        public static void SetFieldValue(this Type type, string fieldName, object value)
-        {
-            type.GetStaticField(fieldName).SetValue(null, value);
-        }
+        public static void SetFieldValue(this Type type, string fieldName, object value) { type.GetStaticField(fieldName).SetValue(null, value); }
 
 
         /// <summary>
         /// Get static field value.
         /// </summary>
-        public static object GetFieldValue(this Type type, string fieldName)
-        {
-            return type.GetStaticField(fieldName).GetValue(null);
-        }
+        public static object GetFieldValue(this Type type, string fieldName) { return type.GetStaticField(fieldName).GetValue(null); }
 
 
         /// <summary>
@@ -178,19 +172,13 @@ namespace Pancake
         /// <summary>
         /// Set static property value.
         /// </summary>
-        public static void SetPropertyValue(this Type type, string propertyName, object value)
-        {
-            type.GetStaticProperty(propertyName).SetValue(null, value);
-        }
+        public static void SetPropertyValue(this Type type, string propertyName, object value) { type.GetStaticProperty(propertyName).SetValue(null, value); }
 
 
         /// <summary>
         /// Get static property value.
         /// </summary>
-        public static object GetPropertyValue(this Type type, string propertyName)
-        {
-            return type.GetStaticProperty(propertyName).GetValue(null);
-        }
+        public static object GetPropertyValue(this Type type, string propertyName) { return type.GetStaticProperty(propertyName).GetValue(null); }
 
 
         /// <summary>
@@ -209,7 +197,5 @@ namespace Pancake
         {
             return type.GetStaticMethod(methodName).Invoke(null, parameters);
         }
-
     } // class Extensions
-
 } // namespace Pancake

@@ -16,13 +16,8 @@ namespace Pancake.Paths.Editor
 
 
         [MenuItem("Assets/Create/Unity Extensions/Editor/Paths Editor Resources")]
-        static void CreateAsset()
-        {
-            CreateOrSelectAsset();
-        }
-
+        static void CreateAsset() { CreateOrSelectAsset(); }
     } // EditorResources
-
 } // UnityExtensions.Paths.Editor
 
 #endif

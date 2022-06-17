@@ -15,14 +15,10 @@ namespace Pancake
         /// </summary>
         /// <param name="index"> Start index. </param>
         /// <param name="count"> A negative or zero value means all elements after start index. </param>
-        public static void SetValues<T>(
-            this T[] array,
-            T value = default,
-            int index = 0,
-            int count = 0)
+        public static void SetValues<T>(this T[] array, T value = default, int index = 0, int count = 0)
         {
             int lastIndex = count > 0 ? (index + count) : array.Length;
-            while(index < lastIndex) array[index++] = value;
+            while (index < lastIndex) array[index++] = value;
         }
 
 
@@ -33,22 +29,16 @@ namespace Pancake
         /// <param name="beginColIndex"> Start col index </param>
         /// <param name="endRowIndex"> A negative or zero value means all elements after start index. </param>
         /// <param name="endColIndex"> A negative or zero value means all elements after start index. </param>
-        public static void SetValues<T>(
-            this T[,] array,
-            T value = default,
-            int beginRowIndex = 0,
-            int beginColIndex = 0,
-            int endRowIndex = 0,
-            int endColIndex = 0)
+        public static void SetValues<T>(this T[,] array, T value = default, int beginRowIndex = 0, int beginColIndex = 0, int endRowIndex = 0, int endColIndex = 0)
         {
-            if (endRowIndex <= 0) endRowIndex = array.GetLength(0)-1;
-            if (endColIndex <= 0) endColIndex = array.GetLength(1)-1;
+            if (endRowIndex <= 0) endRowIndex = array.GetLength(0) - 1;
+            if (endColIndex <= 0) endColIndex = array.GetLength(1) - 1;
 
             for (int i = beginRowIndex; i <= endRowIndex; i++)
             {
                 for (int j = beginColIndex; j <= endColIndex; j++)
                 {
-                    array[i,j] = value;
+                    array[i, j] = value;
                 }
             }
         }
@@ -149,14 +139,15 @@ namespace Pancake
                 changed = false;
                 for (int j = index; j < lastIndex; j++)
                 {
-                    if (compare(list[j], list[j+1]) > 0)
+                    if (compare(list[j], list[j + 1]) > 0)
                     {
                         temp = list[j];
-                        list[j] = list[j+1];
-                        list[j+1] = temp;
+                        list[j] = list[j + 1];
+                        list[j + 1] = temp;
                         changed = true;
                     }
                 }
+
                 if (!changed) break;
 
                 lastIndex--;
@@ -164,10 +155,7 @@ namespace Pancake
         }
 
 
-        public static T Last<T>(this IList<T> list)
-        {
-            return list[list.Count - 1];
-        }
+        public static T Last<T>(this IList<T> list) { return list[list.Count - 1]; }
 
 
         public static void Swap<T>(this IList<T> list, int firstIndex, int secondIndex)
@@ -184,11 +172,7 @@ namespace Pancake
         /// <param name="onElement"> param1 is dimension index, param2 is element indexes in every dimension </param>
         /// <param name="beginDimension"> param1 is dimension index, param2 is indexes in every dimension before this dimension </param>
         /// <param name="endDimension"> param1 is dimension index, param2 is indexes in every dimension before this dimension </param>
-        public static void Traverse(
-            this Array array,
-            Action<int, int[]> onElement,
-            Action<int, int[]> beginDimension = null,
-            Action<int, int[]> endDimension = null)
+        public static void Traverse(this Array array, Action<int, int[]> onElement, Action<int, int[]> beginDimension = null, Action<int, int[]> endDimension = null)
         {
             if (array.Length != 0)
             {
@@ -232,10 +216,12 @@ namespace Pancake
                     {
                         return "null";
                     }
+
                     if (obj.GetType() == typeof(string))
                     {
                         return string.Format("\"{0}\"", obj);
                     }
+
                     return obj.ToString();
                 };
             }
@@ -250,22 +236,21 @@ namespace Pancake
                     object obj = array.GetValue(i);
                     builder.Append(elementToString(obj));
                 },
-
                 (d, i) =>
                 {
                     if (d != 0)
                     {
-                        if(i[d - 1] != 0) builder.Append(',');
+                        if (i[d - 1] != 0) builder.Append(',');
                         builder.Append('\n');
-                        while(d != 0)
+                        while (d != 0)
                         {
                             builder.Append('\t');
                             d--;
                         }
                     }
+
                     builder.Append('{');
                 },
-
                 (d, i) =>
                 {
                     if (d + 1 == array.Rank) builder.Append(" }");
@@ -277,13 +262,12 @@ namespace Pancake
                             builder.Append('\t');
                             d--;
                         }
+
                         builder.Append('}');
                     }
                 });
 
             return builder.ToString();
         }
-
     } // class Extensions
-
 } // namespace Pancake

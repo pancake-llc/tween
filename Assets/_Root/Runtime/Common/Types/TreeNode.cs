@@ -15,25 +15,19 @@ namespace Pancake
     {
         [SerializeReference] Node _parent;
         [SerializeReference] Node _next;
-        [SerializeReference] Node _previous;        // the previous of first child references the last child
+        [SerializeReference] Node _previous; // the previous of first child references the last child
         [SerializeReference] Node _firstChild;
 
 
-#region Enumerable & Enumerator
+        #region Enumerable & Enumerator
 
         public struct ChildrenEnumerable
         {
             Node _node;
 
-            internal ChildrenEnumerable(Node node)
-            {
-                _node = node;
-            }
+            internal ChildrenEnumerable(Node node) { _node = node; }
 
-            public ChildrenEnumerator GetEnumerator()
-            {
-                return new ChildrenEnumerator(_node);
-            }
+            public ChildrenEnumerator GetEnumerator() { return new ChildrenEnumerator(_node); }
         }
 
 
@@ -72,6 +66,7 @@ namespace Pancake
                                 Current = Current._parent;
                             }
                         }
+
                         Current = null;
                         return false;
                     }
@@ -83,10 +78,7 @@ namespace Pancake
                 }
             }
 
-            public void Reset()
-            {
-                Current = null;
-            }
+            public void Reset() { Current = null; }
         }
 
 
@@ -94,15 +86,9 @@ namespace Pancake
         {
             Node _node;
 
-            internal ParentsEnumerable(Node node)
-            {
-                _node = node;
-            }
+            internal ParentsEnumerable(Node node) { _node = node; }
 
-            public ParentsEnumerator GetEnumerator()
-            {
-                return new ParentsEnumerator(_node);
-            }
+            public ParentsEnumerator GetEnumerator() { return new ParentsEnumerator(_node); }
         }
 
 
@@ -132,10 +118,7 @@ namespace Pancake
                 }
             }
 
-            public void Reset()
-            {
-                Current = null;
-            }
+            public void Reset() { Current = null; }
         }
 
 
@@ -143,15 +126,9 @@ namespace Pancake
         {
             Node _node;
 
-            internal DirectChildrenEnumerable(Node node)
-            {
-                _node = node;
-            }
+            internal DirectChildrenEnumerable(Node node) { _node = node; }
 
-            public DirectChildrenEnumerator GetEnumerator()
-            {
-                return new DirectChildrenEnumerator(_node);
-            }
+            public DirectChildrenEnumerator GetEnumerator() { return new DirectChildrenEnumerator(_node); }
         }
 
 
@@ -181,13 +158,10 @@ namespace Pancake
                 return Current != null;
             }
 
-            public void Reset()
-            {
-                Current = null;
-            }
+            public void Reset() { Current = null; }
         }
 
-#endregion
+        #endregion
 
 
         /// <summary>
@@ -246,6 +220,7 @@ namespace Pancake
                     n++;
                     node = node._next;
                 }
+
                 return n;
             }
         }
@@ -265,6 +240,7 @@ namespace Pancake
                     n++;
                     node = node._parent;
                 }
+
                 return n;
             }
         }
@@ -282,6 +258,7 @@ namespace Pancake
                 {
                     node = node._parent;
                 }
+
                 return node;
             }
         }
@@ -461,14 +438,13 @@ namespace Pancake
             {
                 if (node == parent) return true;
                 node = node._parent;
-            }
-            while (node != null);
+            } while (node != null);
 
             return false;
         }
 
 
-#region Internal
+        #region Internal
 
         void InternalValidateAttaching(Node parent)
         {
@@ -476,6 +452,7 @@ namespace Pancake
             {
                 DetachParent();
             }
+
             if (parent == null)
             {
                 throw new ArgumentNullException("parent");
@@ -495,14 +472,13 @@ namespace Pancake
             {
                 throw new ArgumentNullException("node");
             }
+
             if (node._parent != this)
             {
                 throw new InvalidOperationException("node is not a child of parent");
             }
         }
 
-#endregion
-
+        #endregion
     } // class TreeNode<Node>
-
 } // namespace Pancake

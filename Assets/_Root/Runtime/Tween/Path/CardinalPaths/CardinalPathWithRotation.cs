@@ -80,16 +80,10 @@ namespace Pancake.Paths
         }
 
 
-        public bool IsNodeLookTangent(int nodeIndex)
-        {
-            return node(nodeIndex).lookTangent;
-        }
+        public bool IsNodeLookTangent(int nodeIndex) { return node(nodeIndex).lookTangent; }
 
 
-        public void SetNodeLookTangent(int nodeIndex, bool lookTangent)
-        {
-            node(nodeIndex).SetLookTangent(this, nodeIndex, lookTangent);
-        }
+        public void SetNodeLookTangent(int nodeIndex, bool lookTangent) { node(nodeIndex).SetLookTangent(this, nodeIndex, lookTangent); }
 
 
         public override void InsertNode(int nodeIndex)
@@ -227,5 +221,4 @@ namespace Pancake.Paths
             target.rotation = GetRotation(location);
         }
     }
-
 } // namespace Pancake.Paths

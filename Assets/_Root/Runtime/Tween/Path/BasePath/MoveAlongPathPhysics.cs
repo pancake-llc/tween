@@ -11,16 +11,13 @@ namespace Pancake.Paths
         public float speed;
 
 
-        [Min(0)] [SerializeField]
-        float _maxSpeed = 100f;
+        [Min(0)] [SerializeField] float _maxSpeed = 100f;
 
 
-        [Min(0)] [SerializeField]
-        float _drag = 0f;
+        [Min(0)] [SerializeField] float _drag = 0f;
 
 
-        [Min(0)] [SerializeField]
-        float _frictionCoefficient = 0.1f;
+        [Min(0)] [SerializeField] float _frictionCoefficient = 0.1f;
 
 
         bool _needInit = true;
@@ -36,31 +33,19 @@ namespace Pancake.Paths
         /// <summary>
         /// 最大速度
         /// </summary>
-        public float maxSpeed
-        {
-            get { return _maxSpeed; }
-            set { _maxSpeed = Mathf.Max(value, 0f); }
-        }
+        public float maxSpeed { get { return _maxSpeed; } set { _maxSpeed = Mathf.Max(value, 0f); } }
 
 
         /// <summary>
         /// 阻力
         /// </summary>
-        public float drag
-        {
-            get { return _drag; }
-            set { _drag = Mathf.Max(value, 0f); }
-        }
+        public float drag { get { return _drag; } set { _drag = Mathf.Max(value, 0f); } }
 
 
         /// <summary>
         /// 摩擦系数
         /// </summary>
-        public float frictionCoefficient
-        {
-            get { return _frictionCoefficient; }
-            set { _frictionCoefficient = Mathf.Max(value, 0f); }
-        }
+        public float frictionCoefficient { get { return _frictionCoefficient; } set { _frictionCoefficient = Mathf.Max(value, 0f); } }
 
 
         void OnDisable()
@@ -120,7 +105,5 @@ namespace Pancake.Paths
                 _needInit = true;
             }
         }
-
     } // class MoveAlongPathPhysics
-
 } // namespace Pancake.Paths

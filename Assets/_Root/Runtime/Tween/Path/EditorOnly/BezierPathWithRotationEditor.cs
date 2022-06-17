@@ -9,8 +9,7 @@ namespace Pancake.Paths
 {
     public partial class BezierPathWithRotation
     {
-        [SerializeField]
-        bool _previewRotation = default;
+        [SerializeField] bool _previewRotation = default;
 
 
         protected override Type floatingWindowType => typeof(BezierPathWithRotationFloatingWindow);
@@ -39,11 +38,15 @@ namespace Pancake.Paths
                     {
                         if (t == count && loc.index != segmentCount - 1) continue;
 
-                        loc.time = (float)t / count;
+                        loc.time = (float) t / count;
                         rot = GetRotation(loc, Space.Self);
                         pos = GetPoint(loc, Space.Self);
 
-                        Handles.ArrowHandleCap(0, pos, rot, 0.75f, EventType.Repaint);
+                        Handles.ArrowHandleCap(0,
+                            pos,
+                            rot,
+                            0.75f,
+                            EventType.Repaint);
                         HandlesUtilities.DrawAALine(pos, pos + rot * Vector3.up);
                     }
                 }
@@ -66,7 +69,6 @@ namespace Pancake.Paths
                     if (scope.changed) path._previewRotation = value;
                 }
             }
-
         } // class Editor
 
 
@@ -115,7 +117,11 @@ namespace Pancake.Paths
                     float size = HandleUtility.GetHandleSize(position);
 
                     Handles.color = handlesRotationColor;
-                    Handles.ArrowHandleCap(0, position, rotation, size, EventType.Repaint);
+                    Handles.ArrowHandleCap(0,
+                        position,
+                        rotation,
+                        size,
+                        EventType.Repaint);
                     HandlesUtilities.DrawAALine(position, position + rotation * Vector3.up * size);
 
                     if (selectedNode == i)
@@ -124,19 +130,29 @@ namespace Pancake.Paths
                         {
                             if (path.IsNodeLookTangent(i))
                             {
-                                rotation = Handles.Disc(rotation, position, rotation * Vector3.forward, size, false, 0.01f);
+                                rotation = Handles.Disc(rotation,
+                                    position,
+                                    rotation * Vector3.forward,
+                                    size,
+                                    false,
+                                    0.01f);
                             }
                             else
                             {
                                 rotation = Handles.RotationHandle(rotation, position);
                             }
+
                             if (scope.changed) path.SetNodeRatation(i, rotation);
                         }
                     }
                     else
                     {
                         Handles.color = capNormalColor;
-                        if (Handles.Button(position, Quaternion.identity, size * capSize, size * capSize, Handles.DotHandleCap))
+                        if (Handles.Button(position,
+                                Quaternion.identity,
+                                size * capSize,
+                                size * capSize,
+                                Handles.DotHandleCap))
                         {
                             selectedNode = i;
                         }
@@ -154,7 +170,6 @@ namespace Pancake.Paths
             Undo.DestroyObjectImmediate(this);
         }
     }
-
 } // namespace Pancake.Paths
 
 #endif

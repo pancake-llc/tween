@@ -32,10 +32,7 @@ namespace Pancake.Tween
         public T from;
         public T to;
 
-        public void SwapFromWithTo()
-        {
-            RuntimeUtilities.Swap(ref from, ref to);
-        }
+        public void SwapFromWithTo() { RuntimeUtilities.Swap(ref from, ref to); }
 
 #if UNITY_EDITOR
 
@@ -52,25 +49,22 @@ namespace Pancake.Tween
 
             menu.AddSeparator(string.Empty);
 
-            menu.AddItem(new GUIContent("Swap 'From' with 'To'"), false, () =>
-            {
-                Undo.RecordObject(player, "Swap 'From' with 'To'");
-                SwapFromWithTo();
-            });
+            menu.AddItem(new GUIContent("Swap 'From' with 'To'"),
+                false,
+                () =>
+                {
+                    Undo.RecordObject(player, "Swap 'From' with 'To'");
+                    SwapFromWithTo();
+                });
         }
 
         protected (SerializedProperty, SerializedProperty) GetFromToProperties(SerializedProperty property)
         {
-            return
-            (
-                property.FindPropertyRelative(nameof(from)),
-                property.FindPropertyRelative(nameof(to))
-            );
+            return (property.FindPropertyRelative(nameof(from)), property.FindPropertyRelative(nameof(to)));
         }
 
 #endif // UNITY_EDITOR
-
-    }// class TweenFromTo<T>
+    } // class TweenFromTo<T>
 
 
     public abstract class TweenUnmanaged<T> : TweenFromTo<T>, ITweenUnmanaged where T : unmanaged
@@ -80,15 +74,9 @@ namespace Pancake.Tween
         /// </summary>
         public abstract T current { get; set; }
 
-        public void LetFromEqualCurrent()
-        {
-            from = current;
-        }
+        public void LetFromEqualCurrent() { from = current; }
 
-        public void LetToEqualCurrent()
-        {
-            to = current;
-        }
+        public void LetToEqualCurrent() { to = current; }
 
 #if UNITY_EDITOR
 
@@ -100,42 +88,37 @@ namespace Pancake.Tween
             from = to = current;
         }
 
-        public override void RecordState()
-        {
-            _temp = current;
-        }
+        public override void RecordState() { _temp = current; }
 
-        public override void RestoreState()
-        {
-            current = _temp;
-        }
+        public override void RestoreState() { current = _temp; }
 
         protected override void CreateOptionsMenu(GenericMenu menu, TweenPlayer player, int index)
         {
             base.CreateOptionsMenu(menu, player, index);
 
-            menu.AddItem(new GUIContent("Let 'From' Equal 'Current'"), false, () =>
-            {
-                Undo.RecordObject(player, "Let 'From' Equal 'Current'");
-                LetFromEqualCurrent();
-            });
+            menu.AddItem(new GUIContent("Let 'From' Equal 'Current'"),
+                false,
+                () =>
+                {
+                    Undo.RecordObject(player, "Let 'From' Equal 'Current'");
+                    LetFromEqualCurrent();
+                });
 
-            menu.AddItem(new GUIContent("Let 'To' Equal 'Current'"), false, () =>
-            {
-                Undo.RecordObject(player, "Let 'To' Equal 'Current'");
-                LetToEqualCurrent();
-            });
+            menu.AddItem(new GUIContent("Let 'To' Equal 'Current'"),
+                false,
+                () =>
+                {
+                    Undo.RecordObject(player, "Let 'To' Equal 'Current'");
+                    LetToEqualCurrent();
+                });
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenUnmanaged<T>
 
 
     [Serializable]
-    public abstract class TweenFromTo<TValue, TTarget> : TweenUnmanaged<TValue>, ITweenFromToWithTarget
-        where TValue : unmanaged
-        where TTarget : UnityEngine.Object
+    public abstract class TweenFromTo<TValue, TTarget> : TweenUnmanaged<TValue>, ITweenFromToWithTarget where TValue : unmanaged where TTarget : UnityEngine.Object
     {
         public TTarget target;
 
@@ -143,12 +126,12 @@ namespace Pancake.Tween
 
         public void LetCurrentEqualFrom()
         {
-            Interpolate(0f);    // supports toggles
+            Interpolate(0f); // supports toggles
         }
 
         public void LetCurrentEqualTo()
         {
-            Interpolate(1f);    // supports toggles
+            Interpolate(1f); // supports toggles
         }
 
 #if UNITY_EDITOR
@@ -179,17 +162,21 @@ namespace Pancake.Tween
         {
             base.CreateOptionsMenu(menu, player, index);
 
-            menu.AddItem(new GUIContent("Let 'Current' Equal 'From'"), () =>
-            {
-                Undo.RecordObject(target, "Let 'Current' Equal 'From'");
-                LetCurrentEqualFrom();
-            }, !target);
+            menu.AddItem(new GUIContent("Let 'Current' Equal 'From'"),
+                () =>
+                {
+                    Undo.RecordObject(target, "Let 'Current' Equal 'From'");
+                    LetCurrentEqualFrom();
+                },
+                !target);
 
-            menu.AddItem(new GUIContent("Let 'Current' Equal 'To'"), () =>
-            {
-                Undo.RecordObject(target, "Let 'Current' Equal 'To'");
-                LetCurrentEqualTo();
-            }, !target);
+            menu.AddItem(new GUIContent("Let 'Current' Equal 'To'"),
+                () =>
+                {
+                    Undo.RecordObject(target, "Let 'Current' Equal 'To'");
+                    LetCurrentEqualTo();
+                },
+                !target);
         }
 
         protected override void OnPropertiesGUI(TweenPlayer player, SerializedProperty property)
@@ -201,7 +188,5 @@ namespace Pancake.Tween
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenFromTo<TValue, TTarget>
-
 } // namespace Pancake.Tween

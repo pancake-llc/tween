@@ -37,8 +37,7 @@ namespace Pancake.Tween
     {
         const float _minDuration = 0.0001f;
 
-        [SerializeField, Min(_minDuration)]
-        float _duration = 1f;
+        [SerializeField, Min(_minDuration)] float _duration = 1f;
 
         /// <summary>
         /// Use unscaled delta time or normal delta time?
@@ -71,16 +70,12 @@ namespace Pancake.Tween
         [NonSerialized] public PlayDirection direction;
 
         float _normalizedTime = 0f;
-        int _state = 0;    // -1: BackArrived, 0: Playing, +1: ForwardArrived
+        int _state = 0; // -1: BackArrived, 0: Playing, +1: ForwardArrived
 
         /// <summary>
         /// The total duration time
         /// </summary>
-        public float duration
-        {
-            get => _duration;
-            set => _duration = value > _minDuration ? value : _minDuration;
-        }
+        public float duration { get => _duration; set => _duration = value > _minDuration ? value : _minDuration; }
 
         /// <summary>
         /// Add or remove callbacks when it's over.
@@ -173,7 +168,7 @@ namespace Pancake.Tween
         /// </summary>
         public TweenAnimation AddAnimation(Type type)
         {
-            var anim = (TweenAnimation)Activator.CreateInstance(type);
+            var anim = (TweenAnimation) Activator.CreateInstance(type);
             (_animations ?? (_animations = new List<TweenAnimation>(4))).Add(anim);
             return anim;
         }
@@ -195,6 +190,7 @@ namespace Pancake.Tween
                     if (item is T result) return result;
                 }
             }
+
             return null;
         }
 
@@ -224,6 +220,7 @@ namespace Pancake.Tween
                     }
                 }
             }
+
             return false;
         }
 
@@ -345,7 +342,5 @@ namespace Pancake.Tween
                 }
             }
         }
-
     } // class TweenPlayer
-
 } // UnityExtensions.Tween

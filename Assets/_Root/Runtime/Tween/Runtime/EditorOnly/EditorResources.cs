@@ -13,13 +13,8 @@ namespace Pancake.Tween.Editor
 
 
         [MenuItem("Assets/Create/Unity Extensions/Editor/Tween Editor Resources")]
-        static void CreateAsset()
-        {
-            CreateOrSelectAsset();
-        }
-
+        static void CreateAsset() { CreateOrSelectAsset(); }
     } // EditorResources
-
 } // UnityExtensions.Tween.Editor
 
 #endif

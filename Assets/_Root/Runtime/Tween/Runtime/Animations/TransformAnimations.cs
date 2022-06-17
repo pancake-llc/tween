@@ -116,9 +116,11 @@ namespace Pancake.Tween
         public override Vector3 current
         {
             get => target ? target.localScale : Vector3.one;
-            set { if (target) target.localScale = value; }
+            set
+            {
+                if (target) target.localScale = value;
+            }
         }
-
     } // class TweenTransformScale
 
 
@@ -133,19 +135,28 @@ namespace Pancake.Tween
         public Vector3 currentPosition
         {
             get => target ? target.position : default;
-            set { if (target) target.position = value; }
+            set
+            {
+                if (target) target.position = value;
+            }
         }
 
         public Quaternion currentRotation
         {
             get => target ? target.rotation : Quaternion.identity;
-            set { if (target) target.rotation = value; }
+            set
+            {
+                if (target) target.rotation = value;
+            }
         }
 
         public Vector3 currentLocalScale
         {
             get => target ? target.localScale : Vector3.one;
-            set { if (target) target.localScale = value; }
+            set
+            {
+                if (target) target.localScale = value;
+            }
         }
 
         public override void Interpolate(float factor)
@@ -156,10 +167,12 @@ namespace Pancake.Tween
                 {
                     currentPosition = Vector3.LerpUnclamped(from.position, to.position, factor);
                 }
+
                 if (toggleRotation)
                 {
                     currentRotation = Quaternion.SlerpUnclamped(from.rotation, to.rotation, factor);
                 }
+
                 if (toggleLocalScale)
                 {
                     currentLocalScale = Vector3.LerpUnclamped(from.localScale, to.localScale, factor);
@@ -217,7 +230,7 @@ namespace Pancake.Tween
             var togglePositionProp = property.FindPropertyRelative(nameof(togglePosition));
             var toggleRotationProp = property.FindPropertyRelative(nameof(toggleRotation));
             var toggleLocalScaleProp = property.FindPropertyRelative(nameof(toggleLocalScale));
-            
+
             rect.width = rect.height + EditorStyles.label.CalcSize(EditorGUIUtilities.TempContent("P")).x;
             togglePositionProp.boolValue = EditorGUI.ToggleLeft(rect, "P", togglePositionProp.boolValue);
 
@@ -245,44 +258,54 @@ namespace Pancake.Tween
             base.CreateOptionsMenu(menu, player, index);
 
             if (!from || !target) menu.AddDisabledItem(new GUIContent("From = Current"));
-            else menu.AddItem(new GUIContent("From = Current"), false, () =>
-            {
-                Undo.RecordObject(from, "From = Current");
-                from.position = currentPosition;
-                from.rotation = currentRotation;
-                from.localScale = currentLocalScale;
-            });
+            else
+                menu.AddItem(new GUIContent("From = Current"),
+                    false,
+                    () =>
+                    {
+                        Undo.RecordObject(from, "From = Current");
+                        from.position = currentPosition;
+                        from.rotation = currentRotation;
+                        from.localScale = currentLocalScale;
+                    });
 
             if (!to || !target) menu.AddDisabledItem(new GUIContent("To = Current"));
-            else menu.AddItem(new GUIContent("To = Current"), false, () =>
-            {
-                Undo.RecordObject(to, "To = Current");
-                to.position = currentPosition;
-                to.rotation = currentRotation;
-                to.localScale = currentLocalScale;
-            });
+            else
+                menu.AddItem(new GUIContent("To = Current"),
+                    false,
+                    () =>
+                    {
+                        Undo.RecordObject(to, "To = Current");
+                        to.position = currentPosition;
+                        to.rotation = currentRotation;
+                        to.localScale = currentLocalScale;
+                    });
 
             if (!from || !target) menu.AddDisabledItem(new GUIContent("Current = From"));
-            else menu.AddItem(new GUIContent("Current = From"), false, () =>
-            {
-                Undo.RecordObject(target, "Current = From");
-                currentPosition = from.position;
-                currentRotation = from.rotation;
-                currentLocalScale = from.localScale;
-            });
+            else
+                menu.AddItem(new GUIContent("Current = From"),
+                    false,
+                    () =>
+                    {
+                        Undo.RecordObject(target, "Current = From");
+                        currentPosition = from.position;
+                        currentRotation = from.rotation;
+                        currentLocalScale = from.localScale;
+                    });
 
             if (!to || !target) menu.AddDisabledItem(new GUIContent("Current = To"));
-            else menu.AddItem(new GUIContent("Current = To"), false, () =>
-            {
-                Undo.RecordObject(target, "Current = To");
-                currentPosition = to.position;
-                currentRotation = to.rotation;
-                currentLocalScale = to.localScale;
-            });
+            else
+                menu.AddItem(new GUIContent("Current = To"),
+                    false,
+                    () =>
+                    {
+                        Undo.RecordObject(target, "Current = To");
+                        currentPosition = to.position;
+                        currentRotation = to.rotation;
+                        currentLocalScale = to.localScale;
+                    });
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenTransform
-
 } // namespace Pancake.Tween

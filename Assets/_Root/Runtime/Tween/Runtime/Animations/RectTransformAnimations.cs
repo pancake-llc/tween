@@ -9,7 +9,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.sizeDelta : default;
-            set { if (target) target.sizeDelta = value; }
+            set
+            {
+                if (target) target.sizeDelta = value;
+            }
         }
     }
 
@@ -19,7 +22,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.anchoredPosition : default;
-            set { if (target) target.anchoredPosition = value; }
+            set
+            {
+                if (target) target.anchoredPosition = value;
+            }
         }
     }
 
@@ -29,7 +35,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.offsetMax : default;
-            set { if (target) target.offsetMax = value; }
+            set
+            {
+                if (target) target.offsetMax = value;
+            }
         }
     }
 
@@ -39,7 +48,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.offsetMin : default;
-            set { if (target) target.offsetMin = value; }
+            set
+            {
+                if (target) target.offsetMin = value;
+            }
         }
     }
 
@@ -49,7 +61,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.anchorMax : default;
-            set { if (target) target.anchorMax = value; }
+            set
+            {
+                if (target) target.anchorMax = value;
+            }
         }
     }
 
@@ -59,8 +74,10 @@ namespace Pancake.Tween
         public override Vector2 current
         {
             get => target ? target.anchorMin : default;
-            set { if (target) target.anchorMin = value; }
+            set
+            {
+                if (target) target.anchorMin = value;
+            }
         }
     }
-
 } // namespace Pancake.Tween

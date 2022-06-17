@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// Stack state.
@@ -35,7 +34,5 @@ namespace Pancake
         /// Called when StateMachine updates this state.
         /// </summary>
         void OnUpdate(float deltaTime);
-
     } // interface IStackState
-
 } // namespace Pancake

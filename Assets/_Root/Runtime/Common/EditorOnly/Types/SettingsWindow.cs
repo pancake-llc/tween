@@ -8,6 +8,7 @@ namespace Pancake.Editor
     public class EditorSettings<T> where T : EditorSettings<T>, new()
     {
         static T _instance;
+
         public static T instance
         {
             get
@@ -17,6 +18,7 @@ namespace Pancake.Editor
                     _instance = new T();
                     EditorJsonUtility.FromJsonOverwrite(_instance._json = _instance.Load(), _instance);
                 }
+
                 return _instance;
             }
         }
@@ -73,13 +75,8 @@ namespace Pancake.Editor
         protected static T settings => EditorSettings<T>.instance;
 
 
-        protected virtual void OnLostFocus()
-        {
-            settings.Serialize();
-        }
-
+        protected virtual void OnLostFocus() { settings.Serialize(); }
     } // class SettingsWindow<T>
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

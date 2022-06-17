@@ -19,10 +19,7 @@ namespace Pancake
         /// <summary>
         /// Set minimum allowed value for int & float field
         /// </summary>
-        public MinAttribute(float min)
-        {
-            _min = min;
-        }
+        public MinAttribute(float min) { _min = min; }
 
 
 #if UNITY_EDITOR
@@ -35,31 +32,24 @@ namespace Pancake
                 switch (property.propertyType)
                 {
                     case SerializedPropertyType.Float:
-                        {
-                            property.floatValue = Mathf.Max(
-                                EditorGUI.FloatField(position, label, property.floatValue),
-                                attribute._min);
-                            break;
-                        }
+                    {
+                        property.floatValue = Mathf.Max(EditorGUI.FloatField(position, label, property.floatValue), attribute._min);
+                        break;
+                    }
                     case SerializedPropertyType.Integer:
-                        {
-                            property.intValue = Mathf.Max(
-                                EditorGUI.IntField(position, label, property.intValue),
-                                (int)attribute._min);
-                            break;
-                        }
+                    {
+                        property.intValue = Mathf.Max(EditorGUI.IntField(position, label, property.intValue), (int) attribute._min);
+                        break;
+                    }
                     default:
-                        {
-                            EditorGUI.LabelField(position, label.text, "Use Min with float or int.");
-                            break;
-                        }
+                    {
+                        EditorGUI.LabelField(position, label.text, "Use Min with float or int.");
+                        break;
+                    }
                 }
             }
-
         } // class MinDrawer
 
 #endif // UNITY_EDITOR
-
     } // class MinAttribute
-
 } // namespace Pancake

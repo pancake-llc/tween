@@ -21,7 +21,7 @@ namespace Pancake
         /// <summary>
         /// Total time since entering the current state.
         /// </summary>
-        public float currentStateTime => (float)_currentStateTime;
+        public float currentStateTime => (float) _currentStateTime;
 
 
         /// <summary>
@@ -45,10 +45,7 @@ namespace Pancake
         /// <summary>
         /// Get the state in the stack by specified index.
         /// </summary>
-        public T GetState(int index)
-        {
-            return _states[index];
-        }
+        public T GetState(int index) { return _states[index]; }
 
 
 #if DEBUG
@@ -66,6 +63,7 @@ namespace Pancake
             {
                 throw new Exception("Can not change state inside OnExit or OnEnter!");
             }
+
             _duringSetting = true;
 #endif
 
@@ -94,6 +92,7 @@ namespace Pancake
             {
                 throw new Exception("Can not change state inside OnExit or OnEnter!");
             }
+
             _duringSetting = true;
 #endif
 
@@ -130,10 +129,7 @@ namespace Pancake
         /// <summary>
         /// Pop all states from the stack.
         /// </summary>
-        public void PopAllStates()
-        {
-            PopStates(_states.Count);
-        }
+        public void PopAllStates() { PopStates(_states.Count); }
 
 
         /// <summary>
@@ -147,18 +143,15 @@ namespace Pancake
                 _states[index]?.OnReset();
                 _states.RemoveAt(index);
             }
+
             _currentStateTime = 0;
         }
 
 
-        protected virtual void StatePopped(T poppedState)
-        {
-        }
+        protected virtual void StatePopped(T poppedState) { }
 
 
-        protected virtual void StatePushed(T pushedState)
-        {
-        }
+        protected virtual void StatePushed(T pushedState) { }
 
 
         /// <summary>
@@ -172,11 +165,6 @@ namespace Pancake
         }
 
 
-        public override void OnReset()
-        {
-            ResetStack();
-        }
-
+        public override void OnReset() { ResetStack(); }
     } // class StackStateMachine
-
 } // namespace Pancake

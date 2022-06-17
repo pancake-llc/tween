@@ -65,7 +65,6 @@ namespace Pancake.Tween
             direction = _directionRecord;
 
 #if SERIALIZE_REFERENCE_SERIALIZATION_FIXED
-
             if (_animations != null)
                 foreach (var anim in _animations)
                     anim.RestoreState();
@@ -116,6 +115,7 @@ namespace Pancake.Tween
                 }
 
                 void StopPreview() { playing = false; }
+
                 void StopPreview2(PlayModeStateChange msg)
                 {
                     if (msg == PlayModeStateChange.ExitingEditMode) playing = false;
@@ -258,6 +258,7 @@ namespace Pancake.Tween
         internal class Editor : BaseEditor<TweenPlayer>
         {
             static GUIStyle _imageButtonStyle;
+
             static GUIStyle imageButtonStyle
             {
                 get
@@ -267,6 +268,7 @@ namespace Pancake.Tween
                         _imageButtonStyle = new GUIStyle(EditorStyles.miniButton);
                         _imageButtonStyle.padding = new RectOffset(0, 0, 0, 0);
                     }
+
                     return _imageButtonStyle;
                 }
             }
@@ -276,20 +278,11 @@ namespace Pancake.Tween
                 get { return EditorGUIUtility.isProSkin ? new Color(0.05f, 0.05f, 0.05f, 0.25f) : new Color(0.25f, 0.25f, 0.25f, 0.25f); }
             }
 
-            internal static Color progressBackgroundValid
-            {
-                get { return EditorGUIUtility.isProSkin ? new Color(0.05f, 0.05f, 0.05f) : new Color(0.25f, 0.25f, 0.25f); }
-            }
+            internal static Color progressBackgroundValid { get { return EditorGUIUtility.isProSkin ? new Color(0.05f, 0.05f, 0.05f) : new Color(0.25f, 0.25f, 0.25f); } }
 
-            internal static Color progressForegroundInvalid
-            {
-                get { return new Color(0f, 0.6f, 0f, 0.25f); }
-            }
+            internal static Color progressForegroundInvalid { get { return new Color(0f, 0.6f, 0f, 0.25f); } }
 
-            internal static Color progressForegroundValid
-            {
-                get { return new Color(0.1f, 0.8f, 0.1f); }
-            }
+            internal static Color progressForegroundValid { get { return new Color(0.1f, 0.8f, 0.1f); } }
 
             internal static Color separatorLineColor
             {
@@ -318,8 +311,7 @@ namespace Pancake.Tween
             {
                 if (_addMenu == null)
                 {
-                    _addMenu = EditorGUIUtilities.CreateMenu(
-                        TweenAnimation.allTypes.Keys,
+                    _addMenu = EditorGUIUtilities.CreateMenu(TweenAnimation.allTypes.Keys,
                         t => new GUIContent(TweenAnimation.allTypes[t].menu),
                         t => MenuItemState.Normal,
                         t =>
@@ -413,8 +405,7 @@ namespace Pancake.Tween
                     rect2.width = EditorGUIUtility.singleLineHeight * 2 - 4;
                     using (GUIContentColorScope.New(target.playing ? progressForegroundValid : EditorGUIUtilities.labelNormalColor))
                     {
-                        target.playing = GUI.Toggle(rect2, target.playing,
-                            EditorGUIUtilities.TempContent(image: EditorResources.instance.play), imageButtonStyle);
+                        target.playing = GUI.Toggle(rect2, target.playing, EditorGUIUtilities.TempContent(image: EditorResources.instance.play), imageButtonStyle);
                     }
 
                     // direction button
@@ -423,8 +414,11 @@ namespace Pancake.Tween
                     {
                         using (GUIContentColorScope.New(EditorGUIUtilities.labelNormalColor))
                         {
-                            if (GUI.Button(rect2, EditorGUIUtilities.TempContent(image: target.direction == PlayDirection.Forward ?
-                                EditorResources.instance.rightArrow : EditorResources.instance.leftArrow), imageButtonStyle))
+                            if (GUI.Button(rect2,
+                                    EditorGUIUtilities.TempContent(image: target.direction == PlayDirection.Forward
+                                        ? EditorResources.instance.rightArrow
+                                        : EditorResources.instance.leftArrow),
+                                    imageButtonStyle))
                             {
                                 target.ReverseDirection();
                             }
@@ -518,6 +512,7 @@ namespace Pancake.Tween
                         ShowAddMenu(buttonRect);
                     }
                 }
+
                 GUILayout.Space(4);
 
                 EditorGUILayout.EndVertical();
@@ -527,11 +522,8 @@ namespace Pancake.Tween
                     SceneView.RepaintAll();
                 }
             }
-
         } // class Editor
-
     } // class TweenPlayer
-
 } // UnityExtensions.Tween
 
 #endif // UNITY_EDITOR

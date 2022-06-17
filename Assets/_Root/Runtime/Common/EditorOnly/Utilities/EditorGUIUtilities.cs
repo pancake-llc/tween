@@ -88,6 +88,7 @@ namespace Pancake.Editor
                     _middleCenterLabelStyle = new GUIStyle(EditorStyles.label);
                     _middleCenterLabelStyle.alignment = TextAnchor.MiddleCenter;
                 }
+
                 return _middleCenterLabelStyle;
             }
         }
@@ -102,18 +103,13 @@ namespace Pancake.Editor
                     _middleLeftLabelStyle = new GUIStyle(EditorStyles.label);
                     _middleLeftLabelStyle.alignment = TextAnchor.MiddleLeft;
                 }
+
                 return _middleLeftLabelStyle;
             }
         }
 
 
-        public static Texture2D paneOptionsIcon
-        {
-            get
-            {
-                return EditorGUIUtility.isProSkin ? paneOptionsIconDark : paneOptionsIconLight;
-            }
-        }
+        public static Texture2D paneOptionsIcon { get { return EditorGUIUtility.isProSkin ? paneOptionsIconDark : paneOptionsIconLight; } }
 
 
         public static Texture2D paneOptionsIconDark
@@ -122,8 +118,9 @@ namespace Pancake.Editor
             {
                 if (_paneOptionsIconDark == null)
                 {
-                    _paneOptionsIconDark = (Texture2D)EditorGUIUtility.Load("Builtin Skins/DarkSkin/Images/pane options.png");
+                    _paneOptionsIconDark = (Texture2D) EditorGUIUtility.Load("Builtin Skins/DarkSkin/Images/pane options.png");
                 }
+
                 return _paneOptionsIconDark;
             }
         }
@@ -135,17 +132,15 @@ namespace Pancake.Editor
             {
                 if (_paneOptionsIconLight == null)
                 {
-                    _paneOptionsIconLight = (Texture2D)EditorGUIUtility.Load("Builtin Skins/LightSkin/Images/pane options.png");
+                    _paneOptionsIconLight = (Texture2D) EditorGUIUtility.Load("Builtin Skins/LightSkin/Images/pane options.png");
                 }
+
                 return _paneOptionsIconLight;
             }
         }
 
 
-        public static Color labelNormalColor
-        {
-            get { return EditorStyles.label.normal.textColor; }
-        }
+        public static Color labelNormalColor { get { return EditorStyles.label.normal.textColor; } }
 
 
         /// <summary>
@@ -214,6 +209,7 @@ namespace Pancake.Editor
                     value.y = EditorGUI.FloatField(rect, "Y", value.y);
                 }
             }
+
             return value;
         }
 
@@ -240,6 +236,7 @@ namespace Pancake.Editor
                     }
                 }
             }
+
             return value;
         }
 
@@ -288,6 +285,7 @@ namespace Pancake.Editor
                         current.Use();
                         EditorGUIUtility.SetWantsMouseJumping(1);
                     }
+
                     break;
 
                 case EventType.MouseUp:
@@ -298,6 +296,7 @@ namespace Pancake.Editor
                         current.Use();
                         EditorGUIUtility.SetWantsMouseJumping(0);
                     }
+
                     break;
 
                 case EventType.MouseDrag:
@@ -305,6 +304,7 @@ namespace Pancake.Editor
                     {
                         break;
                     }
+
                     switch (_dragState)
                     {
                         case 1:
@@ -312,6 +312,7 @@ namespace Pancake.Editor
                             {
                                 _dragState = 2;
                             }
+
                             current.Use();
                             break;
 
@@ -322,6 +323,7 @@ namespace Pancake.Editor
                             current.Use();
                             break;
                     }
+
                     break;
 
                 case EventType.Repaint:
@@ -346,12 +348,7 @@ namespace Pancake.Editor
         /// <summary>
         /// Draw a progress bar that can be dragged.
         /// </summary>
-        public static float DragProgress(
-            Rect rect,
-            float value01,
-            Color backgroundColor,
-            Color foregroundColor,
-            bool draggable = true)
+        public static float DragProgress(Rect rect, float value01, Color backgroundColor, Color foregroundColor, bool draggable = true)
         {
             var progressRect = rect;
             progressRect.width = Mathf.Round(progressRect.width * value01);
@@ -381,6 +378,7 @@ namespace Pancake.Editor
 
                         current.Use();
                     }
+
                     break;
 
                 case EventType.MouseUp:
@@ -390,6 +388,7 @@ namespace Pancake.Editor
                         _dragState = 0;
                         current.Use();
                     }
+
                     break;
 
                 case EventType.MouseDrag:
@@ -397,6 +396,7 @@ namespace Pancake.Editor
                     {
                         break;
                     }
+
                     if (_dragState != 0)
                     {
                         if (draggable)
@@ -409,6 +409,7 @@ namespace Pancake.Editor
 
                         current.Use();
                     }
+
                     break;
 
                 case EventType.Repaint:
@@ -432,7 +433,11 @@ namespace Pancake.Editor
             bool drawForegroundBorder = false,
             bool draggable = true)
         {
-            float result = DragProgress(rect, value01, backgroundColor, foregroundColor, draggable);
+            float result = DragProgress(rect,
+                value01,
+                backgroundColor,
+                foregroundColor,
+                draggable);
 
             DrawWireRect(rect, borderColor);
 
@@ -457,27 +462,23 @@ namespace Pancake.Editor
         /// <param name="getItemContent"> Get content of an item, a separator must ends with '/' </param>
         /// <param name="getItemState"> Get state of an item </param>
         /// <returns> The created menu, use DropDown or ShowAsContext to show it. </returns>
-        public static GenericMenu CreateMenu(
-            int itemCount,
-            Func<int, GUIContent> getItemContent,
-            Func<int, MenuItemState> getItemState,
-            Action<int> onSelect)
+        public static GenericMenu CreateMenu(int itemCount, Func<int, GUIContent> getItemContent, Func<int, MenuItemState> getItemState, Action<int> onSelect)
         {
             GenericMenu menu = new GenericMenu();
             GUIContent content;
             MenuItemState state;
 
-            for(int i=0; i<itemCount; i++)
+            for (int i = 0; i < itemCount; i++)
             {
                 content = getItemContent(i);
-                if(content.text.EndsWith("/"))
+                if (content.text.EndsWith("/"))
                 {
                     menu.AddSeparator(content.text.Substring(0, content.text.Length - 1));
                 }
                 else
                 {
                     state = getItemState(i);
-                    if(state == MenuItemState.Disabled)
+                    if (state == MenuItemState.Disabled)
                     {
                         menu.AddDisabledItem(content);
                     }
@@ -500,11 +501,7 @@ namespace Pancake.Editor
         /// <param name="getItemContent"> Get content of an item, a separator must ends with '/' </param>
         /// <param name="getItemState"> Get state of an item </param>
         /// <returns> The created menu, use DropDown or ShowAsContext to show it. </returns>
-        public static GenericMenu CreateMenu<T>(
-            IEnumerable<T> items,
-            Func<T, GUIContent> getItemContent,
-            Func<T, MenuItemState> getItemState,
-            Action<T> onSelect)
+        public static GenericMenu CreateMenu<T>(IEnumerable<T> items, Func<T, GUIContent> getItemContent, Func<T, MenuItemState> getItemState, Action<T> onSelect)
         {
             GenericMenu menu = new GenericMenu();
             GUIContent content;
@@ -534,9 +531,7 @@ namespace Pancake.Editor
 
             return menu;
         }
-
     } // struct EditorGUIUtilities
-
 } // namespace Pancake.Editor
 
 #endif // UNITY_EDITOR

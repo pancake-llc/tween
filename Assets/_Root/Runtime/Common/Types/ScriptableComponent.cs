@@ -7,7 +7,5 @@ namespace Pancake
     /// </summary>
     public class ScriptableComponent : MonoBehaviour
     {
-
     } // class ScriptableComponent
-
 } // namespace Pancake

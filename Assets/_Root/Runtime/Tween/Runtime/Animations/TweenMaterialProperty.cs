@@ -46,6 +46,7 @@ namespace Pancake.Tween
                 {
                     _propertyID = Shader.PropertyToID(_propertyName);
                 }
+
                 return _propertyID;
             }
         }
@@ -132,10 +133,7 @@ namespace Pancake.Tween
             to = Color.white;
         }
 
-        public override void OnValidate(TweenPlayer player)
-        {
-            _propertyID = -1;
-        }
+        public override void OnValidate(TweenPlayer player) { _propertyID = -1; }
 
         public override void RecordState()
         {
@@ -179,6 +177,7 @@ namespace Pancake.Tween
             {
                 RuntimeUtilities.materialPropertyBlockPool.Despawn(item);
             }
+
             _tempBlocks.Clear();
         }
 
@@ -191,7 +190,7 @@ namespace Pancake.Tween
             public override bool Equals(object obj) => throw new Exception("What are you doing?");
             public static bool operator ==(Property a, Property b) => a.type == b.type && a.name == b.name;
             public static bool operator !=(Property a, Property b) => a.type != b.type || a.name != b.name;
-            public override int GetHashCode() => name.GetHashCode() & (~(int)type);
+            public override int GetHashCode() => name.GetHashCode() & (~(int) type);
         }
 
         void DrawMaterialMask(int materialCount, TweenPlayer player)
@@ -232,17 +231,21 @@ namespace Pancake.Tween
             {
                 GenericMenu menu = new GenericMenu();
 
-                menu.AddItem(new GUIContent("All (Apply to Renderer)"), allMaterialSelected, () =>
-                {
-                    Undo.RecordObject(player, "Select Material");
-                    SelectAllMaterials();
-                });
+                menu.AddItem(new GUIContent("All (Apply to Renderer)"),
+                    allMaterialSelected,
+                    () =>
+                    {
+                        Undo.RecordObject(player, "Select Material");
+                        SelectAllMaterials();
+                    });
 
-                menu.AddItem(new GUIContent("None"), noneMaterialSelected, () =>
-                {
-                    Undo.RecordObject(player, "Select Material");
-                    DeselectAllMaterials();
-                });
+                menu.AddItem(new GUIContent("None"),
+                    noneMaterialSelected,
+                    () =>
+                    {
+                        Undo.RecordObject(player, "Select Material");
+                        DeselectAllMaterials();
+                    });
 
                 if (materialCount > 0) menu.AddSeparator(string.Empty);
 
@@ -294,11 +297,7 @@ namespace Pancake.Tween
                         {
                             if (!ShaderUtil.IsShaderPropertyHidden(shader, idx))
                             {
-                                var prop = new Property
-                                {
-                                    name = ShaderUtil.GetPropertyName(shader, idx),
-                                    type = ShaderUtil.GetPropertyType(shader, idx)
-                                };
+                                var prop = new Property {name = ShaderUtil.GetPropertyName(shader, idx), type = ShaderUtil.GetPropertyType(shader, idx)};
 
                                 if (properties.Contains(prop)) continue;
                                 properties.Add(prop);
@@ -321,12 +320,12 @@ namespace Pancake.Tween
                                 _builder.Append(')');
 
                                 menu.AddItem(new GUIContent(_builder.ToString()),
-                                    _propertyName == prop.name && _propertyType == (Type)(int)prop.type,
+                                    _propertyName == prop.name && _propertyType == (Type) (int) prop.type,
                                     () =>
                                     {
                                         Undo.RecordObject(player, "Select Property");
                                         Type oldType = propertyType;
-                                        SetProperty(prop.name, (Type)(int)prop.type);
+                                        SetProperty(prop.name, (Type) (int) prop.type);
 
                                         if (oldType != propertyType)
                                         {
@@ -399,15 +398,24 @@ namespace Pancake.Tween
 
                     using (LabelWidthScope.New(12))
                     {
-                        fromProp.vector4Value = EditorGUI.ColorField(fromRect, EditorGUIUtilities.TempContent("F"), fromProp.vector4Value, false, true, true);
-                        toProp.vector4Value = EditorGUI.ColorField(toRect, EditorGUIUtilities.TempContent("T"), toProp.vector4Value, false, true, true);
+                        fromProp.vector4Value = EditorGUI.ColorField(fromRect,
+                            EditorGUIUtilities.TempContent("F"),
+                            fromProp.vector4Value,
+                            false,
+                            true,
+                            true);
+                        toProp.vector4Value = EditorGUI.ColorField(toRect,
+                            EditorGUIUtilities.TempContent("T"),
+                            toProp.vector4Value,
+                            false,
+                            true,
+                            true);
                     }
+
                     break;
             }
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenMaterialProperty
-
 } // namespace Pancake.Tween

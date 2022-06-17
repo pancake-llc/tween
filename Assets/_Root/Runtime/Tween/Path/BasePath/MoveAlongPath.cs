@@ -9,11 +9,9 @@ namespace Pancake.Paths
     [DisallowMultipleComponent]
     public class MoveAlongPath : ScriptableComponent
     {
-        [SerializeField, GetSet("path")]
-        Path _path;
+        [SerializeField, GetSet("path")] Path _path;
 
-        [SerializeField]
-        float _distance = default;
+        [SerializeField] float _distance = default;
 
 
         Path.Location _location = new Path.Location(-1, 0);
@@ -56,13 +54,7 @@ namespace Pancake.Paths
         }
 
 
-        public Path.Location location
-        {
-            get
-            {
-                return _location;
-            }
-        }
+        public Path.Location location { get { return _location; } }
 
 
         /// <summary>
@@ -75,7 +67,5 @@ namespace Pancake.Paths
                 _path.SetTransform(transform, _distance, ref _location);
             }
         }
-
     } // class MoveAlongPath
-
 } // namespace Pancake.Paths

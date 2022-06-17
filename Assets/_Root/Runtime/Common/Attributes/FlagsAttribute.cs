@@ -16,10 +16,7 @@ namespace Pancake
     {
         bool _includeObsolete;
 
-        public FlagsAttribute(bool includeObsolete = false)
-        {
-            _includeObsolete = includeObsolete;
-        }
+        public FlagsAttribute(bool includeObsolete = false) { _includeObsolete = includeObsolete; }
 
 
 #if UNITY_EDITOR
@@ -29,7 +26,7 @@ namespace Pancake
         {
             public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
             {
-                var value = (Enum)Enum.ToObject(fieldInfo.FieldType, property.intValue);
+                var value = (Enum) Enum.ToObject(fieldInfo.FieldType, property.intValue);
 
                 using (var scope = ChangeCheckScope.New())
                 {
@@ -40,11 +37,8 @@ namespace Pancake
                     }
                 }
             }
-
         } // class FlagsDrawer
 
 #endif // UNITY_EDITOR
-
     } // class FlagsAttribute
-
 } // namespace Pancake

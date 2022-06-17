@@ -31,22 +31,13 @@ namespace Pancake
         }
 
 
-        public T Spawn()
-        {
-            return _objects.Count > 0 ? _objects.Pop() : CreateInstance();
-        }
+        public T Spawn() { return _objects.Count > 0 ? _objects.Pop() : CreateInstance(); }
 
 
-        public void Despawn(T target)
-        {
-            _objects.Push(target);
-        }
+        public void Despawn(T target) { _objects.Push(target); }
 
 
-        public TempObject GetTemp()
-        {
-            return new TempObject(this);
-        }
+        public TempObject GetTemp() { return new TempObject(this); }
 
 
         public struct TempObject : IDisposable
@@ -69,15 +60,15 @@ namespace Pancake
                 _pool = null;
             }
         }
-
     } // class BaseObjectPool
 
     public class ObjectPool<T> : BaseObjectPool<T> where T : class, new()
     {
         protected override T CreateInstance() => new T();
 
-        public ObjectPool(int initialQuantity = 0) : base(initialQuantity) { }
-
+        public ObjectPool(int initialQuantity = 0)
+            : base(initialQuantity)
+        {
+        }
     } // class ObjectPool
-
 } // namespace Pancake

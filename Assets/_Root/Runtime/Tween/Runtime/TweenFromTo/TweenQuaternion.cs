@@ -8,10 +8,7 @@ namespace Pancake.Tween
 {
     public abstract class TweenQuaternion<TTarget> : TweenFromTo<Quaternion, TTarget> where TTarget : Object
     {
-        public override void Interpolate(float factor)
-        {
-            current = Quaternion.SlerpUnclamped(from, to, factor);
-        }
+        public override void Interpolate(float factor) { current = Quaternion.SlerpUnclamped(from, to, factor); }
 
 #if UNITY_EDITOR
 
@@ -40,16 +37,26 @@ namespace Pancake.Tween
 
             bool3 fromChanged, toChanged;
 
-            FromToFieldLayout("X", ref _fromEulerAngles.x, ref _toEulerAngles.x, out fromChanged.x, out toChanged.x);
-            FromToFieldLayout("Y", ref _fromEulerAngles.y, ref _toEulerAngles.y, out fromChanged.y, out toChanged.y);
-            FromToFieldLayout("Z", ref _fromEulerAngles.z, ref _toEulerAngles.z, out fromChanged.z, out toChanged.z);
+            FromToFieldLayout("X",
+                ref _fromEulerAngles.x,
+                ref _toEulerAngles.x,
+                out fromChanged.x,
+                out toChanged.x);
+            FromToFieldLayout("Y",
+                ref _fromEulerAngles.y,
+                ref _toEulerAngles.y,
+                out fromChanged.y,
+                out toChanged.y);
+            FromToFieldLayout("Z",
+                ref _fromEulerAngles.z,
+                ref _toEulerAngles.z,
+                out fromChanged.z,
+                out toChanged.z);
 
             if (fromChanged.anyTrue) fromProp.quaternionValue = _fromQuaternion = Quaternion.Euler(_fromEulerAngles).normalized;
             if (toChanged.anyTrue) toProp.quaternionValue = _toQuaternion = Quaternion.Euler(_toEulerAngles).normalized;
         }
 
 #endif // UNITY_EDITOR
-
     } // class TweenQuaternion<TTarget>
-
 } // namespace Pancake.Tween

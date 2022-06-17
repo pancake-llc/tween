@@ -81,6 +81,7 @@ namespace Pancake
 
                 return true;
             }
+
             return false;
         }
 
@@ -148,7 +149,5 @@ namespace Pancake
                 if (_tasks.count > 0) Thread.Sleep(1);
             }
         }
-
     } // class TaskQueue<TTask>
-
 } // namespace Pancake

@@ -13,15 +13,14 @@ namespace Pancake.Paths
             var n0 = circularNode(segmentIndex);
             var n1 = circularNode(segmentIndex + 1);
 
-            SetLocalBezierSegment(
-                circularIndex(segmentIndex),
+            SetLocalBezierSegment(circularIndex(segmentIndex),
                 n0.position,
                 n0.forwardControlPoint,
-                n1.backControlPoint, 
+                n1.backControlPoint,
                 n1.position);
         }
 
-        
+
         /// <summary>
         /// 重置 (初始化) 路径
         /// </summary>
@@ -89,7 +88,7 @@ namespace Pancake.Paths
                 position = circularNode(nodeIndex - 1).GetPoint(0.5f);
                 Vector3 tangent = circularNode(nodeIndex - 1).GetTangent(0.5f);
                 forwardTangent = tangent * circularNode(nodeIndex).backTangent.magnitude;
-                backTangent = - tangent * circularNode(nodeIndex - 1).forwardTangent.magnitude;
+                backTangent = -tangent * circularNode(nodeIndex - 1).forwardTangent.magnitude;
             }
             else
             {
@@ -109,7 +108,12 @@ namespace Pancake.Paths
                 }
             }
 
-            InsertNode(nodeIndex, position, forwardTangent, backTangent, false, Space.Self);
+            InsertNode(nodeIndex,
+                position,
+                forwardTangent,
+                backTangent,
+                false,
+                Space.Self);
         }
 
 
@@ -129,6 +133,7 @@ namespace Pancake.Paths
 
                 return true;
             }
+
             return false;
         }
 
@@ -283,10 +288,7 @@ namespace Pancake.Paths
         /// </summary>
         /// <param name="nodeIndex"> 节点索引 </param>
         /// <returns> 节点是否为拐点 </returns>
-        public bool IsNodeBroken(int nodeIndex)
-        {
-            return node(nodeIndex).broken;
-        }
+        public bool IsNodeBroken(int nodeIndex) { return node(nodeIndex).broken; }
 
 
         /// <summary>
@@ -304,7 +306,6 @@ namespace Pancake.Paths
                 if (circular || nodeIndex > 0) UpdateSegment(nodeIndex - 1);
             }
         }
-
     } // class BezierPath
 
 
@@ -315,5 +316,4 @@ namespace Pancake.Paths
     public partial class BezierPath : BezierPath<BezierNode>
     {
     }
-
 } // namespace Pancake.Paths

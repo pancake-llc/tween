@@ -11,7 +11,7 @@ namespace Pancake
         public virtual void OnEnter() { }
         public virtual void OnExit() { }
         public virtual void OnUpdate(float deltaTime) { }
-}
+    }
 
 
     /// <summary>
@@ -21,11 +21,9 @@ namespace Pancake
     [DisallowMultipleComponent]
     public class StateComponent : BaseStateComponent
     {
-        [SerializeField]
-        UnityEvent _onEnter = default;
+        [SerializeField] UnityEvent _onEnter = default;
 
-        [SerializeField]
-        UnityEvent _onExit = default;
+        [SerializeField] UnityEvent _onExit = default;
 
         public event UnityAction onEnter
         {
@@ -48,17 +46,9 @@ namespace Pancake
         }
 
 
-        public override void OnEnter()
-        {
-            _onEnter?.Invoke();
-        }
+        public override void OnEnter() { _onEnter?.Invoke(); }
 
 
-        public override void OnExit()
-        {
-            _onExit?.Invoke();
-        }
-
+        public override void OnExit() { _onExit?.Invoke(); }
     } // class StateComponent
-
 } // namespace Pancake

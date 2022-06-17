@@ -19,8 +19,8 @@ namespace Pancake
 
         static Dictionary<IAsyncResult, int> _ids = new Dictionary<IAsyncResult, int>();
         static LinkedList<Item> _items = new LinkedList<Item>(4);
-        
-        static int _current = -1;   // for 'while' in Update
+
+        static int _current = -1; // for 'while' in Update
 
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Pancake
 
             if (_items.count == 0) RuntimeUtilities.unitedUpdate += Update;
 
-            int id = _items.AddFirst(new Item { task = task, completed = completed, update = update });
+            int id = _items.AddFirst(new Item {task = task, completed = completed, update = update});
             _ids.Add(task, id);
 
             return true;
@@ -45,7 +45,7 @@ namespace Pancake
         public static Task Add(Action asyncAction, Action<Task> completed = null, Action<Task> update = null)
         {
             var task = Task.Run(asyncAction);
-            Add(task, t=>completed?.Invoke(t as Task), t=>update?.Invoke(t as Task));
+            Add(task, t => completed?.Invoke(t as Task), t => update?.Invoke(t as Task));
             return task;
         }
 
@@ -103,7 +103,5 @@ namespace Pancake
                 else return;
             }
         }
-
     } // struct TaskMonitor
-
 } // namespace Pancake

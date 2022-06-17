@@ -10,17 +10,17 @@ namespace Pancake.Paths
     [Serializable]
     public class CubicSpline : ICopyable<CubicSpline>
     {
-        [SerializeField] Vector3 _f0 = default;                   // t^0 系数
-        [SerializeField] Vector3 _f1 = default;                   // t^1 系数
-        [SerializeField] Vector3 _f2 = default;                   // t^2 系数
-        [SerializeField] Vector3 _f3 = default;                   // t^3 系数
+        [SerializeField] Vector3 _f0 = default; // t^0 系数
+        [SerializeField] Vector3 _f1 = default; // t^1 系数
+        [SerializeField] Vector3 _f2 = default; // t^2 系数
+        [SerializeField] Vector3 _f3 = default; // t^3 系数
 
-        [SerializeField] float _lengthError = 0.01f;    // 长度误差
-        [SerializeField] List<Vector2> _samples = default;        // t 对应长度的采样表
+        [SerializeField] float _lengthError = 0.01f; // 长度误差
+        [SerializeField] List<Vector2> _samples = default; // t 对应长度的采样表
 
-        const int _minSegments = 6;                     // 最小分段数
-        const int _maxSegments = 1000000;               // 最大分段数
-        const float _segmentsFactor = 0.2f;             // 分段系数
+        const int _minSegments = 6; // 最小分段数
+        const int _maxSegments = 1000000; // 最大分段数
+        const float _segmentsFactor = 0.2f; // 分段系数
 
 
         public const float minLengthError = 0.001f;
@@ -65,28 +65,19 @@ namespace Pancake.Paths
         /// <summary>
         /// 获取点坐标
         /// </summary>
-        public Vector3 GetPoint(float t)
-        {
-            return _f0 + t * _f1 + t * t * _f2 + t * t * t * _f3;
-        }
+        public Vector3 GetPoint(float t) { return _f0 + t * _f1 + t * t * _f2 + t * t * t * _f3; }
 
 
         /// <summary>
         /// 一阶导
         /// </summary>
-        public Vector3 GetDerivative(float t)
-        {
-            return _f1 + 2f * t * _f2 + 3f * t * t * _f3;
-        }
+        public Vector3 GetDerivative(float t) { return _f1 + 2f * t * _f2 + 3f * t * t * _f3; }
 
 
         /// <summary>
         /// 二阶导
         /// </summary>
-        public Vector3 GetSecondDerivative(float t)
-        {
-            return _f2 + _f2 + 6f * t * _f3;
-        }
+        public Vector3 GetSecondDerivative(float t) { return _f2 + _f2 + 6f * t * _f3; }
 
 
         /// <summary>
@@ -99,14 +90,17 @@ namespace Pancake.Paths
             {
                 return tangent.normalized;
             }
+
             if (t < 0.020001f)
             {
                 return (GetDerivative(t + 0.02f) * 2f - GetDerivative(t + 0.04f)).normalized;
             }
+
             if (t > 0.979999f)
             {
                 return (GetDerivative(t - 0.02f) * 2f - GetDerivative(t - 0.04f)).normalized;
             }
+
             return (GetDerivative(t - 0.02f) + GetDerivative(t + 0.02f)).normalized;
         }
 
@@ -141,19 +135,13 @@ namespace Pancake.Paths
         /// <summary>
         /// 采样数据是否有效
         /// </summary>
-        public bool isSamplesValid
-        {
-            get { return _samples != null && _samples.Count != 0; }
-        }
+        public bool isSamplesValid { get { return _samples != null && _samples.Count != 0; } }
 
 
         /// <summary>
         /// 使采样数据无效
         /// </summary>
-        public void InvalidateSamples()
-        {
-            _samples?.Clear();
-        }
+        public void InvalidateSamples() { _samples?.Clear(); }
 
 
         /// <summary>
@@ -170,13 +158,13 @@ namespace Pancake.Paths
 
             for (int i = 1; i <= _minSegments; i++)
             {
-                currentPoint = GetPoint(i / (float)_minSegments);
+                currentPoint = GetPoint(i / (float) _minSegments);
                 length += (currentPoint - lastPoint).magnitude;
                 lastPoint = currentPoint;
             }
 
             // 计算分段数
-            int segments = Mathf.Clamp((int)(_segmentsFactor / _lengthError * length), _minSegments, _maxSegments);
+            int segments = Mathf.Clamp((int) (_segmentsFactor / _lengthError * length), _minSegments, _maxSegments);
 
             // 准备采样
             Vector2 lastSample = Vector2.zero;
@@ -187,14 +175,14 @@ namespace Pancake.Paths
             float maxSlope = float.MaxValue;
 
             lastPoint = _f0;
-            if (_samples == null) _samples = new List<Vector2>((int)(segments * 0.1f) + 4);
+            if (_samples == null) _samples = new List<Vector2>((int) (segments * 0.1f) + 4);
             _samples.Add(lastSample);
 
             // 执行采样
             for (int i = 1; i <= segments; i++)
             {
                 // 计算当前值
-                currentValue.x = i / (float)segments;
+                currentValue.x = i / (float) segments;
                 currentPoint = GetPoint(currentValue.x);
                 currentValue.y += (currentPoint - lastPoint).magnitude;
                 lastPoint = currentPoint;
@@ -230,7 +218,7 @@ namespace Pancake.Paths
             if (t >= 1f) return _samples[_samples.Count - 1].y;
             if (t <= 0f) return 0f;
 
-            int index = (int)(t * _samples.Count);
+            int index = (int) (t * _samples.Count);
             Vector2 start;
 
             if (_samples[index].x > t)
@@ -258,7 +246,7 @@ namespace Pancake.Paths
             if (length >= _samples[_samples.Count - 1].y) return 1f;
             if (length <= 0f) return 0f;
 
-            int index = (int)(length / _samples[_samples.Count - 1].y * _samples.Count);
+            int index = (int) (length / _samples[_samples.Count - 1].y * _samples.Count);
             Vector2 start;
 
             if (_samples[index].y > length)
@@ -290,7 +278,7 @@ namespace Pancake.Paths
 
             for (int i = 1; i <= segments; i++)
             {
-                current = GetPoint((float)i / segments);
+                current = GetPoint((float) i / segments);
                 closest01 = MathUtilities.ClosestPointOnSegmentFactor(point, last, current);
                 sqrMagnitude = (last + (current - last) * closest01 - point).sqrMagnitude;
 
@@ -332,17 +320,27 @@ namespace Pancake.Paths
             var zTest = UnityEditor.Handles.zTest;
 
             UnityEditor.Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
-            UnityEditor.Handles.DrawBezier(_f0, endPos, startTan, endTan, color, null, width);
+            UnityEditor.Handles.DrawBezier(_f0,
+                endPos,
+                startTan,
+                endTan,
+                color,
+                null,
+                width);
 
             UnityEditor.Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
             color.a *= 0.25f;
-            UnityEditor.Handles.DrawBezier(_f0, endPos, startTan, endTan, color, null, width);
+            UnityEditor.Handles.DrawBezier(_f0,
+                endPos,
+                startTan,
+                endTan,
+                color,
+                null,
+                width);
 
             UnityEditor.Handles.zTest = zTest;
         }
 
 #endif
-
     } // class CubicSpline
-
 } // namespace Pancake.Paths

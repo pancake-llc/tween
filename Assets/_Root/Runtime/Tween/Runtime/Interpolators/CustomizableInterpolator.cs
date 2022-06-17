@@ -27,8 +27,7 @@ namespace Pancake.Tween
 
 
         public Type type;
-        [Range(0, 1)]
-        public float strength;
+        [Range(0, 1)] public float strength;
         public AnimationCurve customCurve;
 
 
@@ -37,10 +36,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> normalized time </param>
         /// <returns> result </returns>
-        public float this[float t]
-        {
-            get { return type == Type.CustomCurve ? customCurve.Evaluate(t) : Interpolator._interpolators[(int)type](t, strength); }
-        }
+        public float this[float t] { get { return type == Type.CustomCurve ? customCurve.Evaluate(t) : Interpolator._interpolators[(int) type](t, strength); } }
 
 
         public CustomizableInterpolator(Type type, float strength = 0.5f, AnimationCurve customCurve = null)
@@ -49,7 +45,5 @@ namespace Pancake.Tween
             this.strength = strength;
             this.customCurve = customCurve;
         }
-
     } // struct CustomizableInterpolator
-
 } // namespace Pancake.Tween

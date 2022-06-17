@@ -12,10 +12,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float Linear(float t)
-        {
-            return t;
-        }
+        public static float Linear(float t) { return t; }
 
 
         /// <summary>
@@ -23,10 +20,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float Accelerate(float t)
-        {
-            return t * t;
-        }
+        public static float Accelerate(float t) { return t * t; }
 
 
         /// <summary>
@@ -34,10 +28,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float AccelerateWeakly(float t)
-        {
-            return t * t * (2f - t);
-        }
+        public static float AccelerateWeakly(float t) { return t * t * (2f - t); }
 
 
         /// <summary>
@@ -45,10 +36,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float AccelerateStrongly(float t)
-        {
-            return t * t * t;
-        }
+        public static float AccelerateStrongly(float t) { return t * t * t; }
 
 
         /// <summary>
@@ -57,10 +45,7 @@ namespace Pancake.Tween
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <param name="strength"> [0, 1] 范围的强度 </param>
         /// <returns> 插值结果 </returns>
-        public static float Accelerate(float t, float strength)
-        {
-            return t* t * ((2f - t) * (1f - strength) + t * strength);
-        }
+        public static float Accelerate(float t, float strength) { return t * t * ((2f - t) * (1f - strength) + t * strength); }
 
 
         /// <summary>
@@ -68,10 +53,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float Decelerate(float t)
-        {
-            return (2f - t) * t;
-        }
+        public static float Decelerate(float t) { return (2f - t) * t; }
 
 
         /// <summary>
@@ -116,10 +98,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float AccelerateDecelerate(float t)
-        {
-            return (3f - t - t) * t * t; 
-        }
+        public static float AccelerateDecelerate(float t) { return (3f - t - t) * t * t; }
 
 
         /// <summary>
@@ -139,10 +118,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float AccelerateDecelerateStrongly(float t)
-        {
-            return ((6f * t - 15f) * t + 10f) * t * t * t;
-        }
+        public static float AccelerateDecelerateStrongly(float t) { return ((6f * t - 15f) * t + 10f) * t * t * t; }
 
 
         /// <summary>
@@ -218,11 +194,13 @@ namespace Pancake.Tween
                 tmp = a * t;
                 return tmp * tmp;
             }
+
             if (t < (1f + k + k) / a)
             {
                 tmp = a * t - 1f - k;
                 return 1f - kk + tmp * tmp;
             }
+
             if (t < (1f + (k + kk) * 2f) / a)
             {
                 tmp = a * t - 1f - k - k - kk;
@@ -239,10 +217,7 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float Parabolic(float t)
-        {
-            return 4f * t * (1f - t);
-        }
+        public static float Parabolic(float t) { return 4f * t * (1f - t); }
 
 
         /// <summary>
@@ -250,11 +225,6 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> 单位化的时间, 即 [0, 1] 范围的数值 </param>
         /// <returns> 插值结果 </returns>
-        public static float Sine(float t)
-        {
-            return Mathf.Sin((t + t + 1.5f) * Mathf.PI) * 0.5f + 0.5f;
-        }
-
+        public static float Sine(float t) { return Mathf.Sin((t + t + 1.5f) * Mathf.PI) * 0.5f + 0.5f; }
     } // struct Interpolator
-
 } // namespace Pancake.Tween

@@ -28,6 +28,7 @@ namespace Pancake
             {
                 component = target.AddComponent<T>();
             }
+
             return component;
         }
 
@@ -35,28 +36,19 @@ namespace Pancake
         /// <summary>
         /// Get component if it exists or add a new one.
         /// </summary>
-        public static T GetComponentSafely<T>(this Component target) where T : Component
-        {
-            return target.gameObject.GetComponentSafely<T>();
-        }
+        public static T GetComponentSafely<T>(this Component target) where T : Component { return target.gameObject.GetComponentSafely<T>(); }
 
 
         /// <summary>
         /// Get the RectTransform component.
         /// </summary>
-        public static RectTransform rectTransform(this Component target)
-        {
-            return target.transform as RectTransform;
-        }
+        public static RectTransform rectTransform(this Component target) { return target.transform as RectTransform; }
 
 
         /// <summary>
         /// Get the RectTransform component.
         /// </summary>
-        public static RectTransform rectTransform(this GameObject target)
-        {
-            return target.transform as RectTransform;
-        }
+        public static RectTransform rectTransform(this GameObject target) { return target.transform as RectTransform; }
 
 
         /// <summary>
@@ -341,22 +333,13 @@ namespace Pancake
         }
 
 
-        public static Vector2 xy(this Vector3 v)
-        {
-            return new Vector2(v.x, v.y);
-        }
+        public static Vector2 xy(this Vector3 v) { return new Vector2(v.x, v.y); }
 
 
-        public static Vector2 yz(this Vector3 v)
-        {
-            return new Vector2(v.y, v.z);
-        }
+        public static Vector2 yz(this Vector3 v) { return new Vector2(v.y, v.z); }
 
 
-        public static Vector2 xz(this Vector3 v)
-        {
-            return new Vector2(v.x, v.z);
-        }
+        public static Vector2 xz(this Vector3 v) { return new Vector2(v.x, v.z); }
 
 
         /// <summary>
@@ -419,10 +402,7 @@ namespace Pancake
         }
 
 
-        public static bool Contains(this PlatformMask mask, RuntimePlatform platform)
-        {
-            return (mask & platform.ToFlag()) != 0;
-        }
+        public static bool Contains(this PlatformMask mask, RuntimePlatform platform) { return (mask & platform.ToFlag()) != 0; }
 
 
         public static float ScreenToWorldSize(this Camera camera, float pixelSize, float clipPlane)
@@ -474,8 +454,8 @@ namespace Pancake
             double fpn = f / n;
 
             return SystemInfo.usesReversedZBuffer
-                ? new Vector4((float)(fpn - 1.0), 1f, (float)(rn - rf), (float)rf)
-                : new Vector4((float)(1.0 - fpn), (float)fpn, (float)(rf - rn), (float)rn);
+                ? new Vector4((float) (fpn - 1.0), 1f, (float) (rn - rf), (float) rf)
+                : new Vector4((float) (1.0 - fpn), (float) fpn, (float) (rf - rn), (float) rn);
         }
 
 
@@ -506,7 +486,5 @@ namespace Pancake
                 triggers[index].callback.RemoveListener(callback);
             }
         }
-
     } // class Extensions
-
 } // namespace Pancake

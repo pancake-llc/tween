@@ -8,5 +8,4 @@ namespace Pancake
     public class ScriptableAsset : ScriptableObject
     {
     } // class ScriptableAsset
-
 } // namespace Pancake

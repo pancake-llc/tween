@@ -1,5 +1,4 @@
-﻿
-namespace Pancake
+﻿namespace Pancake
 {
     /// <summary>
     /// Extensions for string.
@@ -12,6 +11,7 @@ namespace Pancake
             {
                 if (!char.IsWhiteSpace(text, startIndex)) return startIndex;
             }
+
             return -1;
         }
 
@@ -21,14 +21,10 @@ namespace Pancake
             {
                 if (!char.IsWhiteSpace(text, startIndex)) return startIndex;
             }
+
             return -1;
         }
 
-        public static int LastIndexOfNonWhiteSpace(this string text)
-        {
-            return LastIndexOfNonWhiteSpace(text, text.Length - 1);
-        }
-
+        public static int LastIndexOfNonWhiteSpace(this string text) { return LastIndexOfNonWhiteSpace(text, text.Length - 1); }
     } // class Extensions
-
 } // namespace Pancake
