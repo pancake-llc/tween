@@ -1,5 +1,4 @@
 ﻿using Pancake.Common;
-using UnityEngine;
 
 namespace Pancake.Tween
 {
@@ -91,7 +90,7 @@ namespace Pancake.Tween
 
         public static float InOutExpo(float t)
         {
-            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            if (M.Approximately(0f, t) || M.Approximately(1f, t)) return t;
 
             if ((t *= 2) < 1)
             {
@@ -130,19 +129,19 @@ namespace Pancake.Tween
 
         public static float InElastic(float t)
         {
-            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            if (M.Approximately(0f, t) || M.Approximately(1f, t)) return t;
             return -M.Pow(2f, 10f * (t - 1)) * M.Sin((t - 1.1f) * 5f * M.PI);
         }
 
         public static float OutElastic(float t)
         {
-            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            if (M.Approximately(0f, t) || M.Approximately(1f, t)) return t;
             return M.Pow(2f, -10f * t) * M.Sin((t - 0.1f) * 5f * M.PI) + 1f;
         }
 
         public static float InOutElastic(float t)
         {
-            if (M.Approximately(0f, t) || Mathf.Approximately(1f, t)) return t;
+            if (M.Approximately(0f, t) || M.Approximately(1f, t)) return t;
 
             t *= 2;
 
@@ -389,6 +388,6 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> Unitized time, i.e. a value in the range [0, 1] </param>
         /// <returns> Interpolation result </returns>
-        public static float Sine(float t) { return Mathf.Sin((t + t + 1.5f) * Mathf.PI) * 0.5f + 0.5f; }
+        public static float Sine(float t) { return M.Sin((t + t + 1.5f) * M.PI) * 0.5f + 0.5f; }
     } // struct Interpolator
 } // namespace Pancake.Tween
