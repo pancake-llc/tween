@@ -260,7 +260,7 @@ namespace Pancake.Paths
                             rect.x = rect.xMax;
                             if (GUI.Toggle(rect,
                                     selectedTool == 2,
-                                    EditorGUIUtilities.TempContent(null, EditorResources.instance.RotateTool, "Rotate Tool"),
+                                    EditorGUIUtilities.TempContent(null, EditorResources.instance.rotateTool, "Rotate Tool"),
                                     EditorGUIUtilities.buttonRightStyle))
                                 selectedTool = 2;
                         }
