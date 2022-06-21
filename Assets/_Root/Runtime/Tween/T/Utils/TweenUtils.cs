@@ -1,4 +1,7 @@
-﻿namespace Pancake.Tween
+﻿using System;
+using UnityEngine;
+
+namespace Pancake.Tween
 {
     public static class TweenUtils
     {
@@ -6,7 +9,7 @@
         {
             Tween castedTween = tweenToAdd as Tween;
 
-            if(castedTween == null)
+            if (castedTween == null)
             {
                 return false;
             }

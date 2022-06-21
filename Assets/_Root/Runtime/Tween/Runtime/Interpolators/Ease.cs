@@ -44,6 +44,4 @@
         Sine,
         CustomCurve = -1
     }
-
-    public delegate float EaseDelegate(float a, float b, float t);
 }

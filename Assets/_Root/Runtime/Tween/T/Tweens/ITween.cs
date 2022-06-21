@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -17,13 +16,13 @@ namespace Pancake.Tween
         bool IsPlaying { get; }
         bool IsCompleted { get; }
 
-        event Action<float> OnTimeScaleChangedEvent;
-        event Action OnStart;
-        event Action OnLoop;
-        event Action OnReset;
-        event Action OnComplete;
-        event Action OnKill;
-        event Action OnCompleteOrKill;
+        ITween OnTimeScaleChanged(TweenCallback<float> onTimeScaleChange);
+        ITween OnStart(TweenCallback onStart);
+        ITween OnLoop(TweenCallback onLoop);
+        ITween OnReset(TweenCallback onReset);
+        ITween OnComplete(TweenCallback onComplete);
+        ITween OnKill(TweenCallback onKill);
+        ITween OnCompleteOrKill(TweenCallback onCompleteOrKill);
 
         float GetDuration();
         float GetElapsed();
@@ -36,7 +35,7 @@ namespace Pancake.Tween
         ITween SetEase(Ease ease);
         ITween SetEase(AnimationCurve animationCurve);
         ITween SetLoops(int loops, ResetMode resetMode);
-        
+
 
         void Complete();
         void Kill();

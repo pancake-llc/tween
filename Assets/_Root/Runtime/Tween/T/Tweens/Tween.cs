@@ -9,7 +9,13 @@ namespace Pancake.Tween
     public abstract partial class Tween : ITween
     {
         private int _loopsRemaining;
-
+        private event TweenCallback OnStartCallback;
+        private event TweenCallback OnLoopCallback;
+        private event TweenCallback OnResetCallback;
+        private event TweenCallback OnCompleteCallback;
+        private event TweenCallback OnKillCallback;
+        private event TweenCallback OnCompleteOrKillCallback;
+        private event TweenCallback<float> OnTimeScaleChangedCallback;
         protected EaseDelegate EaseFunction { get; set; }
         public float TimeScale { get; private set; }
 
@@ -23,15 +29,51 @@ namespace Pancake.Tween
         public bool IsPlaying { get; protected set; }
         public bool IsCompleted { get; protected set; }
 
+        public ITween OnTimeScaleChanged(TweenCallback<float> onTimeScaleChange)
+        {
+            OnTimeScaleChangedCallback = onTimeScaleChange;
+            return this;
+        }
+
+        public ITween OnStart(TweenCallback onStart)
+        {
+            OnStartCallback = onStart;
+            return this;
+        }
+
+        public ITween OnLoop(TweenCallback onLoop)
+        {
+            OnLoopCallback = onLoop;
+            return this;
+        }
+
+        public ITween OnReset(TweenCallback onReset)
+        {
+            OnResetCallback = onReset;
+            return this;
+        }
+
+        public ITween OnComplete(TweenCallback onComplete)
+        {
+            OnCompleteCallback = onComplete;
+            return this;
+        }
+
+        public ITween OnKill(TweenCallback onKill)
+        {
+            OnKillCallback = onKill;
+            return this;
+        }
+
+        public ITween OnCompleteOrKill(TweenCallback onCompleteOrKill)
+        {
+            OnCompleteOrKillCallback = onCompleteOrKill;
+            return this;
+        }
+
+
         public bool IsAlive { get; set; }
 
-        public event Action<float> OnTimeScaleChangedEvent;
-        public event Action OnStart;
-        public event Action OnLoop;
-        public event Action OnReset;
-        public event Action OnComplete;
-        public event Action OnKill;
-        public event Action OnCompleteOrKill;
 
         internal Tween()
         {
@@ -52,7 +94,7 @@ namespace Pancake.Tween
 
             _loopsRemaining = Loops;
 
-            OnStart?.Invoke();
+            OnStartCallback?.Invoke();
 
             OnTweenStart(isCompletingInstantly);
         }
@@ -91,8 +133,8 @@ namespace Pancake.Tween
 
             OnTweenKill();
 
-            OnKill?.Invoke();
-            OnCompleteOrKill?.Invoke();
+            OnKillCallback?.Invoke();
+            OnCompleteOrKillCallback?.Invoke();
         }
 
         public void Reset(bool kill, ResetMode resetMode = ResetMode.InitialValues)
@@ -108,7 +150,7 @@ namespace Pancake.Tween
 
             OnTweenReset(kill, resetMode);
 
-            OnReset?.Invoke();
+            OnResetCallback?.Invoke();
         }
 
         public float GetDuration() { return OnGetDuration(); }
@@ -153,7 +195,7 @@ namespace Pancake.Tween
             if (M.Approximately(TimeScale, timeScale)) return this;
             TimeScale = timeScale;
             OnTimeScaleChange(timeScale);
-            OnTimeScaleChangedEvent?.Invoke(timeScale);
+            OnTimeScaleChangedCallback?.Invoke(timeScale);
             return this;
         }
 
@@ -216,7 +258,7 @@ namespace Pancake.Tween
 
             Start();
 
-            OnLoop?.Invoke();
+            OnLoopCallback?.Invoke();
 
             return true;
         }
@@ -240,8 +282,8 @@ namespace Pancake.Tween
 
             OnTweenComplete();
 
-            OnComplete?.Invoke();
-            OnCompleteOrKill?.Invoke();
+            OnCompleteCallback?.Invoke();
+            OnCompleteOrKillCallback?.Invoke();
         }
 
         public async Task AwaitCompleteOrKill(CancellationToken cancellationToken)
@@ -253,15 +295,15 @@ namespace Pancake.Tween
 
             TaskCompletionSource<object> taskCompletionSource = new TaskCompletionSource<object>();
 
-            Action onComplete = () => taskCompletionSource.TrySetResult(default);
+            void Callback() => taskCompletionSource.TrySetResult(default);
 
-            OnCompleteOrKill += onComplete;
+            OnCompleteOrKillCallback += Callback;
 
             cancellationToken.Register(Kill);
 
             await taskCompletionSource.Task;
 
-            OnCompleteOrKill -= onComplete;
+            OnCompleteOrKillCallback -= Callback;
         }
 
         protected abstract bool Loopable { get; }
