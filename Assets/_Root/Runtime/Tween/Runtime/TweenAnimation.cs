@@ -43,8 +43,8 @@ namespace Pancake.Tween
             get { return minNormalizedTime; }
             set
             {
-                minNormalizedTime = Mathf.Clamp01(value);
-                maxNormalizedTime = Mathf.Clamp(maxNormalizedTime, minNormalizedTime, 1f);
+                minNormalizedTime = M.Clamp01(value);
+                maxNormalizedTime = M.Clamp(maxNormalizedTime, minNormalizedTime, 1f);
             }
         }
 
@@ -54,8 +54,8 @@ namespace Pancake.Tween
             get { return maxNormalizedTime; }
             set
             {
-                maxNormalizedTime = Mathf.Clamp01(value);
-                minNormalizedTime = Mathf.Clamp(minNormalizedTime, 0f, maxNormalizedTime);
+                maxNormalizedTime = M.Clamp01(value);
+                minNormalizedTime = M.Clamp(minNormalizedTime, 0f, maxNormalizedTime);
             }
         }
 
