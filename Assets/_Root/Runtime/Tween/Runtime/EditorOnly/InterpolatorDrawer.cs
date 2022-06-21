@@ -49,12 +49,12 @@ namespace Pancake.Tween.Editor
 
                 var interpolator = new Interpolator((Ease) type, strength);
 
-                // 添加第一个点
+                // add first point
 
                 Vector3 point = new Vector3(0, interpolator[0]);
                 _samples.Add(point);
 
-                // 添加其他点
+                // add other points
 
                 Vector3 lastSample = point, lastEvaluate = point;
                 _minValue = _maxValue = point.y;
@@ -83,13 +83,13 @@ namespace Pancake.Tween.Editor
                     lastEvaluate = point;
                 }
 
-                // 添加最后一个点
+                // add last point
 
                 _samples.Add(point);
                 if (_minValue > point.y) _minValue = point.y;
                 if (_maxValue < point.y) _maxValue = point.y;
 
-                // 计算绘制的边界值
+                // Calculate drawn boundary values
 
                 if (_maxValue - _minValue < 1f)
                 {
@@ -111,7 +111,7 @@ namespace Pancake.Tween.Editor
         }
 
 
-        // 绘制曲线
+        // draw curve
         private void DrawCurve(Rect rect, bool drawStrength)
         {
             EditorGUI.DrawRect(rect, new Color(0.2f, 0.2f, 0.2f));
