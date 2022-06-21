@@ -32,7 +32,7 @@ namespace Pancake.Tween
 
         [SerializeField] private bool holdAfterEnd = true;
 
-        [SerializeField] private CustomizableInterpolator interpolator = default;
+        [SerializeField] private Interpolator interpolator = default;
 
         [SerializeField] private bool foldout = true; // Editor Only
 

@@ -11,7 +11,6 @@ namespace Pancake.Tween.Editor
     /// Interpolator Drawer
     /// </summary>
     [CustomPropertyDrawer(typeof(Interpolator))]
-    [CustomPropertyDrawer(typeof(CustomizableInterpolator))]
     internal class InterpolatorDrawer : PropertyDrawer
     {
         // 最后采样时的数据缓存
@@ -48,7 +47,7 @@ namespace Pancake.Tween.Editor
                 _lastStrength = strength;
                 _samples.Clear();
 
-                var interpolator = new Interpolator((EaseWithOutCurve) type, strength);
+                var interpolator = new Interpolator((Ease) type, strength);
 
                 // 添加第一个点
 
@@ -175,16 +174,8 @@ namespace Pancake.Tween.Editor
             {
                 EditorGUIUtility.AddCursorRect(buttonRect, MouseCursor.Arrow);
 
-                System.Enum newType;
-                if (fieldInfo.FieldType == typeof(CustomizableInterpolator))
-                {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Ease) type, buttonStyle);
-                }
-                else
-                {
-                    newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (EaseWithOutCurve) type, buttonStyle);
-                }
-
+                System.Enum newType = EditorGUI.EnumPopup(buttonRect, GUIContent.none, (Ease) type, buttonStyle);;
+                
                 if (scope.changed)
                 {
                     typeProp.intValue = type = (int) (Ease) newType;

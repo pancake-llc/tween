@@ -9,9 +9,9 @@ namespace Pancake.Tween
     [Serializable]
     public partial struct Interpolator
     {
-        public EaseWithOutCurve ease;
+        public Ease ease;
         [Range(0, 1)] public float strength;
-
+        public AnimationCurve customCurve;
 
         internal static readonly Func<float, float, float>[] Interpolators =
         {
@@ -63,13 +63,14 @@ namespace Pancake.Tween
         /// </summary>
         /// <param name="t"> normalized time </param>
         /// <returns> result </returns>
-        public float this[float t] => Interpolators[(int) ease](t, strength);
+        public float this[float t] => ease == Ease.CustomCurve ? customCurve.Evaluate(t) :  Interpolators[(int) ease](t, strength);
 
 
-        public Interpolator(EaseWithOutCurve ease, float strength = 0.5f)
+        public Interpolator(Ease ease, float strength = 0.5f, AnimationCurve customCurve = null)
         {
             this.ease = ease;
             this.strength = strength;
+            this.customCurve = customCurve;
         }
     } // struct Interpolator
 } // namespace Pancake.Tween

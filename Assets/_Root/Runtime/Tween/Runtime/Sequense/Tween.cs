@@ -43,7 +43,7 @@ namespace Pancake.Tween
         public WrapMode WrapMode { get; protected set; } = WrapMode.Clamp;
         public ArrivedAction ArrivedAction { get; protected set; } = ArrivedAction.AlwaysStopOnArrived;
 
-        public CustomizableInterpolator Interpolator { get; internal set; }
+        public Interpolator Interpolator { get; internal set; }
 
         public float NormalizedTime
         {
@@ -199,7 +199,7 @@ namespace Pancake.Tween
 
         public override float GetNormalize() { throw new System.NotImplementedException(); }
 
-        public override TweenBase SetEase(CustomizableInterpolator interpolator)
+        public override TweenBase SetEase(Interpolator interpolator)
         {
             Interpolator = interpolator;
             return this;

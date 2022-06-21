@@ -12,7 +12,7 @@ namespace Pancake.Tween
 
         public UpdateMode UpdateMode { get; protected set; }
         public TimeMode TimeMode { get; protected set; }
-        public CustomizableInterpolator Interpolator { get; protected set; }
+        public Interpolator Interpolator { get; protected set; }
 
         public abstract TweenBase OnTimeScaleChanged(int value);
         public abstract TweenBase OnStart();
@@ -27,7 +27,7 @@ namespace Pancake.Tween
         public abstract float GetElapsed();
         public abstract float GetNormalize();
 
-        public abstract TweenBase SetEase(CustomizableInterpolator interpolator);
+        public abstract TweenBase SetEase(Interpolator interpolator);
         public abstract TweenBase SetUpdateMode(UpdateMode mode);
         public abstract void Complete();
         public abstract void Kill();
