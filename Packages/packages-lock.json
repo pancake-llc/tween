@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "d13821d6dcd58f856c7f7aaa4755e2c2b1c0cb24"
+      "hash": "dfbe2878ddeba34d26fbefc51b018d05a8b0b75a"
     },
     "com.system-community.systemruntimecompilerservicesunsafe": {
       "version": "https://github.com/system-community/SystemRuntimeCompilerServicesUnsafe.git?path=Assets/_Root#4.5.3",
