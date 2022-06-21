@@ -38,9 +38,10 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { _elapsed = 0.0f; }
 
-        public override void OnTimeScaleChanges(float timeScale) { }
+        public override void OnTimeScaleChange(float timeScale) { }
+        public override void OnTimeModeChange(TimeMode timeMode) { }
 
-        public override void OnEaseDelegateChanges(EaseDelegate easeFunction) { }
+        public override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
 
         public override float OnGetDuration() { return _duration; }
 

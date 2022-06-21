@@ -11,11 +11,13 @@ namespace Pancake.Tween
 
         int Loops { get; }
         ResetMode LoopResetMode { get; }
+        TimeMode TimeMode { get; }
+        UpdateMode UpdateMode { get; }
 
         bool IsPlaying { get; }
         bool IsCompleted { get; }
 
-        event Action<float> OnTimeScaleChanged;
+        event Action<float> OnTimeScaleChangedEvent;
         event Action OnStart;
         event Action OnLoop;
         event Action OnReset;
@@ -29,11 +31,12 @@ namespace Pancake.Tween
         int GetTweensCount();
         int GetPlayingTweensCount();
 
-        void SetTimeScale(float timeScale);
-
-        void SetEase(Ease ease);
-        void SetEase(AnimationCurve animationCurve);
-        void SetLoops(int loops, ResetMode resetMode);
+        ITween SetTimeScale(float timeScale = 1f, TimeMode timeMode = TimeMode.Unscaled);
+        ITween SetUpdateMode(UpdateMode updateMode);
+        ITween SetEase(Ease ease);
+        ITween SetEase(AnimationCurve animationCurve);
+        ITween SetLoops(int loops, ResetMode resetMode);
+        
 
         void Complete();
         void Kill();

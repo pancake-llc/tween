@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Pancake.Common;
 
 #if UNITY_EDITOR
 using System.Text;
@@ -112,7 +113,7 @@ namespace Pancake.Tween
         {
             _materials.Clear();
             if (target) target.GetSharedMaterials(_materials);
-            return Mathf.Min(_materials.Count, 32);
+            return M.Min(_materials.Count, 32);
         }
 
 #if UNITY_EDITOR
@@ -164,7 +165,7 @@ namespace Pancake.Tween
                 target.SetPropertyBlock(_tempBlocks[_tempBlocks.Count - 1].isEmpty ? null : _tempBlocks[_tempBlocks.Count - 1]);
 
                 int materialCount = GetMaterials();
-                int count = Mathf.Min(_tempBlocks.Count - 1, materialCount);
+                int count = M.Min(_tempBlocks.Count - 1, materialCount);
                 for (int i = 0; i < count; i++)
                 {
                     target.SetPropertyBlock(_tempBlocks[i].isEmpty ? null : _tempBlocks[i], i);

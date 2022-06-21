@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pancake.Common;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -103,7 +104,7 @@ namespace Pancake.Tween
             get => _normalizedTime;
             set
             {
-                _normalizedTime = Mathf.Clamp01(value);
+                _normalizedTime = M.Clamp01(value);
                 Sample(_normalizedTime);
             }
         }
@@ -246,7 +247,7 @@ namespace Pancake.Tween
 
             float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(timeMode);
 
-            while (this && isActiveAndEnabled && deltaTime > Mathf.Epsilon)
+            while (this && isActiveAndEnabled && deltaTime > M.Epsilon)
             {
                 if (direction == PlayDirection.Forward)
                 {

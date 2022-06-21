@@ -79,19 +79,27 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { StartTweens(isCompletingInstantly: false); }
 
-        public override void OnTimeScaleChanges(float timeScale)
+        public override void OnTimeScaleChange(float timeScale)
         {
             foreach (Tween tween in _tweens)
             {
-                tween.OnTimeScaleChanges(timeScale);
+                tween.OnTimeScaleChange(timeScale);
             }
         }
 
-        public override void OnEaseDelegateChanges(EaseDelegate easeFunction)
+        public override void OnTimeModeChange(TimeMode timeMode)
         {
             foreach (Tween tween in _tweens)
             {
-                tween.OnEaseDelegateChanges(easeFunction);
+                tween.OnTimeModeChange(timeMode);
+            }
+        }
+
+        public override void OnEaseDelegateChange(EaseDelegate easeFunction)
+        {
+            foreach (Tween tween in _tweens)
+            {
+                tween.OnEaseDelegateChange(easeFunction);
             }
 
             EaseFunction = easeFunction;

@@ -69,7 +69,7 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { StartTweeners(); }
 
-        public override void OnEaseDelegateChanges(EaseDelegate easeFunction)
+        public override void OnEaseDelegateChange(EaseDelegate easeFunction)
         {
             foreach (ITweener tweener in _tweeners)
             {
@@ -79,11 +79,19 @@ namespace Pancake.Tween
             EaseFunction = easeFunction;
         }
 
-        public override void OnTimeScaleChanges(float timeScale)
+        public override void OnTimeScaleChange(float timeScale)
         {
             foreach (ITweener tweener in _tweeners)
             {
                 tweener.TimeScale = timeScale;
+            }
+        }
+
+        public override void OnTimeModeChange(TimeMode timeMode)
+        {
+            foreach (ITweener tweener in _tweeners)
+            {
+                tweener.TimeMode = timeMode;
             }
         }
 
@@ -139,6 +147,7 @@ namespace Pancake.Tween
                 throw new ArgumentNullException($"Tried to {nameof(Add)} a {nameof(ITweener)} on {nameof(InterpolationTween)} " + $"but it was already added");
             }
 
+            tweener.TimeMode = TimeMode;
             _tweeners.Add(tweener);
 
             _durationCalculated = false;

@@ -7,6 +7,7 @@
 
         bool UseGeneralTimeScale { get; set; }
         float TimeScale { get; set; }
+        TimeMode TimeMode { get; set; }
 
         bool IsPlaying { get; }
 

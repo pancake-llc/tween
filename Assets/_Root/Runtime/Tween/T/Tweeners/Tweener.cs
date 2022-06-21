@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pancake.Common;
+using UnityEngine;
 
 namespace Pancake.Tween
 {
@@ -27,6 +28,7 @@ namespace Pancake.Tween
 
         private EaseDelegate easeFunction;
 
+        public TimeMode TimeMode { get; set; }
         public bool IsPlaying { get; protected set; }
 
         public float Duration { get; }
@@ -130,6 +132,7 @@ namespace Pancake.Tween
 
         public void Update()
         {
+            
             if (!IsPlaying)
             {
                 return;
@@ -145,8 +148,8 @@ namespace Pancake.Tween
             }
 
             float generalTimeScale = UseGeneralTimeScale ? TweenManager.TimeScale : 1.0f;
-
-            float dt = Time.unscaledDeltaTime * generalTimeScale * TimeScale;
+            float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(TimeMode);
+            float dt = deltaTime * generalTimeScale * TimeScale;
 
             Elapsed += dt;
 

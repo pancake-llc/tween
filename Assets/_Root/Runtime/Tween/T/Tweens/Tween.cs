@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Pancake.Common;
 using UnityEngine;
 
 namespace Pancake.Tween
@@ -14,6 +15,8 @@ namespace Pancake.Tween
 
         public int Loops { get; private set; }
         public ResetMode LoopResetMode { get; private set; }
+        public TimeMode TimeMode { get; private set; }
+        public UpdateMode UpdateMode { get; private set; }
 
         public bool IsNested { get; set; }
 
@@ -22,7 +25,7 @@ namespace Pancake.Tween
 
         public bool IsAlive { get; set; }
 
-        public event Action<float> OnTimeScaleChanged;
+        public event Action<float> OnTimeScaleChangedEvent;
         public event Action OnStart;
         public event Action OnLoop;
         public event Action OnReset;
@@ -34,6 +37,7 @@ namespace Pancake.Tween
         {
             SetEase(Ease.Linear);
             SetTimeScale(1.0f);
+            SetUpdateMode(UpdateMode.Update);
         }
 
         public void Start(bool isCompletingInstantly = false)
@@ -55,10 +59,8 @@ namespace Pancake.Tween
 
         public void Update()
         {
-            if (!IsPlaying)
-            {
-                return;
-            }
+            //float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(TimeMode);
+            if (!IsPlaying /*|| deltaTime <= M.Epsilon*/) return;
 
             OnTweenUpdate();
         }
@@ -144,30 +146,36 @@ namespace Pancake.Tween
 
         public int GetPlayingTweensCount() { return OnGetPlayingTweensCount(); }
 
-        public void SetTimeScale(float timeScale)
+        public ITween SetTimeScale(float timeScale = 1f, TimeMode timeMode = TimeMode.Unscaled)
         {
-            if (TimeScale == timeScale)
-            {
-                return;
-            }
-
+            TimeMode = timeMode;
+            OnTimeModeChange(timeMode);
+            if (M.Approximately(TimeScale, timeScale)) return this;
             TimeScale = timeScale;
-
-            OnTimeScaleChanges(timeScale);
-
-            OnTimeScaleChanged?.Invoke(timeScale);
+            OnTimeScaleChange(timeScale);
+            OnTimeScaleChangedEvent?.Invoke(timeScale);
+            return this;
         }
 
         public void SetEase(EaseDelegate easeFunction)
         {
             EaseFunction = easeFunction;
-
-            OnEaseDelegateChanges(EaseFunction);
+            OnEaseDelegateChange(EaseFunction);
         }
 
-        public void SetEase(Ease ease) { SetEase(Interpolator.Get(ease)); }
+        public ITween SetUpdateMode(UpdateMode updateMode)
+        {
+            UpdateMode = updateMode;
+            return this;
+        }
 
-        public void SetEase(AnimationCurve animationCurve)
+        public ITween SetEase(Ease ease)
+        {
+            SetEase(Interpolator.Get(ease));
+            return this;
+        }
+
+        public ITween SetEase(AnimationCurve animationCurve)
         {
             if (animationCurve == null)
             {
@@ -175,12 +183,14 @@ namespace Pancake.Tween
             }
 
             SetEase(Interpolator.Get(animationCurve));
+            return this;
         }
 
-        public void SetLoops(int loops, ResetMode resetMode)
+        public ITween SetLoops(int loops, ResetMode resetMode)
         {
             Loops = Math.Max(loops, 0);
             LoopResetMode = resetMode;
+            return this;
         }
 
         public void Replay()
@@ -263,8 +273,9 @@ namespace Pancake.Tween
         protected abstract void OnTweenReset(bool kill, ResetMode loopResetMode);
         protected abstract void OnTweenStartLoop(ResetMode loopResetMode);
 
-        public abstract void OnEaseDelegateChanges(EaseDelegate easeFunction);
-        public abstract void OnTimeScaleChanges(float timeScale);
+        public abstract void OnEaseDelegateChange(EaseDelegate easeFunction);
+        public abstract void OnTimeScaleChange(float timeScale);
+        public abstract void OnTimeModeChange(TimeMode timeMode);
 
         public abstract float OnGetDuration();
         public abstract float OnGetElapsed();
