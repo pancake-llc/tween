@@ -6,7 +6,7 @@ namespace Pancake.Tween
 
     public interface IAnimator<T> : IConcatableAnimator<T>
     {
-        (T, float) Update(float time);
+        void Interpolate(float factor);
     }
 
     public interface IAnimatorWithStartValue<T> : IConcatableAnimator<T>
