@@ -75,7 +75,7 @@
 
         public override void Play() { throw new System.NotImplementedException(); }
 
-        internal Tween()
+        private Tween()
         {
             RuntimeUtilities.AddUpdate(UpdateMode, OnUpdate);
             _registered = true;
