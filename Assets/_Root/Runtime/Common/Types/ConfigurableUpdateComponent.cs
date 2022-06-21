@@ -7,25 +7,25 @@ namespace Pancake
     /// </summary>
     public abstract class ConfigurableUpdateComponent : ScriptableComponent
     {
-        [SerializeField] UpdateMode _updateMode = UpdateMode.Update;
+        [SerializeField] private UpdateMode updateMode = UpdateMode.Update;
 
 
-        bool _registered = false;
+        private bool _registered = false;
 
 
         /// <summary>
         /// Update mode
         /// </summary>
-        public UpdateMode updateMode
+        public UpdateMode UpdateMode
         {
-            get { return _updateMode; }
+            get { return updateMode; }
             set
             {
-                if (_updateMode != value)
+                if (updateMode != value)
                 {
                     if (_registered)
                     {
-                        RuntimeUtilities.RemoveUpdate(_updateMode, OnUpdate);
+                        RuntimeUtilities.RemoveUpdate(updateMode, OnUpdate);
                         RuntimeUtilities.AddUpdate(value, OnUpdate);
 
 #if UNITY_EDITOR
@@ -33,7 +33,7 @@ namespace Pancake
 #endif
                     }
 
-                    _updateMode = value;
+                    updateMode = value;
                 }
             }
         }
@@ -44,18 +44,18 @@ namespace Pancake
 
         protected virtual void OnEnable()
         {
-            RuntimeUtilities.AddUpdate(_updateMode, OnUpdate);
+            RuntimeUtilities.AddUpdate(updateMode, OnUpdate);
             _registered = true;
 
 #if UNITY_EDITOR
-            _addedUpdateMode = _updateMode;
+            _addedUpdateMode = updateMode;
 #endif
         }
 
 
         protected virtual void OnDisable()
         {
-            RuntimeUtilities.RemoveUpdate(_updateMode, OnUpdate);
+            RuntimeUtilities.RemoveUpdate(updateMode, OnUpdate);
             _registered = false;
         }
 
@@ -67,11 +67,11 @@ namespace Pancake
 
         protected virtual void OnValidate()
         {
-            if (_registered && _addedUpdateMode != _updateMode)
+            if (_registered && _addedUpdateMode != updateMode)
             {
                 RuntimeUtilities.RemoveUpdate(_addedUpdateMode, OnUpdate);
-                RuntimeUtilities.AddUpdate(_updateMode, OnUpdate);
-                _addedUpdateMode = _updateMode;
+                RuntimeUtilities.AddUpdate(updateMode, OnUpdate);
+                _addedUpdateMode = updateMode;
             }
         }
 
