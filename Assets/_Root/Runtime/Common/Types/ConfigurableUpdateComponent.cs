@@ -62,7 +62,7 @@ namespace Pancake
 
 #if UNITY_EDITOR
 
-        UpdateMode _addedUpdateMode;
+        private UpdateMode _addedUpdateMode;
 
 
         protected virtual void OnValidate()
