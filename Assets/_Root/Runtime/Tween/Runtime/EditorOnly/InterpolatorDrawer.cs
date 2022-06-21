@@ -12,17 +12,17 @@ namespace Pancake.Tween.Editor
     /// </summary>
     [CustomPropertyDrawer(typeof(Interpolator))]
     [CustomPropertyDrawer(typeof(CustomizableInterpolator))]
-    class InterpolatorDrawer : PropertyDrawer
+    internal class InterpolatorDrawer : PropertyDrawer
     {
         // 最后采样时的数据缓存
-        int _lastType;
-        float _lastStrength;
+        private int _lastType;
+        private float _lastStrength;
 
-        float _minValue, _maxValue;
-        List<Vector3> _samples = new List<Vector3>(64);
+        private float _minValue, _maxValue;
+        private List<Vector3> _samples = new List<Vector3>(64);
 
 
-        static GUIStyle _buttonStype;
+        private static GUIStyle _buttonStype;
 
         public static GUIStyle buttonStyle
         {
@@ -40,7 +40,7 @@ namespace Pancake.Tween.Editor
 
 
         // 采样
-        void Sample(int type, float strength, int maxSegments, float maxError)
+        private void Sample(int type, float strength, int maxSegments, float maxError)
         {
             if (_samples.Count == 0 || type != _lastType || strength != _lastStrength)
             {
@@ -113,7 +113,7 @@ namespace Pancake.Tween.Editor
 
 
         // 绘制曲线
-        void DrawCurve(Rect rect, bool drawStrength)
+        private void DrawCurve(Rect rect, bool drawStrength)
         {
             EditorGUI.DrawRect(rect, new Color(0.2f, 0.2f, 0.2f));
 

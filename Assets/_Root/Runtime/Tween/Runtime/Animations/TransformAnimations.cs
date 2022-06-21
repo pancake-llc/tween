@@ -182,10 +182,10 @@ namespace Pancake.Tween
 
 #if UNITY_EDITOR
 
-        Transform _originalTarget;
-        Vector3 _tempPosition;
-        Quaternion _tempRotation;
-        Vector3 _tempLocalScale;
+        private Transform _originalTarget;
+        private Vector3 _tempPosition;
+        private Quaternion _tempRotation;
+        private Vector3 _tempLocalScale;
 
         public override void Reset(TweenPlayer player)
         {
@@ -216,7 +216,7 @@ namespace Pancake.Tween
 
         protected override void OnPropertiesGUI(TweenPlayer player, SerializedProperty property)
         {
-            using (DisabledScope.New(player.playing))
+            using (DisabledScope.New(player.Playing))
             {
                 EditorGUILayout.PropertyField(property.FindPropertyRelative(nameof(target)));
             }

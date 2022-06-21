@@ -146,10 +146,10 @@ namespace Pancake.Tween
     {
         public override float current
         {
-            get => target ? target.normalizedTime : 0;
+            get => target ? target.NormalizedTime : 0;
             set
             {
-                if (target) target.normalizedTime = value;
+                if (target) target.NormalizedTime = value;
             }
         }
 

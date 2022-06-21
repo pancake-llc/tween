@@ -17,48 +17,48 @@ namespace Pancake.Tween
 {
     public partial class TweenPlayer
     {
-        [SerializeField] bool _foldoutControl = true;
-        [SerializeField] bool _foldoutEvents = false;
+        [SerializeField] private bool foldoutControl = true;
+        [SerializeField] private bool foldoutEvents = false;
 
-        bool _preview;
-        bool _dragging;
+        private bool _preview;
+        private bool _dragging;
 
-        bool _enabledRecord;
-        float _normalizedTimeRecord;
-        PlayDirection _directionRecord;
+        private bool _enabledRecord;
+        private float _normalizedTimeRecord;
+        private PlayDirection _directionRecord;
 
 #if !SERIALIZE_REFERENCE_SERIALIZATION_FIXED
-        System.Collections.Generic.List<TweenAnimation> _recordedAnimations;
+        private System.Collections.Generic.List<TweenAnimation> _recordedAnimations;
 #endif
 
         protected override void OnValidate()
         {
             base.OnValidate();
 
-            if (_animations != null)
-                foreach (var anim in _animations)
+            if (animations != null)
+                foreach (var anim in animations)
                     anim.OnValidate(this);
         }
 
 
-        void RecordAll()
+        private void RecordAll()
         {
             _enabledRecord = enabled;
             _normalizedTimeRecord = _normalizedTime;
             _directionRecord = direction;
 
-            if (_animations != null)
-                foreach (var anim in _animations)
+            if (animations != null)
+                foreach (var anim in animations)
                     anim.RecordState();
 
 #if !SERIALIZE_REFERENCE_SERIALIZATION_FIXED
-            if (_animations != null) _recordedAnimations = new System.Collections.Generic.List<TweenAnimation>(_animations);
+            if (animations != null) _recordedAnimations = new System.Collections.Generic.List<TweenAnimation>(animations);
             else _recordedAnimations = null;
 #endif
         }
 
 
-        void RestoreAll()
+        private void RestoreAll()
         {
             enabled = _enabledRecord;
             _normalizedTime = _normalizedTimeRecord;
@@ -81,7 +81,7 @@ namespace Pancake.Tween
         }
 
 
-        internal bool playing
+        internal bool Playing
         {
             get => Application.isPlaying ? enabled : _preview;
             set
@@ -114,17 +114,17 @@ namespace Pancake.Tween
                     }
                 }
 
-                void StopPreview() { playing = false; }
+                void StopPreview() { Playing = false; }
 
                 void StopPreview2(PlayModeStateChange msg)
                 {
-                    if (msg == PlayModeStateChange.ExitingEditMode) playing = false;
+                    if (msg == PlayModeStateChange.ExitingEditMode) Playing = false;
                 }
             }
         }
 
 
-        bool dragging
+        private bool Dragging
         {
             get => _dragging;
             set
@@ -135,11 +135,11 @@ namespace Pancake.Tween
 
                     if (value)
                     {
-                        if (!playing) RecordAll();
+                        if (!Playing) RecordAll();
                     }
                     else
                     {
-                        if (!playing) RestoreAll();
+                        if (!Playing) RestoreAll();
                     }
                 }
             }
@@ -155,33 +155,33 @@ namespace Pancake.Tween
 #else
                 Undo.RegisterCompleteObjectUndo(this, "Move Up Animation");
 #endif
-                _animations.Swap(index, index - 1);
+                animations.Swap(index, index - 1);
             }
         }
 
 
         internal void MoveDownAnimationWithUndo(int index)
         {
-            if (index < _animations.Count - 1)
+            if (index < animations.Count - 1)
             {
 #if SERIALIZE_REFERENCE_UNDO_FIXED
                 Undo.RecordObject(this, "Move Down Animation");
 #else
                 Undo.RegisterCompleteObjectUndo(this, "Move Down Animation");
 #endif
-                _animations.Swap(index, index + 1);
+                animations.Swap(index, index + 1);
             }
         }
 
 
         [ContextMenu("Swap 'From' with 'To'")]
-        void SwapFromWithTo()
+        private void SwapFromWithTo()
         {
-            if (_animations != null)
+            if (animations != null)
             {
                 Undo.RecordObject(this, "Swap 'From' with 'To'");
 
-                foreach (var a in _animations)
+                foreach (var a in animations)
                 {
                     if (a is ITweenFromTo i) i.SwapFromWithTo();
                 }
@@ -190,13 +190,13 @@ namespace Pancake.Tween
 
 
         [ContextMenu("Let 'From' Equal 'Current'")]
-        void LetFromEqualCurrent()
+        private void LetFromEqualCurrent()
         {
-            if (_animations != null)
+            if (animations != null)
             {
                 Undo.RecordObject(this, "Let 'From' Equal 'Current'");
 
-                foreach (var a in _animations)
+                foreach (var a in animations)
                 {
                     if (a is ITweenUnmanaged i) i.LetFromEqualCurrent();
                 }
@@ -205,13 +205,13 @@ namespace Pancake.Tween
 
 
         [ContextMenu("Let 'To' Equal 'Current'")]
-        void LetToEqualCurrent()
+        private void LetToEqualCurrent()
         {
-            if (_animations != null)
+            if (animations != null)
             {
                 Undo.RecordObject(this, "Let 'To' Equal 'Current'");
 
-                foreach (var a in _animations)
+                foreach (var a in animations)
                 {
                     if (a is ITweenUnmanaged i) i.LetToEqualCurrent();
                 }
@@ -220,11 +220,11 @@ namespace Pancake.Tween
 
 
         [ContextMenu("Let 'Current' Equal 'From'")]
-        void LetCurrentEqualFrom()
+        private void LetCurrentEqualFrom()
         {
-            if (_animations != null)
+            if (animations != null)
             {
-                foreach (var a in _animations)
+                foreach (var a in animations)
                 {
                     if (a is ITweenFromToWithTarget i && i.target)
                     {
@@ -237,11 +237,11 @@ namespace Pancake.Tween
 
 
         [ContextMenu("Let 'Current' Equal 'To'")]
-        void LetCurrentEqualTo()
+        private void LetCurrentEqualTo()
         {
-            if (_animations != null)
+            if (animations != null)
             {
-                foreach (var a in _animations)
+                foreach (var a in animations)
                 {
                     if (a is ITweenFromToWithTarget i && i.target)
                     {
@@ -257,9 +257,9 @@ namespace Pancake.Tween
         [CanEditMultipleObjects]
         internal class Editor : BaseEditor<TweenPlayer>
         {
-            static GUIStyle _imageButtonStyle;
+            private static GUIStyle _imageButtonStyle;
 
-            static GUIStyle imageButtonStyle
+            private static GUIStyle imageButtonStyle
             {
                 get
                 {
@@ -294,20 +294,20 @@ namespace Pancake.Tween
                 }
             }
 
-            SerializedProperty _durationProp;
-            SerializedProperty _updateModeProp;
-            SerializedProperty _timeModeProp;
-            SerializedProperty _wrapModeProp;
-            SerializedProperty _arrivedActionProp;
-            SerializedProperty _syncOnAwakeProp;
-            SerializedProperty _onForwardArrivedProp;
-            SerializedProperty _onBackArrivedProp;
-            SerializedProperty _animationsProp;
+            private SerializedProperty _durationProp;
+            private SerializedProperty _updateModeProp;
+            private SerializedProperty _timeModeProp;
+            private SerializedProperty _wrapModeProp;
+            private SerializedProperty _arrivedActionProp;
+            private SerializedProperty _syncOnAwakeProp;
+            private SerializedProperty _onForwardArrivedProp;
+            private SerializedProperty _onBackArrivedProp;
+            private SerializedProperty _animationsProp;
 
-            GenericMenu _addMenu;
+            private GenericMenu _addMenu;
 
 
-            void ShowAddMenu(Rect rect)
+            private void ShowAddMenu(Rect rect)
             {
                 if (_addMenu == null)
                 {
@@ -330,26 +330,26 @@ namespace Pancake.Tween
             }
 
 
-            void OnEnable()
+            private void OnEnable()
             {
-                _durationProp = serializedObject.FindProperty(nameof(_duration));
-                _updateModeProp = serializedObject.FindProperty("_updateMode");
+                _durationProp = serializedObject.FindProperty(nameof(duration));
+                _updateModeProp = serializedObject.FindProperty("updateMode");
                 _timeModeProp = serializedObject.FindProperty(nameof(timeMode));
                 _wrapModeProp = serializedObject.FindProperty(nameof(wrapMode));
                 _arrivedActionProp = serializedObject.FindProperty(nameof(arrivedAction));
                 _syncOnAwakeProp = serializedObject.FindProperty(nameof(sampleOnAwake));
 
-                _onForwardArrivedProp = serializedObject.FindProperty(nameof(_onForwardArrived));
-                _onBackArrivedProp = serializedObject.FindProperty(nameof(_onBackArrived));
+                _onForwardArrivedProp = serializedObject.FindProperty(nameof(onForwardArrived));
+                _onBackArrivedProp = serializedObject.FindProperty(nameof(onBackArrived));
 
-                _animationsProp = serializedObject.FindProperty(nameof(_animations));
+                _animationsProp = serializedObject.FindProperty(nameof(animations));
             }
 
 
-            void OnDisable()
+            private void OnDisable()
             {
                 if (!Application.isPlaying && target)
-                    target.playing = false;
+                    target.Playing = false;
             }
 
 
@@ -373,8 +373,8 @@ namespace Pancake.Tween
                 using (var scope = ChangeCheckScope.New(target))
                 {
                     //rect2.width = rect2.height;
-                    var result = GUI.Toggle(rect2, target._foldoutControl, GUIContent.none, EditorStyles.foldout);
-                    if (scope.changed) target._foldoutControl = result;
+                    var result = GUI.Toggle(rect2, target.foldoutControl, GUIContent.none, EditorStyles.foldout);
+                    if (scope.changed) target.foldoutControl = result;
                 }
 
                 // control label
@@ -382,7 +382,7 @@ namespace Pancake.Tween
                 EditorGUI.LabelField(rect, "Control", EditorStyles.boldLabel);
 
                 // control fields
-                if (target._foldoutControl)
+                if (target.foldoutControl)
                 {
                     EditorGUILayout.PropertyField(_durationProp);
                     EditorGUILayout.PropertyField(_updateModeProp);
@@ -403,14 +403,14 @@ namespace Pancake.Tween
 
                     // play button
                     rect2.width = EditorGUIUtility.singleLineHeight * 2 - 4;
-                    using (GUIContentColorScope.New(target.playing ? progressForegroundValid : EditorGUIUtilities.labelNormalColor))
+                    using (GUIContentColorScope.New(target.Playing ? progressForegroundValid : EditorGUIUtilities.labelNormalColor))
                     {
-                        target.playing = GUI.Toggle(rect2, target.playing, EditorGUIUtilities.TempContent(image: EditorResources.instance.play), imageButtonStyle);
+                        target.Playing = GUI.Toggle(rect2, target.Playing, EditorGUIUtilities.TempContent(image: EditorResources.instance.play), imageButtonStyle);
                     }
 
                     // direction button
                     rect2.x = rect.xMax - rect2.width;
-                    using (DisabledScope.New(!target.playing))
+                    using (DisabledScope.New(!target.Playing))
                     {
                         using (GUIContentColorScope.New(EditorGUIUtilities.labelNormalColor))
                         {
@@ -431,13 +431,13 @@ namespace Pancake.Tween
                     // Mouse start drag
                     if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
                     {
-                        target.dragging = true;
+                        target.Dragging = true;
                     }
 
                     // Mouse end drag
-                    if (Event.current.rawType == EventType.MouseUp && target.dragging)
+                    if (Event.current.rawType == EventType.MouseUp && target.Dragging)
                     {
-                        target.dragging = false;
+                        target.Dragging = false;
                         Repaint();
                     }
 
@@ -445,7 +445,7 @@ namespace Pancake.Tween
                     using (var scope = ChangeCheckScope.New())
                     {
                         float progress = EditorGUIUtilities.DragProgress(rect, target._normalizedTime, progressBackgroundValid, progressForegroundValid);
-                        if (scope.changed && target.dragging) target.normalizedTime = progress;
+                        if (scope.changed && target.Dragging) target.NormalizedTime = progress;
                     }
 
                     GUILayout.Space(4);
@@ -469,8 +469,8 @@ namespace Pancake.Tween
                 using (var scope = ChangeCheckScope.New(target))
                 {
                     //rect2.width = rect2.height;
-                    var result = GUI.Toggle(rect2, target._foldoutEvents, GUIContent.none, EditorStyles.foldout);
-                    if (scope.changed) target._foldoutEvents = result;
+                    var result = GUI.Toggle(rect2, target.foldoutEvents, GUIContent.none, EditorStyles.foldout);
+                    if (scope.changed) target.foldoutEvents = result;
                 }
 
                 // events label
@@ -478,7 +478,7 @@ namespace Pancake.Tween
                 EditorGUI.LabelField(rect, "Events", EditorStyles.boldLabel);
 
                 // events
-                if (target._foldoutEvents)
+                if (target.foldoutEvents)
                 {
                     EditorGUILayout.PropertyField(_onForwardArrivedProp);
                     GUILayout.Space(2);
@@ -492,11 +492,11 @@ namespace Pancake.Tween
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
                 // Animation List
-                if (target._animations != null)
+                if (target.animations != null)
                 {
-                    for (int i = 0; i < target._animations.Count; i++)
+                    for (int i = 0; i < target.animations.Count; i++)
                     {
-                        target._animations[i].OnInspectorGUI(i, target, _animationsProp.GetArrayElementAtIndex(i));
+                        target.animations[i].OnInspectorGUI(i, target, _animationsProp.GetArrayElementAtIndex(i));
                     }
                 }
 
@@ -505,7 +505,7 @@ namespace Pancake.Tween
                 // add button
                 GUILayout.Space(4);
                 var buttonRect = EditorGUILayout.GetControlRect();
-                using (DisabledScope.New(target.playing))
+                using (DisabledScope.New(target.Playing))
                 {
                     if (GUI.Button(buttonRect, "Add Animation", EditorStyles.miniButton))
                     {

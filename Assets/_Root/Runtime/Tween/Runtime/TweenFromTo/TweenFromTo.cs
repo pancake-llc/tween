@@ -8,18 +8,18 @@ using Pancake.Editor;
 
 namespace Pancake.Tween
 {
-    interface ITweenFromTo
+    internal interface ITweenFromTo
     {
         void SwapFromWithTo();
     }
 
-    interface ITweenUnmanaged
+    internal interface ITweenUnmanaged
     {
         void LetFromEqualCurrent();
         void LetToEqualCurrent();
     }
 
-    interface ITweenFromToWithTarget
+    internal interface ITweenFromToWithTarget
     {
         UnityEngine.Object target { get; }
         void LetCurrentEqualFrom();
@@ -70,7 +70,7 @@ namespace Pancake.Tween
     public abstract class TweenUnmanaged<T> : TweenFromTo<T>, ITweenUnmanaged where T : unmanaged
     {
         /// <summary>
-        /// 当前状态
+        /// current
         /// </summary>
         public abstract T current { get; set; }
 
@@ -80,7 +80,7 @@ namespace Pancake.Tween
 
 #if UNITY_EDITOR
 
-        T _temp;
+        private T _temp;
 
         public override void Reset(TweenPlayer player)
         {
@@ -136,7 +136,7 @@ namespace Pancake.Tween
 
 #if UNITY_EDITOR
 
-        TTarget _originalTarget;
+        private TTarget _originalTarget;
 
         public override void Reset(TweenPlayer player)
         {
@@ -181,7 +181,7 @@ namespace Pancake.Tween
 
         protected override void OnPropertiesGUI(TweenPlayer player, SerializedProperty property)
         {
-            using (DisabledScope.New(player.playing))
+            using (DisabledScope.New(player.Playing))
             {
                 EditorGUILayout.PropertyField(property.FindPropertyRelative(nameof(target)));
             }

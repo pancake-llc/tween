@@ -35,9 +35,9 @@ namespace Pancake.Tween
     [AddComponentMenu("Miscellaneous/Tween Player")]
     public partial class TweenPlayer : ConfigurableUpdateComponent
     {
-        const float _minDuration = 0.0001f;
+        private const float MIN_DURATION = 0.0001f;
 
-        [SerializeField, Min(_minDuration)] float _duration = 1f;
+        [SerializeField, Min(MIN_DURATION)] private float duration = 1f;
 
         /// <summary>
         /// Use unscaled delta time or normal delta time?
@@ -59,46 +59,46 @@ namespace Pancake.Tween
         /// </summary>
         public bool sampleOnAwake = true;
 
-        [SerializeField] UnityEvent _onForwardArrived = default;
-        [SerializeField] UnityEvent _onBackArrived = default;
+        [SerializeField] private UnityEvent onForwardArrived = default;
+        [SerializeField] private UnityEvent onBackArrived = default;
 
-        [SerializeField, SerializeReference] List<TweenAnimation> _animations = default;
+        [SerializeField, SerializeReference] private List<TweenAnimation> animations = default;
 
         /// <summary>
         /// The direction of the playback.
         /// </summary>
         [NonSerialized] public PlayDirection direction;
 
-        float _normalizedTime = 0f;
-        int _state = 0; // -1: BackArrived, 0: Playing, +1: ForwardArrived
+        private float _normalizedTime = 0f;
+        private int _state = 0; // -1: BackArrived, 0: Playing, +1: ForwardArrived
 
         /// <summary>
         /// The total duration time
         /// </summary>
-        public float duration { get => _duration; set => _duration = value > _minDuration ? value : _minDuration; }
+        public float Duration { get => duration; set => duration = value > MIN_DURATION ? value : MIN_DURATION; }
 
         /// <summary>
         /// Add or remove callbacks when it's over.
         /// </summary>
-        public event UnityAction onForwardArrived
+        public event UnityAction OnForwardArrived
         {
-            add => (_onForwardArrived ?? (_onForwardArrived = new UnityEvent())).AddListener(value);
-            remove => _onForwardArrived?.RemoveListener(value);
+            add => (onForwardArrived ?? (onForwardArrived = new UnityEvent())).AddListener(value);
+            remove => onForwardArrived?.RemoveListener(value);
         }
 
         /// <summary>
         /// Add or remove callbacks when it gets to the starting point.
         /// </summary>
-        public event UnityAction onBackArrived
+        public event UnityAction OnBackArrived
         {
-            add => (_onBackArrived ?? (_onBackArrived = new UnityEvent())).AddListener(value);
-            remove => _onBackArrived?.RemoveListener(value);
+            add => (onBackArrived ?? (onBackArrived = new UnityEvent())).AddListener(value);
+            remove => onBackArrived?.RemoveListener(value);
         }
 
         /// <summary>
         /// Current time in range [0, 1]
         /// </summary>
-        public float normalizedTime
+        public float NormalizedTime
         {
             get => _normalizedTime;
             set
@@ -111,7 +111,7 @@ namespace Pancake.Tween
         /// <summary>
         /// animationCount
         /// </summary>
-        public int animationCount => _animations == null ? 0 : _animations.Count;
+        public int AnimationCount => animations == null ? 0 : animations.Count;
 
         /// <summary>
         /// Reverse playback direction.
@@ -143,11 +143,11 @@ namespace Pancake.Tween
         /// </summary>
         public void Sample(float normalizedTime)
         {
-            if (_animations != null)
+            if (animations != null)
             {
-                for (int i = 0; i < _animations.Count; i++)
+                for (int i = 0; i < animations.Count; i++)
                 {
-                    var item = _animations[i];
+                    var item = animations[i];
                     if (item.enabled) item.Sample(normalizedTime);
                 }
             }
@@ -159,7 +159,7 @@ namespace Pancake.Tween
         public T AddAnimation<T>() where T : TweenAnimation, new()
         {
             var anim = new T();
-            (_animations ?? (_animations = new List<TweenAnimation>(4))).Add(anim);
+            (animations ?? (animations = new List<TweenAnimation>(4))).Add(anim);
             return anim;
         }
 
@@ -169,23 +169,23 @@ namespace Pancake.Tween
         public TweenAnimation AddAnimation(Type type)
         {
             var anim = (TweenAnimation) Activator.CreateInstance(type);
-            (_animations ?? (_animations = new List<TweenAnimation>(4))).Add(anim);
+            (animations ?? (animations = new List<TweenAnimation>(4))).Add(anim);
             return anim;
         }
 
         /// <summary>
         /// Get the animation at the index.
         /// </summary>
-        public TweenAnimation GetAnimation(int index) => _animations[index];
+        public TweenAnimation GetAnimation(int index) => animations[index];
 
         /// <summary>
         /// Get an animation by the specified ease parameter.
         /// </summary>
         public T GetAnimation<T>() where T : TweenAnimation
         {
-            if (_animations != null)
+            if (animations != null)
             {
-                foreach (var item in _animations)
+                foreach (var item in animations)
                 {
                     if (item is T result) return result;
                 }
@@ -197,25 +197,25 @@ namespace Pancake.Tween
         /// <summary>
         /// Remove the animation at the index.
         /// </summary>
-        public void RemoveAnimation(int index) => _animations.RemoveAt(index);
+        public void RemoveAnimation(int index) => animations.RemoveAt(index);
 
         /// <summary>
         /// Remove the specified animation.
         /// </summary>
-        public bool RemoveAnimation(TweenAnimation animation) => _animations != null ? _animations.Remove(animation) : false;
+        public bool RemoveAnimation(TweenAnimation animation) => animations != null ? animations.Remove(animation) : false;
 
         /// <summary>
         /// Remove an animation by the specified ease parameter.
         /// </summary>
         public bool RemoveAnimation<T>() where T : TweenAnimation
         {
-            if (_animations != null)
+            if (animations != null)
             {
-                for (int i = 0; i < _animations.Count; i++)
+                for (int i = 0; i < animations.Count; i++)
                 {
-                    if (_animations[i] is T)
+                    if (animations[i] is T)
                     {
-                        _animations.RemoveAt(i);
+                        animations.RemoveAt(i);
                         return true;
                     }
                 }
@@ -239,7 +239,7 @@ namespace Pancake.Tween
             // Avoid rare error of prefab mode
             if (!this)
             {
-                playing = false;
+                Playing = false;
                 return;
             }
 #endif
@@ -260,17 +260,17 @@ namespace Pancake.Tween
                         _state = 0;
                     }
 
-                    float time = _normalizedTime * _duration + deltaTime;
+                    float time = _normalizedTime * duration + deltaTime;
 
                     // playing
-                    if (time < _duration)
+                    if (time < duration)
                     {
-                        normalizedTime = time / _duration;
+                        NormalizedTime = time / duration;
                         return;
                     }
 
                     // arrived
-                    normalizedTime = 1f;
+                    NormalizedTime = 1f;
                     if (_state != +1)
                     {
                         _state = +1;
@@ -278,7 +278,7 @@ namespace Pancake.Tween
                         if ((arrivedAction & ArrivedAction.StopOnForwardArrived) != 0)
                             enabled = false;
 
-                        _onForwardArrived?.Invoke();
+                        onForwardArrived?.Invoke();
                     }
 
                     // wrap
@@ -292,7 +292,7 @@ namespace Pancake.Tween
                             break;
                     }
 
-                    deltaTime = time - _duration;
+                    deltaTime = time - duration;
                 }
                 else
                 {
@@ -306,17 +306,17 @@ namespace Pancake.Tween
                         _state = 0;
                     }
 
-                    float time = _normalizedTime * _duration - deltaTime;
+                    float time = _normalizedTime * duration - deltaTime;
 
                     // playing
                     if (time > 0f)
                     {
-                        normalizedTime = time / _duration;
+                        NormalizedTime = time / duration;
                         return;
                     }
 
                     // arrived
-                    normalizedTime = 0f;
+                    NormalizedTime = 0f;
                     if (_state != -1)
                     {
                         _state = -1;
@@ -324,7 +324,7 @@ namespace Pancake.Tween
                         if ((arrivedAction & ArrivedAction.StopOnBackArrived) != 0)
                             enabled = false;
 
-                        _onBackArrived?.Invoke();
+                        onBackArrived?.Invoke();
                     }
 
                     // wrap

@@ -14,9 +14,9 @@ namespace Pancake.Tween
 {
     public abstract partial class TweenAnimation
     {
-        static TweenAnimation _clipboard;
+        private static TweenAnimation _clipboard;
 
-        static Dictionary<Type, TweenAnimationAttribute> _allTypes;
+        private static Dictionary<Type, TweenAnimationAttribute> _allTypes;
 
         internal static Dictionary<Type, TweenAnimationAttribute> allTypes
         {
@@ -40,12 +40,12 @@ namespace Pancake.Tween
         public virtual void Reset(TweenPlayer player)
         {
             enabled = true;
-            _minNormalizedTime = 0f;
-            _maxNormalizedTime = 1f;
-            _holdBeforeStart = true;
-            _holdAfterEnd = true;
-            _interpolator = default;
-            _foldout = true;
+            minNormalizedTime = 0f;
+            maxNormalizedTime = 1f;
+            holdBeforeStart = true;
+            holdAfterEnd = true;
+            interpolator = default;
+            foldout = true;
         }
 
         public virtual void OnValidate(TweenPlayer player) { }
@@ -58,12 +58,12 @@ namespace Pancake.Tween
 
         protected virtual void CreateOptionsMenu(GenericMenu menu, TweenPlayer player, int index)
         {
-            menu.AddItem(new GUIContent("Reset"), () => ResetWithUndo(player), player.playing);
-            menu.AddItem(new GUIContent("Remove"), () => RemoveWithUndo(player, index), player.playing);
+            menu.AddItem(new GUIContent("Reset"), () => ResetWithUndo(player), player.Playing);
+            menu.AddItem(new GUIContent("Remove"), () => RemoveWithUndo(player, index), player.Playing);
 
             menu.AddSeparator(string.Empty);
 
-            if (string.IsNullOrEmpty(_comment))
+            if (string.IsNullOrEmpty(comment))
             {
                 menu.AddItem(new GUIContent("Add Comment"), false, () => AddComment(player));
             }
@@ -75,25 +75,25 @@ namespace Pancake.Tween
             menu.AddSeparator(string.Empty);
 
             menu.AddItem(new GUIContent("Move Up"), () => player.MoveUpAnimationWithUndo(index), index == 0);
-            menu.AddItem(new GUIContent("Move Down"), () => player.MoveDownAnimationWithUndo(index), index == player.animationCount - 1);
+            menu.AddItem(new GUIContent("Move Down"), () => player.MoveDownAnimationWithUndo(index), index == player.AnimationCount - 1);
 
             menu.AddSeparator(string.Empty);
 
             menu.AddItem(new GUIContent("Copy"), false, Copy);
 
-            menu.AddItem(new GUIContent("Paste Values"), () => PasteValuesWithUndo(player), player.playing || _clipboard == null);
-            menu.AddItem(new GUIContent("Paste As New"), () => PasteAsNewWithUndo(player), player.playing || _clipboard == null);
+            menu.AddItem(new GUIContent("Paste Values"), () => PasteValuesWithUndo(player), player.Playing || _clipboard == null);
+            menu.AddItem(new GUIContent("Paste As New"), () => PasteAsNewWithUndo(player), player.Playing || _clipboard == null);
         }
 
 
-        void ResetWithUndo(TweenPlayer player)
+        private void ResetWithUndo(TweenPlayer player)
         {
             Undo.RecordObject(player, "Reset Animation");
             Reset(player);
         }
 
 
-        void RemoveWithUndo(TweenPlayer player, int index)
+        private void RemoveWithUndo(TweenPlayer player, int index)
         {
 #if SERIALIZE_REFERENCE_UNDO_FIXED
             Undo.RecordObject(player, "Remove Animation");
@@ -104,35 +104,35 @@ namespace Pancake.Tween
         }
 
 
-        void AddComment(TweenPlayer player)
+        private void AddComment(TweenPlayer player)
         {
             Undo.RecordObject(player, "Add Comment");
-            _comment = "Comment";
+            comment = "Comment";
         }
 
 
-        void RemoveComment(TweenPlayer player)
+        private void RemoveComment(TweenPlayer player)
         {
             Undo.RecordObject(player, "Remove Comment");
-            _comment = null;
+            comment = null;
         }
 
 
-        void Copy()
+        private void Copy()
         {
             _clipboard = (TweenAnimation) Activator.CreateInstance(GetType());
             EditorUtility.CopySerializedManagedFieldsOnly(this, _clipboard);
         }
 
 
-        void PasteValuesWithUndo(TweenPlayer player)
+        private void PasteValuesWithUndo(TweenPlayer player)
         {
             Undo.RecordObject(player, "Paste Values Animation");
             EditorUtility.CopySerializedManagedFieldsOnly(_clipboard, this);
         }
 
 
-        void PasteAsNewWithUndo(TweenPlayer player)
+        private void PasteAsNewWithUndo(TweenPlayer player)
         {
 #if SERIALIZE_REFERENCE_UNDO_FIXED
             Undo.RecordObject(player, "Paste As New Animation");
@@ -344,8 +344,8 @@ namespace Pancake.Tween
             using (var scope = ChangeCheckScope.New(player))
             {
                 rect2.width = rect.height;
-                var result = GUI.Toggle(rect2, _foldout, GUIContent.none, EditorStyles.foldout);
-                if (scope.changed) _foldout = result;
+                var result = GUI.Toggle(rect2, foldout, GUIContent.none, EditorStyles.foldout);
+                if (scope.changed) foldout = result;
             }
 
             // enabled
@@ -364,8 +364,8 @@ namespace Pancake.Tween
 
             using (var scope = ChangeCheckScope.New(player))
             {
-                var result = GUI.Toggle(rect2, _foldout, allTypes[GetType()].name, EditorStyles.boldLabel);
-                if (scope.changed) _foldout = result;
+                var result = GUI.Toggle(rect2, foldout, allTypes[GetType()].name, EditorStyles.boldLabel);
+                if (scope.changed) foldout = result;
             }
 
             //EditorGUI.LabelField(rect2, allTypes[GetType()].name, EditorStyles.boldLabel);
@@ -386,11 +386,11 @@ namespace Pancake.Tween
             // progress
             EditorGUI.DrawRect(rect, TweenPlayer.Editor.progressBackgroundInvalid);
 
-            rect2.Set(rect.x + minNormalizedTime * rect.width, rect.y, Mathf.Max(1, rect.width * (maxNormalizedTime - minNormalizedTime)), rect.height);
+            rect2.Set(rect.x + MinNormalizedTime * rect.width, rect.y, Mathf.Max(1, rect.width * (MaxNormalizedTime - MinNormalizedTime)), rect.height);
 
             if (enabled)
             {
-                rect.width = Mathf.Round(rect.width * player.normalizedTime);
+                rect.width = Mathf.Round(rect.width * player.NormalizedTime);
                 EditorGUI.DrawRect(rect, TweenPlayer.Editor.progressForegroundInvalid);
             }
 
@@ -402,25 +402,25 @@ namespace Pancake.Tween
                 if (rect2.width > 0) EditorGUI.DrawRect(rect2, TweenPlayer.Editor.progressForegroundValid);
             }
 
-            if (!string.IsNullOrEmpty(_comment))
+            if (!string.IsNullOrEmpty(comment))
             {
                 using (var scope = ChangeCheckScope.New(player))
                 {
                     rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight);
 
-                    var result = EditorGUI.DelayedTextField(rect, _comment, EditorStyles.centeredGreyMiniLabel);
-                    if (scope.changed) _comment = result;
+                    var result = EditorGUI.DelayedTextField(rect, comment, EditorStyles.centeredGreyMiniLabel);
+                    if (scope.changed) comment = result;
                 }
             }
 
             GUILayout.Space(4);
 
-            if (_foldout)
+            if (foldout)
             {
                 using (var scope = ChangeCheckScope.New(player))
                 {
-                    float min = minNormalizedTime * player.duration;
-                    float max = maxNormalizedTime * player.duration;
+                    float min = MinNormalizedTime * player.Duration;
+                    float max = MaxNormalizedTime * player.Duration;
 
                     FromToFieldLayout("Time Range",
                         ref min,
@@ -430,33 +430,33 @@ namespace Pancake.Tween
 
                     if (scope.changed)
                     {
-                        min /= player.duration;
-                        max /= player.duration;
-                        if (fromChanged) minNormalizedTime = Mathf.Min(min, max);
-                        if (toChanged) maxNormalizedTime = Mathf.Max(max, min);
+                        min /= player.Duration;
+                        max /= player.Duration;
+                        if (fromChanged) MinNormalizedTime = Mathf.Min(min, max);
+                        if (toChanged) MaxNormalizedTime = Mathf.Max(max, min);
                     }
                 }
 
-                if (minNormalizedTime > 0f || maxNormalizedTime < 1f)
+                if (MinNormalizedTime > 0f || MaxNormalizedTime < 1f)
                 {
                     using (var scope = ChangeCheckScope.New(player))
                     {
-                        bool newHoldBeforeStart = _holdBeforeStart;
-                        bool newHoldAfterEnd = _holdAfterEnd;
+                        bool newHoldBeforeStart = holdBeforeStart;
+                        bool newHoldAfterEnd = holdAfterEnd;
                         HoldStartEndLayout("Hold",
                             ref newHoldBeforeStart,
                             ref newHoldAfterEnd,
-                            minNormalizedTime > 0f,
-                            maxNormalizedTime < 1f);
+                            MinNormalizedTime > 0f,
+                            MaxNormalizedTime < 1f);
                         if (scope.changed)
                         {
-                            _holdBeforeStart = newHoldBeforeStart;
-                            _holdAfterEnd = newHoldAfterEnd;
+                            holdBeforeStart = newHoldBeforeStart;
+                            holdAfterEnd = newHoldAfterEnd;
                         }
                     }
                 }
 
-                EditorGUILayout.PropertyField(property.FindPropertyRelative(nameof(_interpolator)));
+                EditorGUILayout.PropertyField(property.FindPropertyRelative(nameof(interpolator)));
                 OnPropertiesGUI(player, property);
                 GUILayout.Space(4);
             }

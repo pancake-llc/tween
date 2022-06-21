@@ -23,11 +23,11 @@ namespace Pancake.Tween
 
         public Renderer target;
 
-        [SerializeField] int _materialMask = ~0;
-        [SerializeField] string _propertyName = default;
-        [SerializeField] Type _propertyType = default;
+        [SerializeField] private int _materialMask = ~0;
+        [SerializeField] private string _propertyName = default;
+        [SerializeField] private Type _propertyType = default;
 
-        int _propertyID = -1;
+        private int _propertyID = -1;
 
         public string propertyName => _propertyName;
         public Type propertyType => _propertyType;
@@ -106,9 +106,9 @@ namespace Pancake.Tween
             }
         }
 
-        static List<Material> _materials = new List<Material>(8);
+        private static List<Material> _materials = new List<Material>(8);
 
-        int GetMaterials()
+        private int GetMaterials()
         {
             _materials.Clear();
             if (target) target.GetSharedMaterials(_materials);
@@ -117,9 +117,9 @@ namespace Pancake.Tween
 
 #if UNITY_EDITOR
 
-        Renderer _originalTarget;
-        List<MaterialPropertyBlock> _tempBlocks;
-        static StringBuilder _builder = new StringBuilder();
+        private Renderer _originalTarget;
+        private List<MaterialPropertyBlock> _tempBlocks;
+        private static StringBuilder _builder = new StringBuilder();
 
         public override void Reset(TweenPlayer player)
         {
@@ -181,7 +181,7 @@ namespace Pancake.Tween
             _tempBlocks.Clear();
         }
 
-        struct Property : IEquatable<Property>
+        private struct Property : IEquatable<Property>
         {
             public string name;
             public ShaderUtil.ShaderPropertyType type;
@@ -193,7 +193,7 @@ namespace Pancake.Tween
             public override int GetHashCode() => name.GetHashCode() & (~(int) type);
         }
 
-        void DrawMaterialMask(int materialCount, TweenPlayer player)
+        private void DrawMaterialMask(int materialCount, TweenPlayer player)
         {
             int count = 0;
 
@@ -268,7 +268,7 @@ namespace Pancake.Tween
             _builder.Clear();
         }
 
-        void DrawProperty(int materialCount, TweenPlayer player)
+        private void DrawProperty(int materialCount, TweenPlayer player)
         {
             var rect = EditorGUILayout.GetControlRect();
             rect = EditorGUI.PrefixLabel(rect, EditorGUIUtilities.TempContent("Property"));
@@ -361,7 +361,7 @@ namespace Pancake.Tween
 
         protected override void OnPropertiesGUI(TweenPlayer player, SerializedProperty property)
         {
-            using (DisabledScope.New(player.playing))
+            using (DisabledScope.New(player.Playing))
             {
                 EditorGUILayout.PropertyField(property.FindPropertyRelative(nameof(target)));
             }

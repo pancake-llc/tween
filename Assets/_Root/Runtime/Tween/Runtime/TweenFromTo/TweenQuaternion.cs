@@ -12,10 +12,10 @@ namespace Pancake.Tween
 
 #if UNITY_EDITOR
 
-        Quaternion _fromQuaternion = Quaternion.identity;
-        Vector3 _fromEulerAngles = Vector3.zero;
-        Quaternion _toQuaternion = Quaternion.identity;
-        Vector3 _toEulerAngles = Vector3.zero;
+        private Quaternion _fromQuaternion = Quaternion.identity;
+        private Vector3 _fromEulerAngles = Vector3.zero;
+        private Quaternion _toQuaternion = Quaternion.identity;
+        private Vector3 _toEulerAngles = Vector3.zero;
 
 
         protected override void OnPropertiesGUI(TweenPlayer player, SerializedProperty property)

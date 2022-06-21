@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0414
 
 using System;
+using Pancake.Common;
 using UnityEngine;
 
 namespace Pancake.Tween
@@ -23,67 +24,67 @@ namespace Pancake.Tween
     {
         public bool enabled = true;
 
-        [SerializeField] float _minNormalizedTime = 0f;
+        [SerializeField] private float minNormalizedTime = 0f;
 
-        [SerializeField] float _maxNormalizedTime = 1f;
+        [SerializeField] private float maxNormalizedTime = 1f;
 
-        [SerializeField] bool _holdBeforeStart = true;
+        [SerializeField] private bool holdBeforeStart = true;
 
-        [SerializeField] bool _holdAfterEnd = true;
+        [SerializeField] private bool holdAfterEnd = true;
 
-        [SerializeField] CustomizableInterpolator _interpolator = default;
+        [SerializeField] private CustomizableInterpolator interpolator = default;
 
-        [SerializeField] bool _foldout = true; // Editor Only
+        [SerializeField] private bool foldout = true; // Editor Only
 
-        [SerializeField] string _comment = null; // Editor Only
+        [SerializeField] private string comment = null; // Editor Only
 
-        public float minNormalizedTime
+        public float MinNormalizedTime
         {
-            get { return _minNormalizedTime; }
+            get { return minNormalizedTime; }
             set
             {
-                _minNormalizedTime = Mathf.Clamp01(value);
-                _maxNormalizedTime = Mathf.Clamp(_maxNormalizedTime, _minNormalizedTime, 1f);
+                minNormalizedTime = Mathf.Clamp01(value);
+                maxNormalizedTime = Mathf.Clamp(maxNormalizedTime, minNormalizedTime, 1f);
             }
         }
 
 
-        public float maxNormalizedTime
+        public float MaxNormalizedTime
         {
-            get { return _maxNormalizedTime; }
+            get { return maxNormalizedTime; }
             set
             {
-                _maxNormalizedTime = Mathf.Clamp01(value);
-                _minNormalizedTime = Mathf.Clamp(_minNormalizedTime, 0f, _maxNormalizedTime);
+                maxNormalizedTime = Mathf.Clamp01(value);
+                minNormalizedTime = Mathf.Clamp(minNormalizedTime, 0f, maxNormalizedTime);
             }
         }
 
 
-        public bool holdBeforeStart { get => _holdBeforeStart; set => _holdBeforeStart = value; }
+        public bool HoldBeforeStart { get => holdBeforeStart; set => holdBeforeStart = value; }
 
 
-        public bool holdAfterEnd { get => _holdAfterEnd; set => _holdAfterEnd = value; }
+        public bool HoldAfterEnd { get => holdAfterEnd; set => holdAfterEnd = value; }
 
 
         public void Sample(float normalizedTime)
         {
-            if (normalizedTime < _minNormalizedTime)
+            if (normalizedTime < minNormalizedTime)
             {
-                if (_holdBeforeStart) normalizedTime = 0f;
+                if (holdBeforeStart) normalizedTime = 0f;
                 else return;
             }
-            else if (normalizedTime > _maxNormalizedTime)
+            else if (normalizedTime > maxNormalizedTime)
             {
-                if (_holdAfterEnd) normalizedTime = 1f;
+                if (holdAfterEnd) normalizedTime = 1f;
                 else return;
             }
             else
             {
-                if (_maxNormalizedTime == _minNormalizedTime) normalizedTime = 1f;
-                else normalizedTime = (normalizedTime - _minNormalizedTime) / (_maxNormalizedTime - _minNormalizedTime);
+                if (M.Approximately(maxNormalizedTime, minNormalizedTime)) normalizedTime = 1f;
+                else normalizedTime = (normalizedTime - minNormalizedTime) / (maxNormalizedTime - minNormalizedTime);
             }
 
-            Interpolate(_interpolator[normalizedTime]);
+            Interpolate(interpolator[normalizedTime]);
         }
 
 
