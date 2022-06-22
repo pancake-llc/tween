@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Pancake.Tween
 {
-    public class SequenceTween : Tween, ISequenceTween
+    public class Sequence : Tween, ISequence
     {
-        private readonly SequenceTweenTweenRepository _tweenRepository = new SequenceTweenTweenRepository();
+        private readonly SequenceTweenRepository _tweenRepository = new SequenceTweenRepository();
         private readonly List<Tween> _playingTweens = new List<Tween>();
 
         protected override bool Loopable => true;
@@ -183,7 +183,7 @@ namespace Pancake.Tween
 
             if (castedTween == null)
             {
-                throw new ArgumentNullException($"Tried to {nameof(Append)} a null {nameof(Tween)} on {nameof(SequenceTween)}");
+                throw new ArgumentNullException($"Tried to {nameof(Append)} a null {nameof(Tween)} on {nameof(Sequence)}");
             }
 
             bool canAdd = TweenUtils.CanAddTween(this, tween);
@@ -206,7 +206,7 @@ namespace Pancake.Tween
 
             if (castedTween == null)
             {
-                throw new ArgumentNullException($"Tried to {nameof(Join)} a null {nameof(Tween)} on {nameof(SequenceTween)}");
+                throw new ArgumentNullException($"Tried to {nameof(Join)} a null {nameof(Tween)} on {nameof(Sequence)}");
             }
 
             bool canAdd = TweenUtils.CanAddTween(this, tween);

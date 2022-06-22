@@ -2,7 +2,7 @@
 
 namespace Pancake.Tween
 {
-    public interface ISequenceTween : ITween
+    public interface ISequence : ITween
     {
         void Append(ITween tween);
         void Join(ITween tween);

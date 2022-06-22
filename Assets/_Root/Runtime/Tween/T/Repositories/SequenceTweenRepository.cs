@@ -2,7 +2,7 @@
 
 namespace Pancake.Tween
 {
-    public class SequenceTweenTweenRepository
+    public class SequenceTweenRepository
     {
         private readonly List<Tween> tweens = new List<Tween>();
 

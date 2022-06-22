@@ -72,7 +72,7 @@ namespace Pancake.Tween
             _tweensToRemove_WaitForEndOfFrame.Clear();
         }
 
-        public static ISequenceTween Sequence() { return new SequenceTween(); }
+        public static ISequence Sequence() { return new Sequence(); }
 
         public int GetAliveTweensCounts()
         {

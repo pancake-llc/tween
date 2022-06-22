@@ -9,6 +9,7 @@ namespace Pancake.Tween
     public abstract partial class Tween : ITween
     {
         private int _loopsRemaining;
+        private float _timeDelay;
         private event TweenCallback OnStartCallback;
         private event TweenCallback OnLoopCallback;
         private event TweenCallback OnResetCallback;
@@ -105,6 +106,12 @@ namespace Pancake.Tween
             if (!IsPlaying /*|| deltaTime <= M.Epsilon*/) return;
 
             OnTweenUpdate();
+        }
+
+        public ITween Delay(float timeDelay)
+        {
+            _timeDelay = timeDelay;
+            return this;
         }
 
         public void Complete()

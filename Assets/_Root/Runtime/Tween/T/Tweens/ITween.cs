@@ -35,7 +35,7 @@ namespace Pancake.Tween
         ITween SetEase(Ease ease);
         ITween SetEase(AnimationCurve animationCurve);
         ITween SetLoops(int loops, ResetMode resetMode);
-
+        ITween Delay(float timeDelay);
 
         void Complete();
         void Kill();

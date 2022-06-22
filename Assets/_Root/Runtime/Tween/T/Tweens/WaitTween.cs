@@ -1,13 +1,13 @@
 ﻿namespace Pancake.Tween
 {
-    public class WaitTimeTween : Tween
+    public class WaitTween : Tween
     {
         private readonly float _duration;
         private float _elapsed;
 
         protected override bool Loopable => true;
 
-        public WaitTimeTween(float duration) { this._duration = duration; }
+        public WaitTween(float duration) { this._duration = duration; }
 
         protected override void OnTweenStart(bool isCompletingInstantly) { _elapsed = 0.0f; }
 
