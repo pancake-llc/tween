@@ -50,12 +50,15 @@ namespace Pancake.Tween
 
         public override int OnGetPlayingTweensCount() { return IsPlaying ? 1 : 0; }
 
+#pragma warning disable CS0809
         /// <summary>
         /// do not use this function for <see cref="WaitTween"/>
         /// </summary>
         /// <param name="timeDelay"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+        [Obsolete]
         public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(WaitTween)}"); }
+#pragma warning restore CS0809
     }
 }

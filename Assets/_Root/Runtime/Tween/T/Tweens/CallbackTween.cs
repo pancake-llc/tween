@@ -52,6 +52,7 @@ namespace Pancake.Tween
 
         public override int OnGetPlayingTweensCount() { return IsPlaying ? 1 : 0; }
 
+#pragma warning disable CS0809
         /// <summary>
         /// do not use this function for <see cref="CallbackTween"/>
         /// </summary>
@@ -60,5 +61,6 @@ namespace Pancake.Tween
         /// <exception cref="NotImplementedException"></exception>
         [Obsolete]
         public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(CallbackTween)}"); }
+#pragma warning restore CS0809 
     }
 }
