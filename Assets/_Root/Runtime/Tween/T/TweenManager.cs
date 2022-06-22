@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Pancake.Common;
+using UnityEngine;
 
+// ReSharper disable InconsistentNaming
 namespace Pancake.Tween
 {
     public class TweenManager : AutoStartMonoSingleton<TweenManager>
@@ -35,6 +36,7 @@ namespace Pancake.Tween
 
         private void Init()
         {
+            gameObject.hideFlags = HideFlags.HideInHierarchy;
             _timeScale = 1.0f;
             RuntimeUtilities.AddUpdate(UpdateMode.Update, UpdateTweens_Update);
             RuntimeUtilities.AddUpdate(UpdateMode.LateUpdate, UpdateTweens_LateUpdate);

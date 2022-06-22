@@ -132,11 +132,7 @@ namespace Pancake.Tween
 
         public void Update()
         {
-            
-            if (!IsPlaying)
-            {
-                return;
-            }
+            if (!IsPlaying) return;
 
             bool valid = Validate();
 
