@@ -11,8 +11,8 @@ namespace Pancake.Tween
 
         public CallbackTween(Action action, bool callIfCompletingInstantly)
         {
-            this._action = action;
-            this._callIfCompletingInstantly = callIfCompletingInstantly;
+            _action = action;
+            _callIfCompletingInstantly = callIfCompletingInstantly;
         }
 
         protected override void OnTweenStart(bool isCompletingInstantly)
@@ -37,10 +37,12 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { }
 
-        public override void OnTimeScaleChange(float timeScale) { }
-        public override void OnTimeModeChange(TimeMode timeMode) { }
+        internal override void OnTimeDelayChange(float timeDelay) { }
 
-        public override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
+        internal override void OnTimeScaleChange(float timeScale) { }
+        internal override void OnTimeModeChange(TimeMode timeMode) { }
+
+        internal override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
 
         public override float OnGetDuration() { return 0.0f; }
 
@@ -49,5 +51,14 @@ namespace Pancake.Tween
         public override int OnGetTweensCount() { return 1; }
 
         public override int OnGetPlayingTweensCount() { return IsPlaying ? 1 : 0; }
+
+        /// <summary>
+        /// do not use this function for <see cref="CallbackTween"/>
+        /// </summary>
+        /// <param name="timeDelay"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [Obsolete]
+        public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(CallbackTween)}"); }
     }
 }

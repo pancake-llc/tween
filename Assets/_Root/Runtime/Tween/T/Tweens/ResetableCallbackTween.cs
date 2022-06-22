@@ -12,9 +12,9 @@ namespace Pancake.Tween
 
         public ResetableCallbackTween(Action action, Action resetAction, bool callIfCompletingInstantly)
         {
-            this._action = action;
-            this._resetAction = resetAction;
-            this._callIfCompletingInstantly = callIfCompletingInstantly;
+            _action = action;
+            _resetAction = resetAction;
+            _callIfCompletingInstantly = callIfCompletingInstantly;
         }
 
 
@@ -39,11 +39,12 @@ namespace Pancake.Tween
         protected override void OnTweenReset(bool kill, ResetMode resetMode) { _resetAction?.Invoke(); }
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { }
+        internal override void OnTimeDelayChange(float timeDelay) { }
 
-        public override void OnTimeScaleChange(float timeScale) { }
-        public override void OnTimeModeChange(TimeMode timeMode) { }
+        internal override void OnTimeScaleChange(float timeScale) { }
+        internal override void OnTimeModeChange(TimeMode timeMode) { }
 
-        public override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
+        internal override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
 
         public override float OnGetDuration() { return 0.0f; }
 
@@ -52,5 +53,14 @@ namespace Pancake.Tween
         public override int OnGetTweensCount() { return 1; }
 
         public override int OnGetPlayingTweensCount() { return IsPlaying ? 1 : 0; }
+
+        /// <summary>
+        /// do not use this function for <see cref="ResetableCallbackTween"/>
+        /// </summary>
+        /// <param name="timeDelay"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [Obsolete]
+        public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(ResetableCallbackTween)}"); }
     }
 }

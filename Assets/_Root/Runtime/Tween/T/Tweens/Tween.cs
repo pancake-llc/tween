@@ -9,7 +9,6 @@ namespace Pancake.Tween
     public abstract partial class Tween : ITween
     {
         private int _loopsRemaining;
-        private float _timeDelay;
         private event TweenCallback OnStartCallback;
         private event TweenCallback OnLoopCallback;
         private event TweenCallback OnResetCallback;
@@ -29,6 +28,10 @@ namespace Pancake.Tween
 
         public bool IsPlaying { get; protected set; }
         public bool IsCompleted { get; protected set; }
+
+        protected float timeDelay;
+        protected float elapsedDelay;
+        protected bool markDelayCompelted;
 
         public ITween OnTimeScaleChanged(TweenCallback<float> onTimeScaleChange)
         {
@@ -92,6 +95,8 @@ namespace Pancake.Tween
 
             IsPlaying = true;
             IsCompleted = false;
+            elapsedDelay = 0.0f;
+            markDelayCompelted = false;
 
             _loopsRemaining = Loops;
 
@@ -102,16 +107,9 @@ namespace Pancake.Tween
 
         public void Update()
         {
-            //float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(TimeMode);
-            if (!IsPlaying /*|| deltaTime <= M.Epsilon*/) return;
+            if (!IsPlaying) return;
 
             OnTweenUpdate();
-        }
-
-        public ITween Delay(float timeDelay)
-        {
-            _timeDelay = timeDelay;
-            return this;
         }
 
         public void Complete()
@@ -154,6 +152,8 @@ namespace Pancake.Tween
             }
 
             IsCompleted = false;
+            elapsedDelay = 0f;
+            markDelayCompelted = false;
 
             OnTweenReset(kill, resetMode);
 
@@ -242,13 +242,25 @@ namespace Pancake.Tween
             return this;
         }
 
+        public virtual ITween Delay(float timeDelay)
+        {
+            this.timeDelay = timeDelay;
+            OnTimeDelayChange(this.timeDelay);
+            return this;
+        }
+
         public void Replay()
         {
             Reset(kill: true);
             Play();
         }
 
-        public void Play() { TweenManager.Add(this); }
+        public void Play()
+        {
+            Debug.Log("timeDelay: " + timeDelay);
+            TweenManager.Add(this);
+        }
+
         public void Pause() { IsPlaying = false; }
 
         private bool NewLoop(ResetMode loopResetMode)
@@ -314,6 +326,29 @@ namespace Pancake.Tween
             OnCompleteOrKillCallback -= Callback;
         }
 
+        protected bool ValidateDelay()
+        {
+            float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(TimeMode);
+            float dt = deltaTime * TweenManager.TimeScale * TimeScale;
+
+            if (timeDelay > 0.0f && !markDelayCompelted)
+            {
+                elapsedDelay += dt;
+                if (elapsedDelay >= timeDelay)
+                {
+                    elapsedDelay = timeDelay;
+                    markDelayCompelted = true;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         protected abstract bool Loopable { get; }
 
         protected abstract void OnTweenStart(bool isCompletingInstantly);
@@ -323,9 +358,10 @@ namespace Pancake.Tween
         protected abstract void OnTweenReset(bool kill, ResetMode loopResetMode);
         protected abstract void OnTweenStartLoop(ResetMode loopResetMode);
 
-        public abstract void OnEaseDelegateChange(EaseDelegate easeFunction);
-        public abstract void OnTimeScaleChange(float timeScale);
-        public abstract void OnTimeModeChange(TimeMode timeMode);
+        internal abstract void OnTimeDelayChange(float timeDelay);
+        internal abstract void OnEaseDelegateChange(EaseDelegate easeFunction);
+        internal abstract void OnTimeScaleChange(float timeScale);
+        internal abstract void OnTimeModeChange(TimeMode timeMode);
 
         public abstract float OnGetDuration();
         public abstract float OnGetElapsed();

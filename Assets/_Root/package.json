@@ -2,7 +2,7 @@
   "name": "com.pancake.tween",
   "displayName": "Tween",
   "description": "A simple & high performance & powerful Interpolation animation tool. ",
-  "version": "1.3.7",
+  "version": "1.4.0",
   "unity": "2019.1",
   "category": "pancake",
   "author": {

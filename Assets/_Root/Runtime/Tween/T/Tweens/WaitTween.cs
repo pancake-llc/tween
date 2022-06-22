@@ -1,24 +1,23 @@
-﻿namespace Pancake.Tween
+﻿using System;
+
+namespace Pancake.Tween
 {
     public class WaitTween : Tween
     {
-        private readonly float _duration;
-        private float _elapsed;
-
         protected override bool Loopable => true;
 
-        public WaitTween(float duration) { this._duration = duration; }
+        public WaitTween(float duration) { timeDelay = duration; }
 
-        protected override void OnTweenStart(bool isCompletingInstantly) { _elapsed = 0.0f; }
+        protected override void OnTweenStart(bool isCompletingInstantly) { elapsedDelay = 0.0f; }
 
         protected override void OnTweenUpdate()
         {
             float deltaTime = RuntimeUtilities.GetUnitedDeltaTime(TimeMode);
             float dt = deltaTime * TweenManager.TimeScale * TimeScale;
 
-            _elapsed += dt;
+            elapsedDelay += dt;
 
-            if (_elapsed >= _duration)
+            if (elapsedDelay >= timeDelay)
             {
                 NewMarkCompleted();
             }
@@ -28,26 +27,35 @@
 
         protected override void OnTweenComplete()
         {
-            _elapsed = _duration;
+            elapsedDelay = timeDelay;
 
             NewMarkCompleted();
         }
 
-        protected override void OnTweenReset(bool kill, ResetMode resetMode) { _elapsed = 0.0f; }
+        protected override void OnTweenReset(bool kill, ResetMode resetMode) { elapsedDelay = 0.0f; }
 
-        protected override void OnTweenStartLoop(ResetMode loopResetMode) { _elapsed = 0.0f; }
+        protected override void OnTweenStartLoop(ResetMode loopResetMode) { elapsedDelay = 0.0f; }
+        internal override void OnTimeDelayChange(float timeDelay) { }
 
-        public override void OnTimeScaleChange(float timeScale) { }
-        public override void OnTimeModeChange(TimeMode timeMode) { }
+        internal override void OnTimeScaleChange(float timeScale) { }
+        internal override void OnTimeModeChange(TimeMode timeMode) { }
 
-        public override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
+        internal override void OnEaseDelegateChange(EaseDelegate easeFunction) { }
 
-        public override float OnGetDuration() { return _duration; }
+        public override float OnGetDuration() { return timeDelay; }
 
-        public override float OnGetElapsed() { return _elapsed; }
+        public override float OnGetElapsed() { return elapsedDelay; }
 
         public override int OnGetTweensCount() { return 1; }
 
         public override int OnGetPlayingTweensCount() { return IsPlaying ? 1 : 0; }
+
+        /// <summary>
+        /// do not use this function for <see cref="WaitTween"/>
+        /// </summary>
+        /// <param name="timeDelay"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(WaitTween)}"); }
     }
 }

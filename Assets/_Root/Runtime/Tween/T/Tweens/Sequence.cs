@@ -17,6 +17,12 @@ namespace Pancake.Tween
 
         protected override void OnTweenUpdate()
         {
+            #region DELAY
+
+            if (ValidateDelay()) return;
+            
+            #endregion
+            
             if (_playingTweens.Count == 0)
             {
                 NewMarkCompleted();
@@ -28,10 +34,7 @@ namespace Pancake.Tween
 
             tween.Update();
 
-            if (tween.IsPlaying)
-            {
-                return;
-            }
+            if (tween.IsPlaying) return;
 
             _playingTweens.RemoveAt(0);
 
@@ -91,7 +94,9 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { StartTweens(isCompletingInstantly: false); }
 
-        public override void OnTimeScaleChange(float timeScale)
+        internal override void OnTimeDelayChange(float timeDelay) { }
+
+        internal override void OnTimeScaleChange(float timeScale)
         {
             foreach (Tween tween in _tweenRepository.Tweens)
             {
@@ -99,7 +104,7 @@ namespace Pancake.Tween
             }
         }
 
-        public override void OnTimeModeChange(TimeMode timeMode)
+        internal override void OnTimeModeChange(TimeMode timeMode)
         {
             foreach (Tween tween in _tweenRepository.Tweens)
             {
@@ -107,7 +112,7 @@ namespace Pancake.Tween
             }
         }
 
-        public override void OnEaseDelegateChange(EaseDelegate easeFunction)
+        internal override void OnEaseDelegateChange(EaseDelegate easeFunction)
         {
             foreach (Tween tween in _tweenRepository.Tweens)
             {

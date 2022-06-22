@@ -17,6 +17,12 @@ namespace Pancake.Tween
 
         protected override void OnTweenUpdate()
         {
+            #region DELAY
+
+            if (ValidateDelay()) return;
+
+            #endregion
+
             for (int i = _playingTweeners.Count - 1; i >= 0; --i)
             {
                 ITweener tweener = _playingTweeners[i];
@@ -69,17 +75,17 @@ namespace Pancake.Tween
 
         protected override void OnTweenStartLoop(ResetMode loopResetMode) { StartTweeners(); }
 
-        public override void OnEaseDelegateChange(EaseDelegate easeFunction)
+        internal override void OnTimeDelayChange(float timeDelay) { }
+
+        internal override void OnEaseDelegateChange(EaseDelegate easeFunction)
         {
             foreach (ITweener tweener in _tweeners)
             {
                 tweener.SetEase(easeFunction);
             }
-
-            EaseFunction = easeFunction;
         }
 
-        public override void OnTimeScaleChange(float timeScale)
+        internal override void OnTimeScaleChange(float timeScale)
         {
             foreach (ITweener tweener in _tweeners)
             {
@@ -87,7 +93,7 @@ namespace Pancake.Tween
             }
         }
 
-        public override void OnTimeModeChange(TimeMode timeMode)
+        internal override void OnTimeModeChange(TimeMode timeMode)
         {
             foreach (ITweener tweener in _tweeners)
             {
