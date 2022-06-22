@@ -255,11 +255,7 @@ namespace Pancake.Tween
             Play();
         }
 
-        public void Play()
-        {
-            Debug.Log("timeDelay: " + timeDelay);
-            TweenManager.Add(this);
-        }
+        public void Play() { TweenManager.Add(this); }
 
         public void Pause() { IsPlaying = false; }
 
