@@ -242,6 +242,7 @@ namespace Pancake.Tween
         }
 
         public void Play() { TweenManager.Add(this); }
+        public void Pause() { IsPlaying = false; }
 
         private bool NewLoop(ResetMode loopResetMode)
         {

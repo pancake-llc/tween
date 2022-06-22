@@ -54,10 +54,7 @@ namespace Pancake.Tween
 
         public void Start()
         {
-            if (IsPlaying)
-            {
-                return;
-            }
+            if (IsPlaying) return;
 
             IsPlaying = true;
 

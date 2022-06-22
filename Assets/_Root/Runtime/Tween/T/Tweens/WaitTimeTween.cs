@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Pancake.Tween
+﻿namespace Pancake.Tween
 {
     public class WaitTimeTween : Tween
     {

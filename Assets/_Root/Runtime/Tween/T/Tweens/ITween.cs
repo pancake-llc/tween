@@ -43,6 +43,7 @@ namespace Pancake.Tween
 
         void Replay();
         void Play();
+        void Pause();
 
         Task AwaitCompleteOrKill(CancellationToken cancellationToken);
     }
