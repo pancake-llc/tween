@@ -235,6 +235,13 @@ namespace Pancake.Tween
             return this;
         }
 
+        public ITween SetEase(Interpolator interpolator)
+        {
+            if (interpolator.ease == Ease.CustomCurve) return SetEase(interpolator.customCurve);
+          
+            return SetEase(interpolator.ease);
+        }
+
         public ITween SetLoops(int loops, ResetMode resetMode)
         {
             Loops = Math.Max(loops, 0);
