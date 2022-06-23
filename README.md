@@ -8,7 +8,7 @@ Add the lines below to `Packages/manifest.json`
 - for version `1.4.0`
 ```csharp
 "com.pancake.tween": "https://github.com/pancake-llc/tween.git?path=Assets/_Root#1.4.0",
-"com.pancake.common": "https://github.com/pancake-llc/common.git?path=Assets/_Root",
+"com.pancake.common": "https://github.com/pancake-llc/common.git?path=Assets/_Root#1.2.9",
 "com.system-community.systemruntimecompilerservicesunsafe": "https://github.com/system-community/SystemRuntimeCompilerServicesUnsafe.git?path=Assets/_Root#4.5.3",
 ```
 
