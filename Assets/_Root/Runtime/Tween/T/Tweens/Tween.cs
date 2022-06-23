@@ -98,8 +98,6 @@ namespace Pancake.Tween
             elapsedDelay = 0.0f;
             markDelayCompelted = false;
 
-            _loopsRemaining = Loops;
-
             OnStartCallback?.Invoke();
 
             OnTweenStart(isCompletingInstantly);
@@ -120,7 +118,7 @@ namespace Pancake.Tween
             }
 
             OnTweenComplete();
-
+            
             _loopsRemaining = 0;
 
             NewMarkCompleted();
@@ -244,7 +242,8 @@ namespace Pancake.Tween
 
         public ITween SetLoops(int loops, ResetMode resetMode)
         {
-            Loops = Math.Max(loops, 0);
+            Loops = M.Max(loops, -1);
+            _loopsRemaining = Loops;
             LoopResetMode = resetMode;
             return this;
         }
@@ -268,14 +267,12 @@ namespace Pancake.Tween
 
         private bool NewLoop(ResetMode loopResetMode)
         {
-            bool needsToLoop = _loopsRemaining > 0;
+            bool infinity = _loopsRemaining == -1;
+            bool positiveNumber = _loopsRemaining > 0;
 
-            if (!needsToLoop || !Loopable)
-            {
-                return false;
-            }
+            if (!(positiveNumber || infinity) || !Loopable)  return false;
 
-            --_loopsRemaining;
+            if (positiveNumber) --_loopsRemaining;
 
             Reset(kill: false, loopResetMode);
 

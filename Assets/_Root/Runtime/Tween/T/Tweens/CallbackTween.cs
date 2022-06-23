@@ -61,6 +61,6 @@ namespace Pancake.Tween
         /// <exception cref="NotImplementedException"></exception>
         [Obsolete]
         public override ITween Delay(float timeDelay) { throw new NotImplementedException($"Delay() can not use for {nameof(CallbackTween)}"); }
-#pragma warning restore CS0809 
+#pragma warning restore CS0809
     }
 }
