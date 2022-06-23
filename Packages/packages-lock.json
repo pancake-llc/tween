@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.pancake.common": {
-      "version": "https://github.com/pancake-llc/common.git?path=Assets/_Root",
+      "version": "https://github.com/pancake-llc/common.git?path=Assets/_Root#1.2.9",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "dfbe2878ddeba34d26fbefc51b018d05a8b0b75a"
+      "hash": "6378a3f2b98658182f498954062771466478d435"
     },
     "com.system-community.systemruntimecompilerservicesunsafe": {
       "version": "https://github.com/system-community/SystemRuntimeCompilerServicesUnsafe.git?path=Assets/_Root#4.5.3",
